@@ -144,59 +144,32 @@
 
 <body>
     <nav>
-        @include('components.nav')
+        @include('components.navbar')
       </nav>
-    <div class="contain">
-        <h1 class="fw-bold">Terms and Conditions</h1>
-        <p>Welcome to BudgetHeaven.</p>
-        <p>These Terms & Conditions ("Terms") govern your use of the BudgetHeaven website (the "Website") and all related services provided by BudgetHeaven ("BudgetHeaven", "we", "us", or "our"). By accessing or using the Website, you agree to be bound by these Terms. If you do not agree to these Terms, please do not use the Website.</p>
-
-        <div class="divider"></div>
-
-        <h2>1. User Agreement</h2>
-        <p>By using the Website, you agree to comply with these Terms and any additional terms that we may provide to you in connection with your use of specific features or services.</p>
-
-        <h2>2. Use of the Website</h2>
-        <p>You may use the Website for your personal, non-commercial purposes only. You may not use the Website for any illegal or unauthorized purpose. You agree to comply with all applicable laws, rules, and regulations.</p>
-
-        <h2>3. Account Registration</h2>
-        <p>In order to access certain features of the Website, you may be required to register for an account. When registering for an account, you agree to provide accurate, current, and complete information about yourself. You are solely responsible for maintaining the confidentiality of your account and password and for restricting access to your account. You agree to accept responsibility for all activities that occur under your account.</p>
-
-        <h2>4. Content</h2>
-        <p>You acknowledge that all content on the Website, including but not limited to text, images, graphics, logos, and software, is owned by BudgetHeaven or its licensors and is protected by copyright, trademark, and other intellectual property laws. You may not modify, reproduce, distribute, or create derivative works based on any content on the Website without the express written consent of BudgetHeaven.</p>
-
-        <h2>5. User-Submitted Content</h2>
-        <p>By submitting content to the Website, including but not limited to reviews, comments, and ratings, you grant BudgetHeaven a non-exclusive, royalty-free, perpetual, irrevocable, and fully sublicensable right to use, reproduce, modify, adapt, publish, translate, create derivative works from, distribute, and display such content throughout the world in any media.</p>
-
-        <h2>6. Links to Third-Party Websites</h2>
-        <p>The Website may contain links to third-party websites or resources. You acknowledge and agree that BudgetHeaven is not responsible or liable for: (i) the availability or accuracy of such websites or resources; or (ii) the content, products, or services on or available from such websites or resources. Links to such websites or resources do not imply any endorsement by BudgetHeaven of such websites or resources or the content, products, or services available from such websites or resources. You acknowledge sole responsibility for and assume all risk arising from your use of any such websites or resources.</p>
-
-        <h2>7. Termination</h2>
-        <p>BudgetHeaven may terminate or suspend your access to the Website at any time, with or without cause, and with or without notice.</p>
-
-        <h2>8. Limitation of Liability</h2>
-        <p>In no event shall BudgetHeaven, its officers, directors, employees, or agents, be liable to you for any direct, indirect, incidental, special, punitive, or consequential damages whatsoever resulting from any (i) errors, mistakes, or inaccuracies of content; (ii) personal injury or property damage, of any nature whatsoever, resulting from your access to and use of the Website; (iii) any unauthorized access to or use of our secure servers and/or any and all personal information stored therein; (iv) any interruption or cessation of transmission to or from the Website; (v) any bugs, viruses, trojan horses, or the like, which may be transmitted to or through the Website by any third party; and/or (vi) any errors or omissions in any content or for any loss or damage of any kind incurred as a result of your use of any content posted, emailed, transmitted, or otherwise made available via the Website, whether based on warranty, contract, tort, or any other legal theory, and whether or not the company is advised of the possibility of such damages.</p>
-
-        <h2>9. Indemnification</h2>
-        <p>You agree to indemnify and hold harmless BudgetHeaven, its officers, directors, employees, and agents, from and against any claims, liabilities, damages, losses, and expenses, including without limitation reasonable legal and accounting fees, arising out of or in any way connected with your access to or use of the Website or your violation of these Terms.</p>
-
-        <h2>10. Governing Law</h2>
-        <p>These Terms shall be governed by and construed in accordance with the laws of the United States and the State of [Your State], without regard to its conflict of law principles.</p>
-
-        <div class="divider"></div>
-
-        <h2>Contact Information</h2>
-        <p>If you have any questions about these Terms, please contact us at:</p>
-        <div class="contact-info">
-            <ul>
-                <li><i class="fas fa-envelope"></i> Email:  contact@budgetheaven.com</li>
-                <li><i class="fas fa-envelope"></i> Email:  thebudgetheaven@gmail.com</li>
-                <li><i class="fas fa-phone"></i> Phone: +1 (123) 456-7890</li>
-                <li><i class="fas fa-map-marker-alt"></i> Address: 986 Main Street, Babylon , USA</li>
-            </ul>
-        </div>
-    </div>
-
+      <div class="container">
+		<div class="breadcrumb">
+			<a href="https://crazycoupons4u.com/"><i class="fas fa-home"></i></a>
+			<a class="active" href="javascript:;" > terms and conditions</a>
+		</div>
+		<div class="text-main">
+							<h1 class="page-heading">Terms and Condition</h1>
+				<p>These are the terms and conditions of CrazyCoupons4u alone. Our terms and policies are incorporated by reference herein govern your correct usage of all our services online. It may include any details or content therein, our website CrazyCoupons4u.com, any of our subdomains, and platforms where we proffer our services.</p>
+<p>By accessing to CrazyCoupons4u web page, you are proving your consent to every specific term and condition of our site. Also, you are accepting all laws and actions, and agree that in case of any noncompliance with the rules, you will be solely responsible.</p><p>If you are not willing to accept any of our terms and conditions, you may be prohibited immediately from accessing our webpage and any of its benefits. All materials on our webpage are in protection by copyright and trademark law.</p>
+<h2>The Utilisation of Our Site</h2>
+<p>Besides the permitted content of this site, you actively agree to not misuse any material on CrazyCoupons4u like saving, cutting, downloading, selling, pasting, licensing, transmitting, and publishing. Retrieval of any data or content of this site through any systematic approach is strictly prohibited.</p>
+<p>Moreover, the usage of any material that is not permitted by the site is strictly prohibited.</p>
+<h2>Limitation Of Accountability</h2>
+<p>CrazyCoupons4u will never be accountable for (i) any accidental, consequential, as well as indirect damages that arise after the utilization or inability of the usage of the service, any relatable information, or transactions offered by the service, downloaded through the service or any late service. No matter if the site has been suggested of the possible accountability of such loses and damages or (ii) any claim, pointing to omissions, errors, or other faults in the accuracy of the service or its information or any details downloaded from the service. Some states do not allow accountability of accidental or consequential damages, and therefore you may be free from the above mentions.</p>
+<h2>Third-Party Sites</h2>
+<p>The site will transfer you to online retailers or other third-party sites through different links or frames of CrazyCoupons4u. It does not own any product or service available for consumers; therefore, anything on this site will never be for any business relationship. Other websites or third parties own the products you purchase.</p>
+<p>You are advised to go through all the terms and conditions or cookies and privacy policies of these sites before making a purchase. We will never be responsible for any inaccuracies or misrepresentations.</p>
+<h2>Links of Third Parties</h2>
+<p>CrazyCoupons4u is not responsible for any of the links on its site. Any third party link on this site is for your assistance. You tend to use any of the links on the website at your own risk.</p>
+<h2>Revision Of Terms And Conditions</h2>
+<p>CrazyCoupons4u has a complete right to modify or edit any of the terms and conditions of the site. By agreeing to the usage of the site, you accept the current version of these terms and conditions of use.</p>
+						</div>
+	</div>
+</div>
  <x-footer/>
 
 </body>

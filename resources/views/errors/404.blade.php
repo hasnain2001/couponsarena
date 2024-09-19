@@ -6,16 +6,16 @@
     <title>404 - Not Found</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('cssfile/home.css') }}">
-    <link rel="icon" href="{{ asset('images/icons.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('cssfile/404.css') }}">
     <style>
 
     </style>
 </head>
 <body>
-    {{-- <nav>
-        @include('components.nav')
-    </nav> --}}
+    <nav>
+        @include('components.navbar')
+    </nav>
     <br>
     <div class="container py-6">
     <div class="error-container">
@@ -103,9 +103,9 @@
 <br><br>
 
 
-    {{-- <footer>
+    <footer>
         @include('components.footer')
-    </footer> --}}
+    </footer> 
     <script src="{{ asset('js/home.js') }}"></script>
 </body>
 </html>

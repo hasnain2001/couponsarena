@@ -1,4 +1,4 @@
-@extends('admin.layouts.guest')
+@extends('admin.master')
 @section('title')
     Create|Blog
 @endsection
@@ -42,9 +42,13 @@
                             <input type="text" class="form-control" name="slug" id="title" required />
                         </div>
                         <div class="form-group">
-                            <label for="category_image">Blog Image</label>
-                            <input type="file" class="form-control" name="category_image" id="category_image" required />
+                            <label for="blog_image">Blog Image</label>
+                            <input type="file" class="form-control" name="blog_image" id="blog_image" required />
                         </div>
+
+                        <!-- Preview container -->
+                        <div id="imagePreview" style="margin-top: 10px;"></div>
+
                         <div class="form-group">
                             <label for="category_image">Main Content</label>
 
@@ -83,7 +87,26 @@
         </form>
     </div>
 </div>
-
+<script>
+    // JavaScript to preview the selected image
+    document.getElementById('blog_image').addEventListener('change', function() {
+        var file = this.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(event) {
+                var imgElement = document.createElement('img');
+                imgElement.setAttribute('src', event.target.result);
+                imgElement.setAttribute('class', 'preview-image'); // Optional: Add CSS class for styling
+                imgElement.setAttribute('style', 'max-width: 100%; height: 50px;'); // Optional: Add styling
+                document.getElementById('imagePreview').innerHTML = ''; // Clear previous preview, if any
+                document.getElementById('imagePreview').appendChild(imgElement);
+            }
+            reader.readAsDataURL(file);
+        } else {
+            document.getElementById('imagePreview').innerHTML = ''; // Clear preview if no file selected
+        }
+    });
+</script>
         <!-- /.content-wrapper -->
 
 

@@ -1,8 +1,8 @@
-@extends('admin.layouts.guest')
+@extends('admin.datatable_master')
 @section('datatable-title')
     Stores
 @endsection
-@section('main-content')
+@section('datatable-content')
     <div class=" container content-wrapper">
 
         <section class="content-header">
@@ -11,8 +11,11 @@
                     <div class="col-sm-6">
                         <h1>Stores</h1>
                     </div>
-                    <div class="col-sm-6 d-flex justify-content-end">
-                        <a href="{{ route('admin.store.create') }}" class="btn btn-primary">Add New</a>
+
+                    <div class="col-sm-6 d-flex justify-content-center">
+
+                        <a href="{{ route('admin.store.create') }}" class="btn btn-dark">Add New Store</a>
+                        <a href="{{ route('admin.coupon.create') }}" class="btn btn-warning">Add New Coupon</a>
                     </div>
                 </div>
             </div>
@@ -40,7 +43,7 @@
                 <tr>
                     <th><input type="checkbox" id="select-all"></th>
                     <th scope="col">#</th>
-                    <th>Store Name</th>
+                    <th scope="col">Store Name</th>
                     <th>Store Image</th>
                     <th>Network</th>
                     <th>Featured</th>
@@ -48,6 +51,7 @@
                    <th>created at</th>
                     <th> last updated </th>
                     <th>Action</th>
+                    <th>EDIT Coupon</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,11 +60,11 @@
                         <td><input type="checkbox" name="selected_stores[]" value="{{ $store->id }}"></td>
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $store->name }}</td>
-                        <td><img class="stores shadow rounded-circle" src="{{ $store->store_image ? asset('uploads/store/' . $store->store_image) : asset('front/assets/images/no-image-found.jpg') }}" alt="Card Image"  style="max-width: 60px;"></td>
+                        <td><img class="img-thumbnail" src="{{ $store->store_image ? asset('uploads/stores/' . $store->store_image) : asset('front/assets/images/no-image-found.jpg') }}" alt="Card Image"  style="max-width: 40px;"></td>
                         <td>{{ $store->network }}</td>
                         <td>{{ $store->category }}</td>
 
-
+                        <td>
                              @if ($store->status == "disable")
             <i class="fas fa-times-circle text-danger"></i>
           @else
@@ -81,8 +85,7 @@
                             <a href="{{ route('admin.store.edit', $store->id) }}" class="btn btn-info btn-sm">Edit</a>
                             <a href="{{ route('admin.store.delete', $store->id) }}" onclick="return confirm('Are you sure you want to delete this!')" class="btn btn-danger btn-sm">Delete</a>
                         </td>
-                        <td>
-                            <a href="{{ route('admin.store_details', ['slug' => Str::slug($store->slug)]) }}" class="btn btn-info btn-sm></a>
+                        <td><a class="btn btn-success text-white btn-sm" href="{{  route('admin.store_details', ['slug' => Str::slug($store->slug)]) }}" target="_blank" rel="noopener noreferrer">edit coupon</a>
                         </td>
                     </tr>
                 @endforeach
@@ -100,6 +103,7 @@
                   <th>created at</th>
                     <th> last updated </th>
                     <th>Action</th>
+                    <th>EDIT Coupon</th>
                 </tr>
             </tfoot>
         </table>

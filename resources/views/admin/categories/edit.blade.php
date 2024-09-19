@@ -33,6 +33,10 @@
                                     <input type="text" class="form-control" name="title" id="title" value="{{ $categories->title }}" required>
                                 </div>
                                 <div class="form-group">
+                                    <label for="title">Category Url/slug <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="slug" id="title" value="{{ $categories->slug }}" required>
+                                </div>
+                                <div class="form-group">
                                     <label for="meta_tag">Meta Tag <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="meta_tag" id="meta_tag" value="{{ $categories->meta_tag }}" >
                                 </div>
@@ -44,7 +48,7 @@
                                     <label for="meta_description">Meta Description</label>
                                     <textarea name="meta_description" id="meta_description" class="form-control" cols="30" rows="5" style="resize: none;" value="{{ $categories->meta_description }}">{{ $categories->meta_description }}</textarea>
                                 </div>
-                    
+
                             </div>
                         </div>
                     </div>

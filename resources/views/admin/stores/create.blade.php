@@ -48,14 +48,14 @@
                                     <label for="slug">Url/Slug<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="slug" id="slug" required>
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="description">Description</label>
                                     <textarea name="description" id="description" class="form-control" cols="30" rows="5" style="resize: none;" required></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="url">URL <span class="text-danger">*</span></label>
                                     <input type="url" class="form-control" name="url" id="url" required>
-                                </div>
+                                </div> --}}
                                 <div class="form-group">
                                     <label for="destination_url">Destination URL <span class="text-danger">*</span></label>
                                     <input type="url" class="form-control" name="destination_url" id="destination_url" required>
@@ -101,10 +101,10 @@
     <input type="radio" name="status" id="disable" value="disable">&nbsp;<label for="disable">Disable</label>
 </div>
 
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="authentication">Authentication</label><br>
                                     <input type="checkbox" name="authentication" id="authentication" value="top_stores">&nbsp;<label for="authentication">Top Store</label>
-                                </div>
+                                </div> --}}
                                 <div class="form-group">
                                     <label for="network">Network <span class="text-danger">*</span></label>
                                     <select name="network" id="network" class="form-control">

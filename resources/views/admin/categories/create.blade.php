@@ -41,8 +41,11 @@
                                     <label for="title">Category Title <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="title" id="title" required>
                                 </div>
-                              
-                               
+                                <div class="form-group">
+                                    <label for="title">Category Url/slug <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="slug" id="title"  required>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="meta_tag">Meta Tag <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="meta_tag" id="meta_tag">
@@ -59,7 +62,7 @@
                                     <label for="category_image">Category Image <span class="text-danger">*</span></label>
                                     <input type="file" class="form-control" name="category_image" id="category_image">
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -71,10 +74,10 @@
                                     <input type="radio" name="status" id="enable" checked value="enable">&nbsp;<label for="enable">Enable</label>
                                     <input type="radio" name="status" id="disable" value="disable">&nbsp;<label for="disable">Disable</label>
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="authentication">Authentication</label><br>
                                     <input type="checkbox" name="authentication" id="authentication" value="top_stores">&nbsp;<label for="authentication">Top Store</label>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>

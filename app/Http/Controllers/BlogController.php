@@ -14,11 +14,11 @@ class BlogController extends Controller
 {
 
 
-
-    public function blogs() {
-        $blogs = Blog::all();
-        return view('admin.Blog.index', compact('blogs'));
+    public function blogs_show() {
+        $blogs = Blog::paginate(10);
+        return view('admin.Blog.show', compact('blogs'));
     }
+
 
     public function create() {
         return view('admin.Blog.create');
@@ -42,8 +42,8 @@ class BlogController extends Controller
         if ($request->hasFile('category_image')) {
             $image = $request->file('category_image');
             $imageName = time().'.'.$image->getClientOriginalExtension();
-            $imagePath = 'uploads/'.$imageName;
-            $image->move(public_path('uploads'), $imageName);
+            $imagePath = 'uploads/blog'.$imageName;
+            $image->move(public_path('uploads/blog'), $imageName);
 
             // Ensure that the file has been saved before trying to read it
             if (file_exists(public_path($imagePath))) {
@@ -100,11 +100,11 @@ foreach ($images as $img) {
         $image_type = $image_type_aux[1];
         $image_base64 = base64_decode(explode(',', $image_parts[1])[1]);
         $imageName = Str::random(10) . '.' . $image_type;
-        $path = public_path('uploads/') . $imageName;
+        $path = public_path('uploads/blog') . $imageName;
         file_put_contents($path, $image_base64);
 
         // Update the src attribute in the image tag
-        $img->setAttribute('src', asset('uploads/' . $imageName));
+        $img->setAttribute('src', asset('uploads/blog' . $imageName));
     }
 }
 

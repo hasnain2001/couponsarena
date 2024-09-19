@@ -1,419 +1,629 @@
-@extends('admin.layouts.app')
+@extends('admin.master')
 
 @section('main-content')
-<div class="content-page">
-
-  
-
-    <div class="content">
 
 
-        <div class="contain">
-            <!-- Start Content-->
-            <div class="container-fluid">
-                <div class="card">
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                {{ session('status') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        @endif
+        <div class="content-wrapper">
+            <div class="content-page">
 
-                        {{ __('You are logged in!') }}
+
+
+                <div class="content">
+
+
+                    <div class="contain">
+                        <!-- Start Content-->
+                        <div class="container-fluid">
+                            <div class="card">
+                                <div class="card-body">
+                                    @if (session('status'))
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            {{ session('status') }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    @endif
+
+                                    {{ __('You are logged in!') }}
+                                </div>
+                            </div>      </div>
+                        </div>      </div>
                     </div>
-                </div>
 
 
-                <!-- start page title -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="page-title-box">
-                            <div class="page-title-right">
-                                <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboards</a></li>
-                                    <li class="breadcrumb-item active">Admin Dashboard </li>
-                                </ol>
-                            </div>
-                            <h4 class="page-title">Admin Dashboard </h4>
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Dashboard</h1>
                         </div>
                     </div>
                 </div>
-                <!-- end page title -->
-
-
-                <div class="row">
-                    <div class="col-xl-4 col-md-6">
-                        <!-- Portlet card -->
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="card-widgets">
-                                    <a href="javascript: void(0);" data-bs-toggle="reload"><i class="mdi mdi-refresh"></i></a>
-                                    <a data-bs-toggle="collapse" href="#cardCollpase1" role="button" aria-expanded="false" aria-controls="cardCollpase1"><i class="mdi mdi-minus"></i></a>
-                                    <a href="javascript: void(0);" data-bs-toggle="remove"><i class="mdi mdi-close"></i></a>
-                                </div>
-                                <h4 class="header-title mb-0">Lifetime Sales</h4>
-
-                                <div id="cardCollpase1" class="collapse show">
-                                    <div class="text-center pt-3">
-                                        <div class="row mt-2">
-                                            <div class="col-4">
-                                                <h3 data-plugin="counterup">3,487</h3>
-                                                <p class="text-muted font-13 mb-0 text-truncate">Total Sales</p>
-                                            </div>
-                                            <div class="col-4">
-                                                <h3 data-plugin="counterup">814</h3>
-                                                <p class="text-muted font-13 mb-0 text-truncate">Open Campaign</p>
-                                            </div>
-                                            <div class="col-4">
-                                                <h3 data-plugin="counterup">5,324</h3>
-                                                <p class="text-muted font-13 mb-0 text-truncate">Daily Sales</p>
-                                            </div>
-                                        </div> <!-- end row -->
-
-                                        <div  dir="ltr">
-                                            <div id="lifetime-sales" data-colors="#4fc6e1,#6658dd,#ebeff2" style="height: 270px;" class="morris-chart mt-3"></div>
-                                        </div>
-                                    </div>
-                                </div> <!-- end collapse-->
-                            </div> <!-- end card-body-->
-                        </div> <!-- end card-->
-                    </div> <!-- end col-->
-
-                    <div class="col-xl-4 col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="card-widgets">
-                                    <a href="javascript: void(0);" data-bs-toggle="reload"><i class="mdi mdi-refresh"></i></a>
-                                    <a data-bs-toggle="collapse" href="#cardCollpase3" role="button" aria-expanded="false" aria-controls="cardCollpase3"><i class="mdi mdi-minus"></i></a>
-                                    <a href="javascript: void(0);" data-bs-toggle="remove"><i class="mdi mdi-close"></i></a>
-                                </div>
-                                <h4 class="header-title mb-0">Statistics</h4>
-
-                                <div id="cardCollpase3" class="collapse show">
-                                    <div class="text-center pt-3">
-
-                                        <div class="row mt-2">
-                                            <div class="col-6">
-                                                <h3 data-plugin="counterup">1,284</h3>
-                                                <p class="text-muted font-13 mb-0 text-truncate">Total Sales</p>
-                                            </div>
-                                            <div class="col-6">
-                                                <h3 data-plugin="counterup">7,841</h3>
-                                                <p class="text-muted font-13 mb-0 text-truncate">Open Campaign</p>
-                                            </div>
-                                        </div> <!-- end row -->
-
-                                        <div  dir="ltr">
-                                            <div id="statistics-chart" data-colors="#02c0ce" style="height: 270px;" class="morris-chart mt-3"></div>
-                                        </div>
-
-                                    </div>
-                                </div> <!-- end collapse-->
-                            </div> <!-- end card-body-->
-                        </div> <!-- end card-->
-                    </div> <!-- end col-->
-
-                    <div class="col-xl-4 col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="card-widgets">
-                                    <a href="javascript: void(0);" data-bs-toggle="reload"><i class="mdi mdi-refresh"></i></a>
-                                    <a data-bs-toggle="collapse" href="#cardCollpase2" role="button" aria-expanded="false" aria-controls="cardCollpase2"><i class="mdi mdi-minus"></i></a>
-                                    <a href="javascript: void(0);" data-bs-toggle="remove"><i class="mdi mdi-close"></i></a>
-                                </div>
-                                <h4 class="header-title mb-0">Income Amounts</h4>
-
-                                <div id="cardCollpase2" class="collapse show">
-                                    <div class="text-center pt-3">
-                                        <div class="row mt-2">
-                                            <div class="col-4">
-                                                <h3 data-plugin="counterup">2,845</h3>
-                                                <p class="text-muted font-13 mb-0 text-truncate">Total Sales</p>
-                                            </div>
-                                            <div class="col-4">
-                                                <h3 data-plugin="counterup">6,487</h3>
-                                                <p class="text-muted font-13 mb-0 text-truncate">Open Campaign</p>
-                                            </div>
-                                            <div class="col-4">
-                                                <h3 data-plugin="counterup">201</h3>
-                                                <p class="text-muted font-13 mb-0 text-truncate">Daily Sales</p>
-                                            </div>
-                                        </div> <!-- end row -->
-
-                                        <div  dir="ltr">
-                                            <div id="income-amounts" data-colors="#4a81d4,#e3eaef" style="height: 270px;" class="morris-chart mt-3"></div>
-                                        </div>
-
-                                    </div>
-                                </div> <!-- end collapse-->
-                            </div> <!-- end card-body-->
-                        </div> <!-- end card-->
-                    </div> <!-- end col-->
-                </div>
-                <!-- end row -->
-
-
-               <div class="row">
-<div class="col-md-6 col-xl-3">
-    <div class="widget-rounded-circle card">
-        <div class="card-body">
-            <div class="row align-items-center">
-                <div class="col-auto">
-                    <div class="avatar-lg">
-                        <img src="{{ asset('assets/images/users/user-3.jpg') }}" class="img-fluid rounded-circle" alt="user-img">
-                    </div>
-                </div>
-                <div class="col">
-                    <h5 class="mb-1 mt-2 font-16">Thelma Fridley</h5>
-                    <p class="mb-2 text-muted">Admin User</p>
-                </div>
-            </div> <!-- end row-->
-        </div>
-    </div> <!-- end widget-rounded-circle-->
-</div> <!-- end col-->
-
-<div class="col-md-6 col-xl-3">
-    <div class="widget-rounded-circle card">
-        <div class="card-body">
-            <div class="row align-items-center">
-                <div class="col-auto">
-                    <div class="avatar-lg">
-                        <img src="{{ asset('assets/images/users/user-4.jpg') }}" class="img-fluid rounded-circle" alt="user-img">
-                    </div>
-                </div>
-                <div class="col">
-                    <h5 class="mb-1 mt-2 font-16">Chandler Hervieux</h5>
-                    <p class="mb-2 text-muted">Manager</p>
-                </div>
-            </div> <!-- end row-->
-        </div>
-    </div> <!-- end widget-rounded-circle-->
-</div> <!-- end col-->
-
-<div class="col-md-6 col-xl-3">
-    <div class="widget-rounded-circle card">
-        <div class="card-body">
-            <div class="row align-items-center">
-                <div class="col-auto">
-                    <div class="avatar-lg">
-                        <img src="{{ asset('assets/images/users/user-5.jpg') }}" class="img-fluid rounded-circle" alt="user-img">
-                    </div>
-                </div>
-                <div class="col">
-                    <h5 class="mb-1 mt-2 font-16">Percy Demers</h5>
-                    <p class="mb-2 text-muted">Director</p>
-                </div>
-            </div> <!-- end row-->
-        </div>
-    </div> <!-- end widget-rounded-circle-->
-</div> <!-- end col-->
-
-<div class="col-md-6 col-xl-3">
-    <div class="widget-rounded-circle card bg-blue">
-        <div class="card-body">
-            <div class="row align-items-center">
-                <div class="col-auto">
-                    <div class="avatar-lg">
-                        <img src="{{ asset('assets/images/users/user-6.jpg') }}" class="img-fluid rounded-circle img-thumbnail" alt="user-img">
-                    </div>
-                </div>
-                <div class="col">
-                    <h5 class="mb-1 mt-2 text-white font-16">Antoine Masson</h5>
-                    <p class="mb-2 text-white-50">Premium User</p>
-                </div>
-            </div> <!-- end row-->
-        </div>
-    </div> <!-- end widget-rounded-circle-->
-</div> <!-- end col-->
-</div>
-
-                <!-- end row -->
-
-                <div class="row">
-                    <div class="col-12">
-                        <!-- Portlet card -->
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="card-widgets">
-                                    <a href="javascript: void(0);" data-bs-toggle="reload"><i class="mdi mdi-refresh"></i></a>
-                                    <a data-bs-toggle="collapse" href="#cardCollpase4" role="button" aria-expanded="false" aria-controls="cardCollpase4"><i class="mdi mdi-minus"></i></a>
-                                    <a href="javascript: void(0);" data-bs-toggle="remove"><i class="mdi mdi-close"></i></a>
-                                </div>
-                                <h4 class="header-title mb-0">Projects</h4>
-
-                                <div id="cardCollpase4" class="collapse show">
-                                    <div class="table-responsive pt-3">
-                                        <table class="table table-centered table-nowrap table-borderless mb-0">
-                                            <thead class="table-light">
-                                                <tr>
-                                                    <th>Project Name</th>
-                                                    <th>Start Date</th>
-                                                    <th>Due Date</th>
-                                                    <th>Team</th>
-                                                    <th>Status</th>
-                                                    <th>Clients</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>App design and development</td>
-                                                    <td>Jan 03, 2015</td>
-                                                    <td>Oct 12, 2018</td>
-                                                    <td id="tooltip-container">
-                                                        <div class="avatar-group">
-                                                            <a href="javascript: void(0);" class="avatar-group-item" data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="top" title="Mat Helme">
-                                                                <img src="{{ asset('assets/images/users/user-1.jpg') }}" class="rounded-circle avatar-xs" alt="friend">
-                                                            </a>
-
-                                                            <a href="javascript: void(0);" class="avatar-group-item" data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="top" title="Michael Zenaty">
-                                                                <img src="{{ asset('assets/images/users/user-2.jpg') }}" class="rounded-circle avatar-xs" alt="friend">
-                                                            </a>
-
-                                                            <a href="javascript: void(0);" class="avatar-group-item" data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="top" title="James Anderson">
-                                                                <img src="{{ asset('assets/images/users/user-3.jpg') }}" class="rounded-circle avatar-xs" alt="friend">
-                                                            </a>
-
-                                                            <a href="javascript: void(0);" class="avatar-group-item" data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="top" title="Username">
-                                                                <img src="{{ asset('assets/images/users/user-5.jpg') }}" class="rounded-circle avatar-xs" alt="friend">
-                                                            </a>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-soft-info text-info p-1">Work in Progress</span></td>
-                                                    <td>Halette Boivin</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Coffee detail page - Main Page</td>
-                                                    <td>Sep 21, 2016</td>
-                                                    <td>May 05, 2018</td>
-                                                    <td>
-                                                        <div class="avatar-group">
-                                                            <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="James Anderson">
-                                                                <img src="{{ asset('assets/images/users/user-3.jpg') }}" class="rounded-circle avatar-xs" alt="friend">
-                                                            </a>
-
-                                                            <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Mat Helme">
-                                                                <img src="{{ asset('assets/images/users/user-4.jpg') }}" class="rounded-circle avatar-xs" alt="friend">
-                                                            </a>
-
-                                                            <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Username">
-                                                                <img src="{{ asset('assets/images/users/user-5.jpg') }}" class="rounded-circle avatar-xs" alt="friend">
-                                                            </a>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-soft-warning text-warning p-1">Pending</span></td>
-                                                    <td>Durandana Jolicoeur</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Poster illustration design</th>
-                                                    <td>Mar 08, 2018</td>
-                                                    <td>Sep 22, 2018</td>
-                                                    <td>
-                                                        <div class="avatar-group">
-
-                                                            <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Michael Zenaty">
-                                                                <img src="{{ asset('assets/images/users/user-2.jpg') }}" class="rounded-circle avatar-xs" alt="friend">
-                                                            </a>
-
-                                                            <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Mat Helme">
-                                                                <img src="{{ asset('assets/images/users/user-6.jpg') }}" class="rounded-circle avatar-xs" alt="friend">
-                                                            </a>
-
-                                                            <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Username">
-                                                                <img src="{{ asset('assets/images/users/user-7.jpg') }}" class="rounded-circle avatar-xs" alt="friend">
-                                                            </a>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-soft-success text-success p-1">Completed</span></td>
-                                                    <td>Lucas Sabourin</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Drinking bottle graphics</td>
-                                                    <td>Oct 10, 2017</td>
-                                                    <td>May 07, 2018</td>
-                                                    <td>
-                                                        <div class="avatar-group">
-                                                            <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Mat Helme">
-                                                                <img src="{{ asset('assets/images/users/user-9.jpg') }}" class="rounded-circle avatar-xs" alt="friend">
-                                                            </a>
-
-                                                            <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Michael Zenaty">
-                                                                <img src="{{ asset('assets/images/users/user-10.jpg') }}" class="rounded-circle avatar-xs" alt="friend">
-                                                            </a>
-
-                                                            <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="James Anderson">
-                                                                <img src="{{ asset('assets/images/users/user-1.jpg') }}" class="rounded-circle avatar-xs" alt="friend">
-                                                            </a>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-soft-info text-info p-1">Work in Progress</span></td>
-                                                    <td>Donatien Brunelle</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Landing page design - Home</td>
-                                                    <td>Coming Soon</td>
-                                                    <td>May 25, 2021</td>
-                                                    <td>
-                                                        <div class="avatar-group">
-
-                                                            <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Michael Zenaty">
-                                                                <img src="{{ asset('assets/images/users/user-5.jpg') }}" class="rounded-circle avatar-xs" alt="friend">
-                                                            </a>
-
-                                                            <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="James Anderson">
-                                                                <img src="{{ asset('assets/images/users/user-8.jpg') }}" class="rounded-circle avatar-xs" alt="friend">
-                                                            </a>
-
-                                                            <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Mat Helme">
-                                                                <img src="{{ asset('assets/images/users/user-2.jpg') }}" class="rounded-circle avatar-xs" alt="friend">
-                                                            </a>
-
-                                                            <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Username">
-                                                                <img src="{{ asset('assets/images/users/user-7.jpg') }}" class="rounded-circle avatar-xs" alt="friend">
-                                                            </a>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-soft-dark text-dark p-1">Coming Soon</span></td>
-                                                    <td>Karel Auberjo</td>
-                                                </tr>
-
-                                            </tbody>
-                                        </table>
-                                    </div> <!-- .table-responsive -->
-                                </div> <!-- end collapse-->
-                            </div> <!-- end card-body-->
-                        </div> <!-- end card-->
-                    </div> <!-- end col-->
-                </div>
-
-                <!-- end row -->
-
             </div>
 
-            <!-- container -->
 
-        </div> <!-- content -->
-    </div>
+            <section class="content">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-lg-3 col-6">
+
+                            <div class="small-box bg-info">
+                                <div class="inner">
+                                    <h3>150</h3>
+                                    <p>New Orders</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-bag"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">More info <i
+                                        class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-6">
+
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3>53<sup style="font-size: 20px">%</sup></h3>
+                                    <p>Bounce Rate</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-stats-bars"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">More info <i
+                                        class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-6">
+
+                            <div class="small-box bg-warning">
+                                <div class="inner">
+                                    <h3>44</h3>
+                                    <p>User Registrations</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-person-add"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">More info <i
+                                        class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-6">
+
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+                                    <h3>65</h3>
+                                    <p>Unique Visitors</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-pie-graph"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">More info <i
+                                        class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+
+                    </div>
 
 
+                    <div class="row">
+
+                        <section class="col-lg-7 connectedSortable">
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-chart-pie mr-1"></i>
+                                        Sales
+                                    </h3>
+                                    <div class="card-tools">
+                                        <ul class="nav nav-pills ml-auto">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="tab-content p-0">
+
+                                        <div class="chart tab-pane active" id="revenue-chart"
+                                            style="position: relative; height: 300px;">
+                                            <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
+                                        </div>
+                                        <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
+                                            <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
 
+                            <div class="card direct-chat direct-chat-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Direct Chat</h3>
+                                    <div class="card-tools">
+                                        <span title="3 New Messages" class="badge badge-primary">3</span>
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-tool" title="Contacts"
+                                            data-widget="chat-pane-toggle">
+                                            <i class="fas fa-comments"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
 
-</div>
+                                <div class="card-body">
 
-<!-- ============================================================== -->
-<!-- End Page content -->
-<!-- ============================================================== -->
+                                    <div class="direct-chat-messages">
+
+                                        <div class="direct-chat-msg">
+                                            <div class="direct-chat-infos clearfix">
+                                                <span class="direct-chat-name float-left">Alexander Pierce</span>
+                                                <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
+                                            </div>
+
+                                            <img class="direct-chat-img" src="admin/dist/img/user1-128x128.jpg"
+                                                alt="message user image">
+
+                                            <div class="direct-chat-text">
+                                                Is this template really for free? That's unbelievable!
+                                            </div>
+
+                                        </div>
 
 
-</div>
-<!-- END wrapper -->
+                                        <div class="direct-chat-msg right">
+                                            <div class="direct-chat-infos clearfix">
+                                                <span class="direct-chat-name float-right">Sarah Bullock</span>
+                                                <span class="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
+                                            </div>
+
+                                            <img class="direct-chat-img" src="admin/dist/img/user3-128x128.jpg"
+                                                alt="message user image">
+
+                                            <div class="direct-chat-text">
+                                                You better believe it!
+                                            </div>
+
+                                        </div>
 
 
+                                        <div class="direct-chat-msg">
+                                            <div class="direct-chat-infos clearfix">
+                                                <span class="direct-chat-name float-left">Alexander Pierce</span>
+                                                <span class="direct-chat-timestamp float-right">23 Jan 5:37 pm</span>
+                                            </div>
+
+                                            <img class="direct-chat-img" src="admin/dist/img/user1-128x128.jpg"
+                                                alt="message user image">
+
+                                            <div class="direct-chat-text">
+                                                Working with AdminLTE on a great new app! Wanna join?
+                                            </div>
+
+                                        </div>
 
 
+                                        <div class="direct-chat-msg right">
+                                            <div class="direct-chat-infos clearfix">
+                                                <span class="direct-chat-name float-right">Sarah Bullock</span>
+                                                <span class="direct-chat-timestamp float-left">23 Jan 6:10 pm</span>
+                                            </div>
 
-</div>
+                                            <img class="direct-chat-img" src="admin/dist/img/user3-128x128.jpg"
+                                                alt="message user image">
 
+                                            <div class="direct-chat-text">
+                                                I would love to.
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="direct-chat-contacts">
+                                        <ul class="contacts-list">
+                                            <li>
+                                                <a href="#">
+                                                    <img class="contacts-list-img" src="admin/dist/img/user1-128x128.jpg"
+                                                        alt="User Avatar">
+                                                    <div class="contacts-list-info">
+                                                        <span class="contacts-list-name">
+                                                            Count Dracula
+                                                            <small class="contacts-list-date float-right">2/28/2015</small>
+                                                        </span>
+                                                        <span class="contacts-list-msg">How have you been? I
+                                                            was...</span>
+                                                    </div>
+
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">
+                                                    <img class="contacts-list-img" src="admin/dist/img/user7-128x128.jpg"
+                                                        alt="User Avatar">
+                                                    <div class="contacts-list-info">
+                                                        <span class="contacts-list-name">
+                                                            Sarah Doe
+                                                            <small class="contacts-list-date float-right">2/23/2015</small>
+                                                        </span>
+                                                        <span class="contacts-list-msg">I will be waiting for...</span>
+                                                    </div>
+
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">
+                                                    <img class="contacts-list-img" src="admin/dist/img/user3-128x128.jpg"
+                                                        alt="User Avatar">
+                                                    <div class="contacts-list-info">
+                                                        <span class="contacts-list-name">
+                                                            Nadia Jolie
+                                                            <small class="contacts-list-date float-right">2/20/2015</small>
+                                                        </span>
+                                                        <span class="contacts-list-msg">I'll call you back at...</span>
+                                                    </div>
+
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">
+                                                    <img class="contacts-list-img" src="admin/dist/img/user5-128x128.jpg"
+                                                        alt="User Avatar">
+                                                    <div class="contacts-list-info">
+                                                        <span class="contacts-list-name">
+                                                            Nora S. Vans
+                                                            <small class="contacts-list-date float-right">2/10/2015</small>
+                                                        </span>
+                                                        <span class="contacts-list-msg">Where is your new...</span>
+                                                    </div>
+
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">
+                                                    <img class="contacts-list-img" src="admin/dist/img/user6-128x128.jpg"
+                                                        alt="User Avatar">
+                                                    <div class="contacts-list-info">
+                                                        <span class="contacts-list-name">
+                                                            John K.
+                                                            <small class="contacts-list-date float-right">1/27/2015</small>
+                                                        </span>
+                                                        <span class="contacts-list-msg">Can I take a look at...</span>
+                                                    </div>
+
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">
+                                                    <img class="contacts-list-img" src="admin/dist/img/user8-128x128.jpg"
+                                                        alt="User Avatar">
+                                                    <div class="contacts-list-info">
+                                                        <span class="contacts-list-name">
+                                                            Kenneth M.
+                                                            <small class="contacts-list-date float-right">1/4/2015</small>
+                                                        </span>
+                                                        <span class="contacts-list-msg">Never mind I found...</span>
+                                                    </div>
+
+                                                </a>
+                                            </li>
+
+                                        </ul>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="card-footer">
+                                    <form action="#" >
+                                        <div class="input-group">
+                                            <input type="text" name="message" placeholder="Type Message ..."
+                                                class="form-control">
+                                            <span class="input-group-append">
+                                                <button type="button" class="btn btn-primary">Send</button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="ion ion-clipboard mr-1"></i>
+                                        To Do List
+                                    </h3>
+                                    <div class="card-tools">
+                                        <ul class="pagination pagination-sm">
+                                            <li class="page-item"><a href="#" class="page-link">&laquo;</a>
+                                            </li>
+                                            <li class="page-item"><a href="#" class="page-link">1</a></li>
+                                            <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                            <li class="page-item"><a href="#" class="page-link">3</a></li>
+                                            <li class="page-item"><a href="#" class="page-link">&raquo;</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <ul class="todo-list" data-widget="todo-list">
+                                        <li>
+
+                                            <span class="handle">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </span>
+
+                                            <div class="icheck-primary d-inline ml-2">
+                                                <input type="checkbox" value name="todo1" id="todoCheck1">
+                                                <label for="todoCheck1"></label>
+                                            </div>
+
+                                            <span class="text">Design a nice theme</span>
+
+                                            <small class="badge badge-danger"><i class="far fa-clock"></i> 2
+                                                mins</small>
+
+                                            <div class="tools">
+                                                <i class="fas fa-edit"></i>
+                                                <i class="fas fa-trash-o"></i>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <span class="handle">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </span>
+                                            <div class="icheck-primary d-inline ml-2">
+                                                <input type="checkbox" value name="todo2" id="todoCheck2" checked>
+                                                <label for="todoCheck2"></label>
+                                            </div>
+                                            <span class="text">Make the theme responsive</span>
+                                            <small class="badge badge-info"><i class="far fa-clock"></i> 4
+                                                hours</small>
+                                            <div class="tools">
+                                                <i class="fas fa-edit"></i>
+                                                <i class="fas fa-trash-o"></i>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <span class="handle">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </span>
+                                            <div class="icheck-primary d-inline ml-2">
+                                                <input type="checkbox" value name="todo3" id="todoCheck3">
+                                                <label for="todoCheck3"></label>
+                                            </div>
+                                            <span class="text">Let theme shine like a star</span>
+                                            <small class="badge badge-warning"><i class="far fa-clock"></i> 1
+                                                day</small>
+                                            <div class="tools">
+                                                <i class="fas fa-edit"></i>
+                                                <i class="fas fa-trash-o"></i>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <span class="handle">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </span>
+                                            <div class="icheck-primary d-inline ml-2">
+                                                <input type="checkbox" value name="todo4" id="todoCheck4">
+                                                <label for="todoCheck4"></label>
+                                            </div>
+                                            <span class="text">Let theme shine like a star</span>
+                                            <small class="badge badge-success"><i class="far fa-clock"></i> 3
+                                                days</small>
+                                            <div class="tools">
+                                                <i class="fas fa-edit"></i>
+                                                <i class="fas fa-trash-o"></i>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <span class="handle">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </span>
+                                            <div class="icheck-primary d-inline ml-2">
+                                                <input type="checkbox" value name="todo5" id="todoCheck5">
+                                                <label for="todoCheck5"></label>
+                                            </div>
+                                            <span class="text">Check your messages and notifications</span>
+                                            <small class="badge badge-primary"><i class="far fa-clock"></i> 1
+                                                week</small>
+                                            <div class="tools">
+                                                <i class="fas fa-edit"></i>
+                                                <i class="fas fa-trash-o"></i>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <span class="handle">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </span>
+                                            <div class="icheck-primary d-inline ml-2">
+                                                <input type="checkbox" value name="todo6" id="todoCheck6">
+                                                <label for="todoCheck6"></label>
+                                            </div>
+                                            <span class="text">Let theme shine like a star</span>
+                                            <small class="badge badge-secondary"><i class="far fa-clock"></i> 1
+                                                month</small>
+                                            <div class="tools">
+                                                <i class="fas fa-edit"></i>
+                                                <i class="fas fa-trash-o"></i>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="card-footer clearfix">
+                                    <button type="button" class="btn btn-primary float-right"><i class="fas fa-plus"></i>
+                                        Add item</button>
+                                </div>
+                            </div>
+
+                        </section>
+
+
+                        <section class="col-lg-5 connectedSortable">
+
+                            <div class="card bg-gradient-primary">
+                                <div class="card-header border-0">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-map-marker-alt mr-1"></i>
+                                        Visitors
+                                    </h3>
+
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-primary btn-sm daterange" title="Date range">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse"
+                                            title="Collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+
+                                </div>
+                                <div class="card-body">
+                                    <div id="world-map" style="height: 250px; width: 100%;"></div>
+                                </div>
+
+                                <div class="card-footer bg-transparent">
+                                    <div class="row">
+                                        <div class="col-4 text-center">
+                                            <div id="sparkline-1"></div>
+                                            <div class="text-white">Visitors</div>
+                                        </div>
+
+                                        <div class="col-4 text-center">
+                                            <div id="sparkline-2"></div>
+                                            <div class="text-white">Online</div>
+                                        </div>
+
+                                        <div class="col-4 text-center">
+                                            <div id="sparkline-3"></div>
+                                            <div class="text-white">Sales</div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="card bg-gradient-info">
+                                <div class="card-header border-0">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-th mr-1"></i>
+                                        Sales Graph
+                                    </h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn bg-info btn-sm" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <button type="button" class="btn bg-info btn-sm" data-card-widget="remove">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <canvas class="chart" id="line-chart"
+                                        style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                </div>
+
+                                <div class="card-footer bg-transparent">
+                                    <div class="row">
+                                        <div class="col-4 text-center">
+                                            <input type="text" class="knob" data-readonly="true" value="20"
+                                                data-width="60" data-height="60" data-fgColor="#39CCCC">
+                                            <div class="text-white">Mail-Orders</div>
+                                        </div>
+
+                                        <div class="col-4 text-center">
+                                            <input type="text" class="knob" data-readonly="true" value="50"
+                                                data-width="60" data-height="60" data-fgColor="#39CCCC">
+                                            <div class="text-white">Online</div>
+                                        </div>
+
+                                        <div class="col-4 text-center">
+                                            <input type="text" class="knob" data-readonly="true" value="30"
+                                                data-width="60" data-height="60" data-fgColor="#39CCCC">
+                                            <div class="text-white">In-Store</div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="card bg-gradient-success">
+                                <div class="card-header border-0">
+                                    <h3 class="card-title">
+                                        <i class="far fa-calendar-alt"></i>
+                                        Calendar
+                                    </h3>
+
+                                    <div class="card-tools">
+
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-success btn-sm dropdown-toggle"
+                                                data-toggle="dropdown" data-offset="-52">
+                                                <i class="fas fa-bars"></i>
+                                            </button>
+                                            <div class="dropdown-menu" role="menu">
+                                                <a href="#" class="dropdown-item">Add new event</a>
+                                                <a href="#" class="dropdown-item">Clear events</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item">View calendar</a>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+
+                                </div>
+
+                                <div class="card-body pt-0">
+
+                                    <div id="calendar" style="width: 100%"></div>
+                                </div>
+
+                            </div>
+
+                        </section>
+
+                    </div>
+
+                </div>
+            </section>
+
+        </div>
 @endsection

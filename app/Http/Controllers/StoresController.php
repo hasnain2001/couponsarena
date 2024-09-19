@@ -73,10 +73,10 @@ class StoresController extends Controller
         if ($request->hasFile('store_image')) {
             $file = $request->file('store_image');
             $storeImage = md5($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
-            $filePath = public_path('uploads/store/') . $storeImage;
+            $filePath = public_path('uploads/stores/') . $storeImage;
 
             // Save the file to the specified location
-            $file->move(public_path('uploads/store/'), $storeImage);
+            $file->move(public_path('uploads/stores/'), $storeImage);
 
             // Ensure that the file has been saved before trying to read it
             if (file_exists($filePath)) {
@@ -167,10 +167,10 @@ class StoresController extends Controller
         if ($request->hasFile('store_image')) {
             $file = $request->file('store_image');
             $storeImage = md5($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
-            $filePath = public_path('uploads/store/') . $storeImage;
+            $filePath = public_path('uploads/stores/') . $storeImage;
 
             // Save the file to the specified location
-            $file->move(public_path('uploads/store/'), $storeImage);
+            $file->move(public_path('uploads/stores/'), $storeImage);
 
             // Ensure that the file has been saved before trying to read it
             if (file_exists($filePath)) {

@@ -26,6 +26,7 @@ class HomeController extends Controller
         public function index() {
         $stores = Stores::latest()->paginate(24);
         $topstores = Stores::where('top_store', '!=', 0)->orderByRaw('CAST(`top_store` AS SIGNED) desc')     ->paginate(10);
+        $topcoupon = Coupons::where('top_coupon', '!=', 0)->orderByRaw('CAST(`top_store` AS SIGNED) desc')     ->paginate(10);
         $categories = Categories::all();
         $blogs = Blog::latest()->paginate(10);
         $Coupons = Coupons::whereIn('id', function($query) {
@@ -33,9 +34,9 @@ class HomeController extends Controller
                 ->groupBy('store');
         })
         ->orderBy('created_at', 'desc')
-        ->paginate(21);
+        ->paginate(8);
 
-        return view('main', compact('stores', 'categories', 'blogs', 'Coupons','topstores'));
+        return view('main', compact('stores', 'categories', 'blogs', 'Coupons','topstores','topcoupon'));
         }
 
 public function topStores(Request $request)
@@ -115,14 +116,19 @@ public function topStores(Request $request)
     }
 
 
-     public function categories() {
-        $categories = Categories::all();
-        return view('categories', compact('categories'));
-    }
-      public function popularcategories() {
-        $category = Categories::all();
-        return view('categories', compact('category'));
-    }
+        public function categories() {
+            // Retrieve all categories
+            $categories = Categories::all();
+
+
+            $stores = Stores::paginate(5)->groupBy('category')->take(5);
+
+
+            // Pass the categories and stores to the view
+            return view('categories', compact('categories', 'stores'));
+        }
+
+
 
 
 public function viewcategory($name) {

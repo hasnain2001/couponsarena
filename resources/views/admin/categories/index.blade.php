@@ -1,8 +1,8 @@
-@extends('admin.layouts.guest')
+@extends('admin.datatable_master')
 @section('datatable-title')
     Categories
 @endsection
-@section('main-content')
+@section('datatable-content')
     <div class="content-wrapper">
 
         <section class="content-header">

@@ -3,29 +3,22 @@
     Coupons
 @endsection
 @section('datatable-content')
+
+
     <div class="content-wrapper">
 
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Coupons </h1>
+                        <h1>Coupons</h1>
                     </div>
                     <div class="col-sm-6 d-flex justify-content-end">
                         <a href="{{ route('admin.coupon.create') }}" class="btn btn-primary">Add New</a>
                     </div>
-                     {{-- <span class="text-title">Selected BY Store Name</span>
+                     <h5 class="text-title"><strong>Store : </strong>{{ $store->name }}</h5>
                      <br>
-                {{-- <form method="GET" action="{{ route('admin.coupon') }}">
-                    <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="store" id="category-select" onchange="this.form.submit()">
-                        <option value="">All Coupon</option> <!-- Option to select all stores -->
-                        @foreach($couponstore as $store)
-                            <option value="{{ $store->store }}" {{ $selectedCoupon == $store->store ? 'selected' : '' }} class="text-bold">
-                                {{ $store->store }}
-                            </option>
-                        @endforeach
-                    </select>
-                </form> --}} --}}
+
                 </div>
             </div>
         </section>
@@ -159,6 +152,68 @@
     });
 </script>
 
+<script>
+$(function() {
+    $("#example1").DataTable({
+        "responsive": true,
+        "lengthChange": false,
+        "autoWidth": false,
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+    $('#SearchTable').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+    });
+
+    // Enable row sorting using jQuery UI Sortable
+    $("#tablecontents").sortable({
+        items: "tr.row1",  // Select only rows with the 'row1' class
+        cursor: 'move',
+        opacity: 0.6,
+        update: function() {
+            sendOrderToServer();  // Call the function to send the order to the server
+        }
+    });
+
+    function sendOrderToServer() {
+        var order = [];
+        var token = $('meta[name="csrf-token"]').attr('content');
+
+        // Get the order of the rows
+        $('tr.row1').each(function(index, element) {
+            order.push({
+                id: $(this).attr('data-id'),
+                position: index + 1
+            });
+        });
+
+        // Send the new order to the server via Ajax
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "{{ route('custom-sortable') }}",  // The route to handle sorting
+            data: {
+                order: order,
+                _token: token
+            },
+            success: function(response) {
+                if (response.status == "success") {
+                    console.log('Order updated successfully');
+                } else {
+                    console.log('Error updating order');
+                }
+            }
+        });
+    }
+});
+
+</script>
 
 
 @endsection

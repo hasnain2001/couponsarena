@@ -1,0 +1,16 @@
+.navbar-custom {
+    background-color: #f00505;
+}
+.navbar-custom .btn,
+.navbar-custom .nav-link,
+.navbar-custom .navbar-brand {
+    color: #fff;
+}
+.navbar-custom .btn-outline-danger {
+    border-color: #fff;
+    color: #fff;
+}
+.navbar-custom .btn-outline-danger:hover {
+    background-color: #fff;
+    color: #dc3545;
+}

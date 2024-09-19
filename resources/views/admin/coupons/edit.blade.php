@@ -9,7 +9,7 @@
         font-weight: bold; /* Makes the text bold */
         color: #333; /* Dark color for text, adjust as needed */
     }
-    
+
     label {
         font-weight: bold; /* Makes the label text bold */
     }
@@ -70,7 +70,7 @@
                                     <input type="radio" name="status" id="enable" {{ $coupons->status == 'enable' ? 'checked' : '' }} value="enable">&nbsp;<label for="enable">Enable</label>
                                     <input type="radio" name="status" id="disable" {{ $coupons->status == 'disable' ? 'checked' : '' }} value="disable">&nbsp;<label for="disable">Disable</label>
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="authentication">Authentication</label><br>
                                     <input type="checkbox" name="authentication[]" {{ (is_array($coupons->authentication) && in_array('never_expire', $coupons->authentication)) ? 'checked' : '' }} id="never_expire" value="never_expire">&nbsp;<label for="never_expire">Never Expire</label><br>
                                     <input type="checkbox" name="authentication[]" {{ (is_array($coupons->authentication) && in_array('featured', $coupons->authentication)) ? 'checked' : '' }} id="featured" value="featured">&nbsp;<label for="featured">Featured</label><br>
@@ -78,15 +78,17 @@
                                     <input type="checkbox" name="authentication[]" {{ (is_array($coupons->authentication) && in_array('coupon_code', $coupons->authentication)) ? 'checked' : '' }} id="coupon_code" value="coupon_code">&nbsp;<label for="coupon_code">Coupon Code</label><br>
                                     <input type="checkbox" name="authentication[]" {{ (is_array($coupons->authentication) && in_array('top_deals', $coupons->authentication)) ? 'checked' : '' }} id="top_deals" value="top_deals">&nbsp;<label for="top_deals">Top Deals</label><br>
                                     <input type="checkbox" name="authentication[]" {{ (is_array($coupons->authentication) && in_array('valentine', $coupons->authentication)) ? 'checked' : '' }} id="valentine" value="valentine">&nbsp;<label for="valentine">Valentine</label>
-                                </div>
+                                </div> --}}
                                 <div class="form-group">
                                     <label for="store">Store <span class="text-danger">*</span></label>
-                                    <select name="store" id="store" class="form-control fw-bold">
+                                    {{-- <select name="store" id="store" class="form-control fw-bold">
                                         <option value="" disabled selected>{{ $coupons->store }}</option>
-                                        @foreach($stores as $store) 
+                                        @foreach($stores as $store)
                                             <option value="{{ $store->slug }}">{{ $store->slug }}</option>
                                         @endforeach
-                                    </select>
+                                    </select> --}}
+
+                                <span>{{ $coupons->store }}</span>
                                 </div>
                             </div>
                         </div>

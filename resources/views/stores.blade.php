@@ -16,13 +16,16 @@ header("X-Robots-Tag:index, follow");
      <meta name="description" content="Find the best deals, discounts, and coupons on BudgetHeaven. Save money on your favorite products from top brands.">
 <link rel="canonical" href="https://budgetheaven.com/stores">
 
+<link rel="shortcut icon" href="{{ asset('images/favicon.png')}}" type="image/x-icon">
+
            <style>
 .my-pagination{flex-wrap:wrap}.my-pagination .page-item{margin:5px}.my-pagination .page-link{border:1px solid #ddd;border-radius:50%;padding:10px 15px;color:#007bff;transition:background-color .3s,color .3s}.my-pagination .page-link:hover{background-color:red;color:#fff;text-decoration:none}.my-pagination .page-item.active .page-link{background-color:#007bff;border-color:#007bff;color:#fff}@media (max-width:768px){.my-pagination .page-link{padding:8px 12px;font-size:14px}}@media (max-width:576px){.my-pagination .page-link{padding:6px 10px;font-size:12px}}.card-list{display:flex;flex-wrap:wrap;justify-content:center}.card-link{display:block;color:inherit;text-decoration:none}.card{transition:transform .2s}.card:hover{transform:translateY(-5px)}.stores-img{width:100px;height:100px;object-fit:cover;border-radius:50%}.card-title{font-size:18px;color:#333;margin-top:15px;text-align:center}@media (max-width:768px){.card-list .col-sm-12{margin-bottom:20px}.card-title{font-size:16px}}
 </style>
 </head>
 <body class="body">
-
-<x-nav/>
+    <!--navbar -->
+@include('components.navbar')
+    <!--navbar -->
    <a href="#" class="scroll-to-top text-white">
   <i class="fas fa-chevron-up"></i>
 </a>
@@ -53,7 +56,7 @@ header("X-Robots-Tag:index, follow");
 
                 <div class="shadow-bg h-100">
                     <div class="card-body text-center">
-                        <img class="stores-img rounded-circle shadow" src="{{ $store->store_image ? asset('uploads/store/' . $store->store_image) : asset('front/assets/images/no-image-found.jpg') }}" loading="lazy" alt="Card Image">
+                        <img class="stores-img rounded-circle shadow" src="{{ $store->store_image ? asset('uploads/stores/' . $store->store_image) : asset('front/assets/images/no-image-found.jpg') }}" loading="lazy" alt="Card Image">
                         <h5 class="card-title mt-3">{{ $store->name ?: "Title not found" }}</h5>
                     </div>
                 </div>

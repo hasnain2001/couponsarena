@@ -87,19 +87,34 @@ public function update(Request $request)
     }
 
     public function store_coupon(Request $request) {
+        // Define validation rules
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:1000',
+            'code' => 'nullable|string|max:100|unique:coupons,code',
+            'destination_url' => 'nullable|url',
+            'ending_date' => 'nullable|date|after_or_equal:today',
+            // 'status' => 'required|in:active,inactive',
+            'authentication' => 'nullable|array',
+            'authentication.*' => 'string',
+            'store' => 'required|string|max:255',
+        ]);
+
+        // Create coupon using validated data
         Coupons::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'code' => $request->code,
-            'destination_url' => $request->destination_url,
-            'ending_date' => $request->ending_date,
+            'name' => $validatedData['name'],
+            'description' => $validatedData['description'],
+            'code' => $validatedData['code'],
+            'destination_url' => $validatedData['destination_url'],
+            'ending_date' => $validatedData['ending_date'],
             'status' => $request->status,
-            'authentication' => isset($request->authentication) ? json_encode($request->authentication) : "No Auth",
-            'store' => $request->store,
+            'authentication' => isset($validatedData['authentication']) ? json_encode($validatedData['authentication']) : "No Auth",
+            'store' => $validatedData['store'],
         ]);
 
         return redirect()->back()->with('success', 'Coupon Created Successfully');
     }
+
 
     public function edit_coupon($id) {
         $coupons = Coupons::find($id);

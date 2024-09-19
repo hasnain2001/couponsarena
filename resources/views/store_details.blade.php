@@ -16,8 +16,10 @@ header("X-Robots-Tag:index, follow");
   <meta name="robots" content="index, follow">
   @else
   <link rel="canonical" href="https://budgetheaven.com/store/example">
+  <link rel="stylesheet" href="{{ asset('bootstrap-5.0.2-dist/css/bootstrap.min.css') }}">
   @endif
 
+  <link rel="shortcut icon" href="{{ asset('images/favicon.png')}}" type="image/x-icon">
 
 <link rel="stylesheet" href="{{ asset('cssfile/storedetail.css') }}">
 
@@ -29,9 +31,9 @@ header("X-Robots-Tag:index, follow");
 
 </head>
 <body>
-  <!-- Navbar -->
+  {{-- <!-- Navbar -->
   <x-nav/>
-  <!-- End Navbar -->
+  <!-- End Navbar --> --}}
 
   <a href="#" class="scroll-to-top text-white ">
     <i class="fas fa-chevron-up"></i>
@@ -157,7 +159,7 @@ header("X-Robots-Tag:index, follow");
     <br><br>
 </div>
 
-<x-footer/>
+{{-- <x-footer/> --}}
 
 
 <script>

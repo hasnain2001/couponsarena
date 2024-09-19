@@ -7,6 +7,8 @@ use Intervention\Image\Drivers\Imagick\Driver;
 use Illuminate\Http\Request;
 use App\Models\Categories;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 
 class CategoriesController extends Controller
 {
@@ -23,6 +25,7 @@ class CategoriesController extends Controller
         // Validation
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:categories,slug',
             'meta_tag' => 'nullable|string|max:255',
             'meta_keyword' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
@@ -62,6 +65,7 @@ class CategoriesController extends Controller
 
         Categories::create([
             'title' => $request->title,
+            'slug' => $request->slug,
             'meta_tag' => $request->meta_tag,
             'meta_keyword' => $request->meta_keyword,
             'meta_description' => $request->meta_description,
@@ -82,6 +86,12 @@ class CategoriesController extends Controller
         $categories = Categories::find($id);
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
+            'slug' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('categories')->ignore($categories->id),
+            ],
             'meta_tag' => 'nullable|string|max:255',
             'meta_keyword' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
@@ -122,6 +132,7 @@ class CategoriesController extends Controller
 
         $categories->update([
             'title' => $request->title,
+            'slug' => $request->slug,
             'meta_tag' => $request->meta_tag,
             'meta_keyword' => $request->meta_keyword,
             'meta_description' => $request->meta_description,

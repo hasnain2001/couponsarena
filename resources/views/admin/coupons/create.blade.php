@@ -46,7 +46,7 @@
                         </div>
                         <div class="form-group">
                             <label for="description">Description <span class="text-danger">*</span></label>
-                            <textarea name="description" id="description" class="form-control" cols="30" rows="5" style="resize: none;" required></textarea>
+                            <textarea name="description" id="description" class="form-control" cols="30" rows="5" style="resize: none;" ></textarea>
                         </div>
                        <div class="form-group">
                                     <label for="code">Code</label>
@@ -77,7 +77,7 @@
                             <input type="radio" name="status" id="enable" value="enable" required>&nbsp;<label for="enable">Enable</label>
                             <input type="radio" name="status" id="disable" value="disable" required>&nbsp;<label for="disable">Disable</label>
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="authentication">Authentication</label><br>
                             <input type="checkbox" name="authentication[]" id="never_expire" value="never_expire">&nbsp;<label for="never_expire">Never Expire</label><br>
                             <input type="checkbox" name="authentication[]" id="featured" value="featured">&nbsp;<label for="featured">Featured</label><br>
@@ -85,7 +85,7 @@
                             <input type="checkbox" name="authentication[]" id="coupon_code" value="coupon_code">&nbsp;<label for="coupon_code">Coupon Code</label><br>
                             <input type="checkbox" name="authentication[]" id="top_deals" value="top_deals">&nbsp;<label for="top_deals">Top Deals</label><br>
                             <input type="checkbox" name="authentication[]" id="valentine" value="valentine">&nbsp;<label for="valentine">Valentine</label>
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <label for="store">Store <span class="text-danger">*</span></label>
                             <select name="store" id="store" class="form-control" required>
