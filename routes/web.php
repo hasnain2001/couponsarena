@@ -1,6 +1,7 @@
     <?php
 
     use Illuminate\Support\Facades\Route;
+    use Illuminate\Support\Facades\App;
     use App\Http\Controllers\CategoriesController;
     use App\Http\Controllers\SearchController;
     use App\Http\Controllers\ContactController;
@@ -10,13 +11,13 @@
     use App\Http\Controllers\StoresController;
     use App\Http\Controllers\BlogController;
 
-    Route::get('/', function () {
-        return view('welcome');
-    });
+
 
     Route::get('/about', function () {
         return view('about');
     })->name('about');
+
+
     Route::get('/network', function () {
 
         return view('network');
@@ -48,6 +49,8 @@
         })->name('dashboard');
     });
     Route::controller(HomeController::class)->group(function () {
+     
+
         Route::get('/', 'index');
         Route::get('/stores', 'stores')->name('stores');
         Route::get('/store/{slug}', 'StoreDetails')->name('store_details');
@@ -127,6 +130,7 @@
     Route::controller(CouponsController::class)->prefix('admin')->group(function () {
         Route::get('/coupon', 'coupon')->name('admin.coupon');
         Route::get('/coupon/create', 'create_coupon')->name('admin.coupon.create');
+        Route::get('/coupon/create/code ', 'create_coupon_code')->name('admin.coupon.createcode');
         Route::post('/coupon/store', 'store_coupon')->name('admin.coupon.store');
         Route::get('/coupon/edit/{id}', 'edit_coupon')->name('admin.coupon.edit');
         Route::post('/coupon/update/{id}', 'update_coupon')->name('admin.coupon.update');

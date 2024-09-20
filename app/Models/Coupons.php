@@ -16,11 +16,14 @@ class Coupons extends Model
         'code',
         'sort',
         'destination_url',
+        'top_coupons',
         'ending_date',
         'status',
         'authentication',
         'store',
 
     ];
-
+    protected $casts = [
+        'ending_date' => 'datetime',
+    ];
 }

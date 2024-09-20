@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->longText('description')->nullable();
             $table->string('code')->nullable();
+            $table->integer('top_coupons')->nullable()->default(0);
             $table->integer('clicks')->nullable()->default(0);
             $table->integer('order')->default(0);
             $table->longText('destination_url');

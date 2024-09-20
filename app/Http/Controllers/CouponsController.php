@@ -85,31 +85,39 @@ public function update(Request $request)
         $stores = Stores::all();
         return view('admin.coupons.create', compact('stores'));
     }
+    public function create_coupon_code() {
+        $stores = Stores::all();
+        return view('admin.coupons.createcode', compact('stores'));
+    }
 
     public function store_coupon(Request $request) {
         // Define validation rules
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
-            'code' => 'nullable|string|max:100|unique:coupons,code',
+            'code' => 'nullable|string|max:100',
             'destination_url' => 'nullable|url',
             'ending_date' => 'nullable|date|after_or_equal:today',
             // 'status' => 'required|in:active,inactive',
             'authentication' => 'nullable|array',
             'authentication.*' => 'string',
             'store' => 'required|string|max:255',
+        'top_coupons' => 'nullable|integer|min:0',
+
+
         ]);
 
         // Create coupon using validated data
         Coupons::create([
             'name' => $validatedData['name'],
             'description' => $validatedData['description'],
-            'code' => $validatedData['code'],
+           'code' => $request->code,
             'destination_url' => $validatedData['destination_url'],
             'ending_date' => $validatedData['ending_date'],
             'status' => $request->status,
             'authentication' => isset($validatedData['authentication']) ? json_encode($validatedData['authentication']) : "No Auth",
             'store' => $validatedData['store'],
+            'top_coupons' => $request->top_coupons,
         ]);
 
         return redirect()->back()->with('success', 'Coupon Created Successfully');
@@ -134,6 +142,7 @@ public function update(Request $request)
             'status' => $request->status,
             'authentication' => isset($request->authentication) ? json_encode($request->authentication) : "No Auth",
             'store' => isset($request->store) ? $request->store : $coupons->store,
+            'top_coupons' => $request->top_coupons,
         ]);
 
         return redirect()->back()->with('success', 'Coupon Updated Successfully');

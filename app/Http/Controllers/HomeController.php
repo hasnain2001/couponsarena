@@ -25,8 +25,15 @@ return view('errors.404', compact('Coupons'));
 
     public function index() {
     $stores = Stores::latest()->paginate(24);
-    $topstores = Stores::where('top_store', '!=', 0)->orderByRaw('CAST(`top_store` AS SIGNED) desc')->paginate(10);
-    $topcoupon = Coupons::where('top_coupons', '!=', 0)->orderByRaw('CAST(`top_store` AS SIGNED) desc')->paginate(10);
+    $topstores = Stores::where('top_store', '!=', 0)->orderByRaw('CAST(`top_store` AS SIGNED) desc')->paginate(10) ;
+    $topcoupon = Coupons::where('top_coupons', '!=', 0)
+    ->whereNotNull('code') // Ensure the code column is not null
+    ->where('code', '!=', '') // Ensure the code column is not an empty string
+    ->orderByRaw('CAST(`top_coupons` AS SIGNED) desc')
+    ->limit(8) // Limit the results to 8
+    ->get();
+
+
     $categories = Categories::all();
     $blogs = Blog::latest()->paginate(10);
     $Coupons = Coupons::whereIn('id', function($query) {
@@ -34,7 +41,7 @@ return view('errors.404', compact('Coupons'));
               ->from('coupons')
               ->groupBy('store');
     })
-    ->whereNull('code') 
+    ->whereNull('code')
     ->orderBy('created_at', 'desc')
     ->paginate(8);
 

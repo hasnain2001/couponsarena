@@ -57,8 +57,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="ending_date">Ending Date <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" name="ending_date" id="ending_date" value="{{ $coupons->ending_date }}">
+                                    <input type="date" class="form-control" name="ending_date" id="ending_date"
+                                           value="{{ \Carbon\Carbon::parse($coupons->ending_date)->format('Y-m-d') }}">
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -70,6 +72,42 @@
                                     <input type="radio" name="status" id="enable" {{ $coupons->status == 'enable' ? 'checked' : '' }} value="enable">&nbsp;<label for="enable">Enable</label>
                                     <input type="radio" name="status" id="disable" {{ $coupons->status == 'disable' ? 'checked' : '' }} value="disable">&nbsp;<label for="disable">Disable</label>
                                 </div>
+                                <div class="form-group">
+                                    <label for="top_coupons">Top Coupon <span class="text-danger">*</span></label><br>
+
+                                    <input type="radio" name="top_coupons" id="top_0" value="0"
+                                        onclick="updateTopCoupons(0)"
+                                        {{ $coupons->top_coupons == 0 ? 'checked' : '' }}>
+                                    <label for="top_0">0</label>
+
+                                    <input type="radio" name="top_coupons" id="top_1" value="1"
+                                        onclick="updateTopCoupons(1)"
+                                        {{ $coupons->top_coupons == 1 ? 'checked' : '' }}>
+                                    <label for="top_1">1</label>
+
+                                    <input type="radio" name="top_coupons" id="top_2" value="2"
+                                        onclick="updateTopCoupons(2)"
+                                        {{ $coupons->top_coupons == 2 ? 'checked' : '' }}>
+                                    <label for="top_2">2</label>
+
+                                    <input type="radio" name="top_coupons" id="top_3" value="3"
+                                        onclick="updateTopCoupons(3)"
+                                        {{ $coupons->top_coupons == 3 ? 'checked' : '' }}>
+                                    <label for="top_3">3</label>
+
+                                    <input type="radio" name="top_coupons" id="top_4" value="4"
+                                        onclick="updateTopCoupons(4)"
+                                        {{ $coupons->top_coupons == 4 ? 'checked' : '' }}>
+                                    <label for="top_4">4</label>
+
+                                    <input type="radio" name="top_coupons" id="top_5" value="5"
+                                        onclick="updateTopCoupons(5)"
+                                        {{ $coupons->top_coupons == 5 ? 'checked' : '' }}>
+                                    <label for="top_5">5</label>
+                                </div>
+
+                                <input type="hidden" name="top_coupons_hidden" id="top_coupons_hidden">
+
                                 {{-- <div class="form-group">
                                     <label for="authentication">Authentication</label><br>
                                     <input type="checkbox" name="authentication[]" {{ (is_array($coupons->authentication) && in_array('never_expire', $coupons->authentication)) ? 'checked' : '' }} id="never_expire" value="never_expire">&nbsp;<label for="never_expire">Never Expire</label><br>
