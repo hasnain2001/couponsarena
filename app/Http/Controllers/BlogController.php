@@ -42,7 +42,7 @@ class BlogController extends Controller
         if ($request->hasFile('category_image')) {
             $image = $request->file('category_image');
             $imageName = time().'.'.$image->getClientOriginalExtension();
-            $imagePath = 'uploads/blog'.$imageName;
+            $imagePath = 'uploads/blog/'.$imageName;
             $image->move(public_path('uploads/blog'), $imageName);
 
             // Ensure that the file has been saved before trying to read it
@@ -100,11 +100,11 @@ foreach ($images as $img) {
         $image_type = $image_type_aux[1];
         $image_base64 = base64_decode(explode(',', $image_parts[1])[1]);
         $imageName = Str::random(10) . '.' . $image_type;
-        $path = public_path('uploads/blog') . $imageName;
+        $path = public_path('uploads/blog/') . $imageName;
         file_put_contents($path, $image_base64);
 
         // Update the src attribute in the image tag
-        $img->setAttribute('src', asset('uploads/blog' . $imageName));
+        $img->setAttribute('src', asset('uploads/blog/' . $imageName));
     }
 }
 
@@ -148,8 +148,8 @@ foreach ($images as $img) {
             // Save the new image
             $image = $request->file('category_image');
             $imageName = time().'.'.$image->getClientOriginalExtension();
-            $imagePath = 'uploads/'.$imageName;
-            $image->move(public_path('uploads'), $imageName);
+            $imagePath = 'uploads/blog/'.$imageName;
+            $image->move(public_path('uploads/blog'), $imageName);
 
             // Ensure that the file has been saved before trying to read it
             if (file_exists(public_path($imagePath))) {
