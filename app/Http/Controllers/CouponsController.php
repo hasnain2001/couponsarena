@@ -8,6 +8,33 @@ use App\Models\Stores;
 
 class CouponsController extends Controller
 {
+    public function coucreate_coupon_codepon(Request $request) {
+        if ($request->ajax()) {
+            $coupons = Coupons::get();
+            return response()->json($coupons);
+        }
+
+        // Get distinct store names only
+        $couponstore = Coupons::select('store')->distinct()->get();
+        $selectedCoupon = $request->input('store');
+
+        // Initialize query
+        $productsQuery = Coupons::query();
+
+        // Filter by selected store if any
+        if ($selectedCoupon) {
+            $productsQuery->where('store', $selectedCoupon);
+        }
+
+
+        $coupons = $productsQuery->orderBy('created_at', 'desc')
+        ->orderBy('store')
+        ->orderByRaw('CAST(`order` AS SIGNED) ASC')
+        ->limit(1000)
+        ->get();
+        return view('admin.coupons.index', compact('coupons','couponstore','selectedCoupon'));
+
+    }
     public function coupon(Request $request) {
         if ($request->ajax()) {
             $coupons = Coupons::get();
@@ -131,8 +158,10 @@ public function update(Request $request)
     }
 
     public function update_coupon(Request $request, $id) {
+        // Find the coupon by its ID
         $coupons = Coupons::find($id);
 
+        // Update the coupon details
         $coupons->update([
             'name' => $request->name,
             'description' => $request->description,
@@ -145,8 +174,19 @@ public function update(Request $request)
             'top_coupons' => $request->top_coupons,
         ]);
 
-        return redirect()->back()->with('success', 'Coupon Updated Successfully');
+        // Find the associated store based on the coupon's store attribute
+        $store = \App\Models\Stores::where('slug', $coupons->store)->first();
+
+        // Redirect to the store details page using the slug
+        if ($store) {
+            return redirect()->route('admin.store_details', ['slug' => $store->slug])
+                             ->with('success', 'Coupon Updated Successfully');
+        }
+
+        // Fallback if store not found
+        return redirect()->back()->with('error', 'Store not found.');
     }
+
 
     public function delete_coupon($id) {
         Coupons::find($id)->delete();

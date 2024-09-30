@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->longText('description')->nullable();
+            $table->string('top_store')->default(0)->nullable();
             $table->string('url');
             $table->string('destination_url');
             $table->string('category')->nullable();

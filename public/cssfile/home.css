@@ -99,36 +99,34 @@ body {
     height: 20px;
 }
 .get {
-    background-color: purple;
-    border-color: purple;
+    background-color: rgb(12, 64, 236);
+    border-color: rgb(2, 0, 128);
     border-radius: 5px;
 
 }
 .get:hover {
-    border: 2px solid purple;
-    color: purple;
+    border: 2px solid rgb(36, 23, 221);
+    color: rgb(27, 23, 209);
 }
 .social-icons a {
     color: #fff;
     margin-left: 10px;
     font-size: 25px;
 }
-nav {
-    background-color: #5d1982;
-}
+
 .getcode {
     text-align: center;
     position: relative;
     bottom: 0;
     left: 0;
     z-index: 1;
-    background-color: #681668;
-    border: 1px solid purple;
+    background-color: #100eb1;
+    border: 1px solid rgb(20, 23, 187);
     border-radius: 90px 30px;
     padding: 10px 20px;
 }
 .getcode:hover {
     background-color: #fff7f7;
-    border: 2px solid purple;
+    border: 2px solid rgb(48, 27, 167);
     color: #000;
 }

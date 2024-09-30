@@ -48,11 +48,12 @@
                                     <label for="slug">Url/Slug<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="slug" id="slug" required>
                                 </div>
-                                {{-- <div class="form-group">
-                                    <label for="description">Description</label>
-                                    <textarea name="description" id="description" class="form-control" cols="30" rows="5" style="resize: none;" required></textarea>
-                                </div>
                                 <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <textarea name="description" id="description" class="form-control" cols="30" rows="3" style="resize: none;" required></textarea>
+                                </div>
+
+                                {{-- <div class="form-group">
                                     <label for="url">URL <span class="text-danger">*</span></label>
                                     <input type="url" class="form-control" name="url" id="url" required>
                                 </div> --}}
@@ -64,10 +65,10 @@
 
                                    <div class="form-group">
     <label for="category">Category <span class="text-danger">*</span></label>
-    <select name="category" id="category" class="form-control">
+    <select name="category" id="category" class="form-control" required>
         <option value="" disabled selected>--Select Category--</option>
         @foreach($categories as $category)
-            <option value="{{ $category->title }}">{{ $category->title }}</option>
+            <option value="{{ $category->slug }}">{{ $category->slug }}</option>
         @endforeach
     </select>
 </div>
@@ -95,6 +96,11 @@
                     <div class="col-6">
                         <div class="card">
                             <div class="card-body">
+                                {{-- <div class="form-group">
+                                    <label for="name">Top Store <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" name="top_store" id="top_store" min="0" value="0">
+
+                                </div> --}}
                            <div class="form-group">
     <label for="status">Status <span class="text-danger">*</span></label><br>
     <input type="radio" name="status" id="enable" value="enable" required>&nbsp;<label for="enable">Enable</label>
@@ -120,6 +126,22 @@
                                 </div>
                                 <!-- Placeholder for displaying selected image -->
 <div id="imagePreview"></div>
+<div class="col-12">
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a href="{{ route('admin.store') }}" class="btn btn-secondary">Cancel</a>
+    <button type="reset" class="btn btn-light"> Reset</button>
+
+</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
 
 <script>
     // JavaScript to preview the selected image
@@ -142,16 +164,4 @@
     });
 </script>
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                        <a href="{{ route('admin.store') }}" class="btn btn-secondary">Cancel</a>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </section>
-</div>
 @endsection

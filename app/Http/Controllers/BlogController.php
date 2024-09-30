@@ -47,23 +47,23 @@ class BlogController extends Controller
 
             // Ensure that the file has been saved before trying to read it
             if (file_exists(public_path($imagePath))) {
-                // Use Imagick to create a new image instance
-                $image = ImageManager::imagick()->read(public_path($imagePath));
+                // // Use Imagick to create a new image instance
+                // $image = ImageManager::imagick()->read(public_path($imagePath));
 
-                // Resize the image to 300x200 pixels or maintain aspect ratio with height 200px
-                $image->resize(300, 200);
+                // // Resize the image to 300x200 pixels or maintain aspect ratio with height 200px
+                // $image->resize(300, 200);
 
-                // Optionally, maintain the aspect ratio while resizing the height to 200 pixels
-                $image->resize(null, 200, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
+                // // Optionally, maintain the aspect ratio while resizing the height to 200 pixels
+                // $image->resize(null, 200, function ($constraint) {
+                //     $constraint->aspectRatio();
+                // });
 
                 // Optimize the image (optional)
                 $optimizer = OptimizerChainFactory::create();
                 $optimizer->optimize(public_path($imagePath));
 
-                // Save the resized and optimized image
-                $image->save(public_path($imagePath));
+                // // Save the resized and optimized image
+                // $image->save(public_path($imagePath));
             }
         } else {
             $imagePath = null;

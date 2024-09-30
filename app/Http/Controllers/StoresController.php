@@ -80,23 +80,23 @@ class StoresController extends Controller
 
             // Ensure that the file has been saved before trying to read it
             if (file_exists($filePath)) {
-                // Use Imagick to create a new image instance
-                $image = ImageManager::imagick()->read($filePath);
+                // // Use Imagick to create a new image instance
+                // $image = ImageManager::imagick()->read($filePath);
 
-                // Resize the image to 300x200 pixels
-                $image->resize(300, 200);
+                // // Resize the image to 300x200 pixels
+                // $image->resize(300, 200);
 
-                // Optionally, resize only the height to 200 pixels
-                $image->resize(null, 200, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
+                // // Optionally, resize only the height to 200 pixels
+                // $image->resize(null, 200, function ($constraint) {
+                //     $constraint->aspectRatio();
+                // });
 
                 // Optimize the image
                 $optimizer = OptimizerChainFactory::create();
                 $optimizer->optimize($filePath);
 
                 // Save the resized and optimized image
-                $image->save($filePath);
+                // $image->save($filePath);
             }
             else{
                 return redirect()->back()->with('not found');
@@ -174,23 +174,23 @@ class StoresController extends Controller
 
             // Ensure that the file has been saved before trying to read it
             if (file_exists($filePath)) {
-                // Use Imagick to create a new image instance
-                $image = ImageManager::imagick()->read($filePath);
+                // // Use Imagick to create a new image instance
+                // $image = ImageManager::imagick()->read($filePath);
 
-                // Resize the image to 300x200 pixels
-                $image->resize(300, 200);
+                // // Resize the image to 300x200 pixels
+                // $image->resize(300, 200);
 
-                // Optionally, resize only the height to 200 pixels
-                $image->resize(null, 200, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
+                // // Optionally, resize only the height to 200 pixels
+                // $image->resize(null, 200, function ($constraint) {
+                //     $constraint->aspectRatio();
+                // });
 
                 // Optimize the image
                 $optimizer = OptimizerChainFactory::create();
                 $optimizer->optimize($filePath);
 
-                // Save the resized and optimized image
-                $image->save($filePath);
+                // // Save the resized and optimized image
+                // $image->save($filePath);
             }
         }
         // Update the store record
@@ -216,9 +216,24 @@ class StoresController extends Controller
         return redirect()->back()->with('success', 'Store Updated Successfully');
     }
     public function delete_store($id) {
-        Stores::find($id)->delete();
-        return redirect()->back()->with('success', 'Store Deleted Successfully');
+        // Find the store by id
+        $store = Stores::find($id);
+
+        // Check if store exists
+        if ($store) {
+            // Find and delete all coupons that have the same store name
+            Coupons::where('store', $store->name)->delete();
+
+            // Delete the store
+            $store->delete();
+
+            return redirect()->back()->with('success', 'Store and associated coupons deleted successfully');
+        }
+
+        return redirect()->back()->with('error', 'Store not found');
     }
+
+
 public function deleteSelected(Request $request)
     {
         $storeIds = $request->input('selected_stores');

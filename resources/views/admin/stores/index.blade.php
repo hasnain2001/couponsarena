@@ -85,7 +85,7 @@
                             <a href="{{ route('admin.store.edit', $store->id) }}" class="btn btn-info btn-sm">Edit</a>
                             <a href="{{ route('admin.store.delete', $store->id) }}" onclick="return confirm('Are you sure you want to delete this!')" class="btn btn-danger btn-sm">Delete</a>
                         </td>
-                        <td><a class="btn btn-success text-white btn-sm" href="{{  route('admin.store_details', ['slug' => Str::slug($store->slug)]) }}" target="_blank" rel="noopener noreferrer">edit coupon</a>
+                        <td><a class="btn btn-success text-white btn-sm" href="{{  route('admin.store_details', ['slug' => Str::slug($store->slug)]) }}"  rel="noopener noreferrer">edit coupon</a>
                         </td>
                     </tr>
                 @endforeach

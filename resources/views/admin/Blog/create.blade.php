@@ -42,19 +42,19 @@
                             <input type="text" class="form-control" name="slug" id="title" required />
                         </div>
                         <div class="form-group">
-                            <label for="blog_image">Blog Image</label>
-                            <input type="file" class="form-control" name="blog_image" id="blog_image" required />
+                            <label for="category_image">Blog Image</label>
+                            <input type="file" class="form-control" name="category_image" id="blog_image" required />
                         </div>
 
                         <!-- Preview container -->
                         <div id="imagePreview" style="margin-top: 10px;"></div>
 
                         <div class="form-group">
-                            <label for="category_image">Main Content</label>
+                            <label for="">Main Content</label>
 
 
                              <div id="container">
-                                 <textarea id="editor" name="content">
+                                 <textarea required id="editor" name="content" >
 
                                  </textarea>
 

@@ -19,14 +19,11 @@
 
 
     Route::get('/network', function () {
-
         return view('network');
     })->name('network');
 
 
-    Route::get('/contact', function () {
-        return view('contact');
-    })->name('contact');
+    Route::get('/contact', function () { return view('contact'); })->name('contact');
 
     Route::get('/terms-and-condition', function () {
         return view('terms_and_condition');
@@ -34,9 +31,15 @@
 
 
     Route::get('/privacy', function () {
-
         return view('privacy');
     })->name('privacy');
+
+    Route::get('/cookies', function () {
+        return view('cookies');
+    })->name('cookies');
+    Route::get('/imprint', function () {
+        return view('imprint');
+    })->name('imprint');
 
 
     Route::middleware([
@@ -49,12 +52,10 @@
         })->name('dashboard');
     });
     Route::controller(HomeController::class)->group(function () {
-     
-
         Route::get('/', 'index');
         Route::get('/stores', 'stores')->name('stores');
         Route::get('/store/{slug}', 'StoreDetails')->name('store_details');
-        Route::get('/category/{title}', 'viewcategory')->name('related_category');
+        Route::get('/category/{slug}', 'viewcategory')->name('related_category');
         Route::get('/categories', 'categories')->name('categories');
     Route::get('/blog', 'blog_home')->name('blog');
     Route::get('/blog/{slug}',  'blog_show')->name('blog-details');
@@ -68,6 +69,7 @@
     Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
     Route::post('/coupons', [CouponsController::class, ''])->name('coupons.updateRanking');
     Route::get('/search', [SearchController::class, 'searchResults'])->name('search');
+
     });
 
     ini_set('memory_limit', '1024M');
@@ -110,7 +112,7 @@
         Route::get('/category/edit/{id}', 'edit_category')->name('admin.category.edit');
         Route::post('/category/update/{id}', 'update_category')->name('admin.category.update');
         Route::get('/category/delete/{id}', 'delete_category')->name('admin.category.delete');
-    Route::post('/category/deleteSelected', 'deleteSelected')->name('admin.category.deleteSelected');
+         Route::post('/category/deleteSelected', 'deleteSelected')->name('admin.category.deleteSelected');
     });
 
 
@@ -130,7 +132,7 @@
     Route::controller(CouponsController::class)->prefix('admin')->group(function () {
         Route::get('/coupon', 'coupon')->name('admin.coupon');
         Route::get('/coupon/create', 'create_coupon')->name('admin.coupon.create');
-        Route::get('/coupon/create/code ', 'create_coupon_code')->name('admin.coupon.createcode');
+        Route::get('/coupon/create/code', 'create_coupon_code')->name('admin.coupon.code');
         Route::post('/coupon/store', 'store_coupon')->name('admin.coupon.store');
         Route::get('/coupon/edit/{id}', 'edit_coupon')->name('admin.coupon.edit');
         Route::post('/coupon/update/{id}', 'update_coupon')->name('admin.coupon.update');

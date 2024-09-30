@@ -1,6 +1,6 @@
 @extends('admin.master')
 @section('title')
-    Create
+    Create | Coupons
 @endsection
 @section('main-content')
 <style>
@@ -38,7 +38,7 @@
         @csrf
         <select class="form-select" aria-label="Default select example" onchange="navigateToPage(this)">
             <option selected>Select Deal/Code</option>
-            <option value="{{ route('admin.coupon.createcode') }}">Code</option>
+            <option value="{{ route('admin.coupon.code') }}">Code</option>
             <option value="{{ route('admin.coupon.create') }}">Deal</option>
         </select>
 

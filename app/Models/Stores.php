@@ -17,6 +17,7 @@ class Stores extends Model
         'url',
         'destination_url',
         'category',
+        'top_store',
         'title',
         'meta_tag',
         'meta_keyword',
@@ -32,5 +33,9 @@ public function category()
 {
     return $this->belongsTo(Categories::class);
 }
+public function coupons() {
+    return $this->hasMany(Coupons::class);
+}
+
 
 }

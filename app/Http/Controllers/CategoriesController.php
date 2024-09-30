@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 
+
 class CategoriesController extends Controller
 {
     public function category() {
@@ -25,7 +26,7 @@ class CategoriesController extends Controller
         // Validation
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:categories,slug',
+         'slug' => 'required|string|max:255|unique:categories,slug',
             'meta_tag' => 'nullable|string|max:255',
             'meta_keyword' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
@@ -38,6 +39,8 @@ class CategoriesController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+
+    // $slug = Str::slug($request->slug ?? $categories->title);
         if ($request->hasFile('category_image')) {
             $file = $request->file('category_image');
             $CategoryImage = md5($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
@@ -47,15 +50,15 @@ class CategoriesController extends Controller
             if (file_exists($filePath)) {
                 // Use Intervention Image to create a new image instance
 
-                $image = ImageManager::imagick()->read($filePath);
+                // $image = ImageManager::imagick()->read($filePath);
 
-                // Resize the image to 300x200 pixels
-                $image->resize(300, 200, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
+                // // Resize the image to 300x200 pixels
+                // $image->resize(300, 200, function ($constraint) {
+                //     $constraint->aspectRatio();
+                // });
 
-                // Save the resized image
-                $image->save($filePath);
+                // // Save the resized image
+                // $image->save($filePath);
 
                 // Optimize the image
                 $optimizer = OptimizerChainFactory::create();
@@ -77,21 +80,20 @@ class CategoriesController extends Controller
         return redirect()->back()->with('success', 'Category Created Successfully');
     }
 
+
     public function edit_category($id) {
-        $categories = Categories::find($id);
-        return view('admin.categories.edit', compact('categories'));
+        $category = Categories::find($id);
+
+        return view('admin.categories.edit', compact('category'));
     }
+
+
 
     public function update_category(Request $request, $id) {
         $categories = Categories::find($id);
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
-            'slug' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('categories')->ignore($categories->id),
-            ],
+            'slug' => ['required','string','max:255',Rule::unique('categories')->ignore($categories->id),],
             'meta_tag' => 'nullable|string|max:255',
             'meta_keyword' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
@@ -102,6 +104,11 @@ class CategoriesController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+//  // Auto-generate slug only if no slug is provided in the request
+// $slug = $request->has('slug') && !empty($request->slug)
+// ? Str::slug($request->slug)
+// : $categories->slug;
+
 
         $CategoryImage = $categories->category_image;
         if (request()->File('category_image'))

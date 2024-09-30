@@ -44,7 +44,7 @@
                     <th scope="col">#</th>
                     <th>Category Name</th>
                     <th>Category Image</th>
-                    <th>Top Category</th>
+
                     <th>Status</th>
                     <th>Added</th>
                     <th>Action</th>
@@ -57,18 +57,18 @@
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $category->title }}</td>
                         <td><img class="btn-circle" src="{{ asset('uploads/categories/' . $category->category_image) }}" style="max-width: 100px;"></td>
-                        <td>
-                            @if ($category->authentication == "No Auth")
-                                <i class="fa fa-fw fa-times-circle"></i>
-                            @else
-                                <i class="fa fa-fw fa-check-circle"></i>
-                            @endif
-                        </td>
+                            {{-- <td>
+                                @if ($category->authentication == "No Auth")
+                                    <i class="fa fa-fw fa-times-circle"></i>
+                                @else
+                                    <i class="fa fa-fw fa-check-circle"></i>
+                                @endif
+                            </td> --}}
                         <td>
                             @if ($category->status == "disable")
-                                <i class="fa fa-fw fa-times-circle"></i>
+                                <i class="fa fa-fw fa-times-circle text-danger"></i>
                             @else
-                                <i class="fa fa-fw fa-check-circle"></i>
+                                <i class="fa fa-fw fa-check-circle text-success"></i>
                             @endif
                         </td>
                         <td>{{ $category->created_at }}</td>
@@ -85,7 +85,7 @@
                     <th scope="col">#</th>
                     <th>Category Name</th>
                     <th>Category Image</th>
-                    <th>Top Category</th>
+                    {{-- <th>Top Category</th> --}}
                     <th>Status</th>
                     <th>Added</th>
                     <th>Action</th>

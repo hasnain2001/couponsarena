@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>search</title>
- <link rel="icon" href="{{ asset('images/icons.png') }}" type="image/x-icon">
+ <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
        <!-- Fonts -->
        <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
@@ -17,9 +17,17 @@
      </style>
 </head>
 <body class="body">
-<x-nav/>
+@include('components.navbar')
 
 <div class="container">
+    <nav aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 0.25rem; padding: 10px;">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/" class="text-decoration-none text-primary" style="font-weight: 500;">Home</a>
+            </li>
+<li class="breadcrumb-item active" aria-current="page" style="font-weight: 600; color: #6c757d;">Search</li>
+        </ol>
+    </nav>
     <!-- Display Stores -->
     <h3 class="pointer">Search Results</h3>
     <div class="main_content">
@@ -36,7 +44,7 @@
                                 <a href="{{ $store->slug ? route('store_details', ['slug' => Str::slug($store->slug)]) : 'javascript:;' }}" class="anchor-search">
                                     <div class="card-body d-flex flex-column">
                                         @if ($store->store_image)
-                                            <img src="{{ asset('uploads/store/' . $store->store_image) }}" class="card-img-top" alt="">
+                                            <img src="{{ asset('uploads/stores/' . $store->store_image) }}" class="" alt="">
                                         @else
                                             <img src="{{ asset('front/assets/images/no-image-found.jpg') }}" class="card-img-top" alt="">
                                         @endif
@@ -53,7 +61,7 @@
 </div>
 
 <br><br>
- <x-footer/>
+@include('components.footer')
 <script>
         document.addEventListener('copy', function(e) {
     e.preventDefault();

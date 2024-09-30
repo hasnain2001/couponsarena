@@ -6,17 +6,17 @@ header("X-Robots-Tag:index, follow");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Categories  - Best Deals and Discounts |BudgetHeaven</title>
-     <meta name="description" content="Find the best deals, discounts, and coupons on BudgetHeaven. Save money on your favorite products from top brands.">
+        <title>Categories  - Best Deals and Discounts |CouponsArena</title>
+     <meta name="description" content="Find the best deals, discounts, and coupons on CouponsArena. Save money on your favorite products from top brands.">
 
  <meta name="keywords" content="deals, discounts, coupons, savings, affiliate marketing">
 
   <meta name="author" content="John Doe">
  <meta name="robots" content="index, follow">
 
-<link rel="canonical" href="https://budgetheaven.com/categories">
+<link rel="canonical" href="https://CouponsArena.com/categories">
 <!-- Fonts -->
-    
+
      <link rel="shortcut icon" href="{{ asset('images/favicon.png')}}" type="image/x-icon">
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
@@ -35,6 +35,14 @@ header("X-Robots-Tag:index, follow");
 
      <div class="main_content">
         <div class="container">
+            <nav aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 0.25rem; padding: 10px;">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item">
+                        <a href="/" class="text-decoration-none text-primary" style="font-weight: 500;">Home</a>
+                    </li>
+   <li class="breadcrumb-item active" aria-current="page" style="font-weight: 600; color: #6c757d;">categories</li>
+                </ol>
+            </nav>
           <div class="row mt-3">
             <h1 class="text-center display-4 mb-4">Our Categories</h1>
 
@@ -44,7 +52,13 @@ header("X-Robots-Tag:index, follow");
               <div class="col">
                 <div class="card shadow-sm h-100 overflow-hidden border-0">
                   <!-- Category link -->
-                  <a href="{{ url('category/'. Str::slug($category->title)) }}" class="text-decoration-none">
+                  @php
+
+                  $storeurl = $category->slug
+                  ? route('related_category', ['slug' => Str::slug($category->slug)])
+                  : '#';
+                  @endphp
+                  <a href="{{ $storeurl }}" class="text-decoration-none">
                     @if ($category->category_image)
                     <img src="{{ asset('uploads/categories/' . $category->category_image) }}" class="card-img-top" alt="{{ $category->title }} Image">
                     @else
@@ -57,7 +71,7 @@ header("X-Robots-Tag:index, follow");
 
                   <!-- Card body -->
                   <div class="card-body">
-                    <a href="{{ route('related_category', ['title' => Str::slug($category->title)]) }}" class="btn text-primary">
+                    <a href="{{ $storeurl}}" class="btn text-primary">
                       <h5 class="text-dark text-left">{{ $category->title }}</h5>
                     </a>
                   </div>

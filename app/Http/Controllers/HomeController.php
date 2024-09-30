@@ -24,22 +24,20 @@ return view('errors.404', compact('Coupons'));
 }
 
     public function index() {
-    $stores = Stores::latest()->paginate(24);
+
+    $stores = Stores::latest()->paginate(21);
     $topstores = Stores::where('top_store', '!=', 0)->orderByRaw('CAST(`top_store` AS SIGNED) desc')->paginate(10) ;
     $topcoupon = Coupons::where('top_coupons', '!=', 0)
-    ->whereNotNull('code') // Ensure the code column is not null
-    ->where('code', '!=', '') // Ensure the code column is not an empty string
+    ->whereNotNull('code')
+    ->where('code', '!=', '')
     ->orderByRaw('CAST(`top_coupons` AS SIGNED) desc')
-    ->limit(8) // Limit the results to 8
-    ->get();
-
-
+    ->limit(8) ->get();
     $categories = Categories::all();
     $blogs = Blog::latest()->paginate(10);
     $Coupons = Coupons::whereIn('id', function($query) {
-        $query->select(DB::raw('MAX(id)'))
-              ->from('coupons')
-              ->groupBy('store');
+    $query->select(DB::raw('MAX(id)'))
+    ->from('coupons')
+    ->groupBy('store');
     })
     ->whereNull('code')
     ->orderBy('created_at', 'desc')
@@ -48,26 +46,19 @@ return view('errors.404', compact('Coupons'));
     return view('welcome', compact('stores', 'categories', 'blogs', 'Coupons','topstores','topcoupon'));
     }
 
+
 public function topStores(Request $request)
 {
-$topstores = Stores::latest()->paginate(30); // Assuming your store model is named Store
-
+$topstores = Stores::latest()->paginate(30);
 return view('home', compact('topstores'));
 }
 
 public function search(Request $request) {
 $query = $request->input('query');
-
-// Check if there is a store with a matching name
 $store = Stores::where('name', $query)->first();
-
 if ($store) {
-// If a store is found, redirect to the store details page
 return redirect()->route('store.details', ['name' => $store->name]);
 }
-
-
-// If no store or category is found, display the regular search results page
 $stores = Stores::where('name', 'like', "$query%")->latest()->get();
 
 return view('search_results', compact('stores'));
@@ -106,57 +97,69 @@ if ($letter) {
 $storesQuery->where('name', 'like', $letter.'%');
 }
 
+$categories = Categories::all();
 $stores = $storesQuery->orderBy('name')->paginate(100);
 
-return view('stores', compact('stores'));
+return view('stores', compact('stores','categories'));
 }
 
-public function StoreDetails($name) {
-$slug = Str::slug($name);
-$title = ucwords(str_replace('-', ' ', $slug));
-$store = Stores::where('slug', $title)->first();
-if (!$store) {
-return redirect('404');
-}
-$coupons = Coupons::where('store', $title)->orderByRaw('CAST(`order` AS SIGNED) ASC')->get();
-$relatedStores = Stores::where('category', $store->category)->where('id', '!=', $store->id)->get();
 
-return view('store_details', compact('store', 'coupons', 'relatedStores'));
-}
+public function StoreDetails($name, Request $request) {
+    $slug = Str::slug($name);
+    $title = ucwords(str_replace('-', ' ', $slug));
+    $store = Stores::where('slug', $title)->first();
+    if (!$store) {
+        return redirect('404');
+        }
 
+    // Sort coupons based on query parameter
+    $sort = $request->query('sort', 'all');
+
+    if ($sort === 'codes') {
+        $coupons = Coupons::where('store', $title)->whereNotNull('code')->orderByRaw('CAST(`order` AS SIGNED) ASC')->get();
+    } elseif ($sort === 'deals') {
+        $coupons = Coupons::where('store', $title)->whereNull('code')->orderByRaw('CAST(`order` AS SIGNED) ASC')->get();
+    } else {
+        $coupons = Coupons::where('store', $title)->orderByRaw('CAST(`order` AS SIGNED) ASC')->get();
+    }
+
+    $codeCount = Coupons::where('store', $title)->whereNotNull('code')->count();
+    $dealCount = Coupons::where('store', $title)->whereNull('code')->count();
+
+    $blogs = Blog::all();
+
+    // Fetch related stores
+    $relatedStores = Stores::where('category', $store->category)
+                           ->where('id', '!=', $store->id)
+                           ->get();
+
+    return view('store_details', compact('store', 'coupons', 'relatedStores', 'blogs', 'codeCount', 'dealCount'));
+}
 
 public function categories() {
-// Retrieve all categories
 $categories = Categories::all();
-
-
 $stores = Stores::paginate(5)->groupBy('category')->take(5);
-
-
-// Pass the categories and stores to the view
 return view('categories', compact('categories', 'stores'));
 }
 
 
-
-
 public function viewcategory($name) {
-$slug = Str::slug($name);
-$title = ucwords(str_replace('-', ' ', $slug));
+    $slug = Str::slug($name);
+    $title = ucwords(str_replace('-', ' ', $slug));
 
-// Fetch the store
-$category = Categories::where('title', $title)->first();
+    // Fetch the store
+    $category = Categories::where('slug', $title)->first();
 
 
-if (!$category) {
+    if (!$category) {
 return redirect('404');
-}
+    }
 
-// Fetch related coupons and stores
-$stores = Stores::where('category', $title)->get();
+    // Fetch related coupons and stores
+    $stores = Stores::where('category', $title)->get();
 
 
-return view('related_category', compact('category', 'stores' ));
+    return view('related_category', compact('category', 'stores' ));
 }
 
 }

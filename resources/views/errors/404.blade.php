@@ -13,16 +13,15 @@
     </style>
 </head>
 <body>
-    <nav>
-        @include('components.navbar')
-    </nav>
+   <x-navbar/>
     <br>
     <div class="container py-6">
     <div class="error-container">
         <h1>404</h1>
         <h2>Oops! The page you're looking for isn't here.</h2>
         <p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
-        <a href="{{ url('/') }}" class="get">Go to Homepage</a>
+        <a href="javascript:void(0);" class=" btn btn-dark " onclick="history.back();">Go to Previous Page</a>
+
     </div>
 
 <!-- Coupon Cards Section -->
@@ -64,7 +63,7 @@
                 Get Code
               </button>
             @else
-              <a href="{{ $coupon->destination_url }}" class="get"
+              <a href="{{ $coupon->destination_url }}" class="btn btn-primary"
                  target="_blank">Get Deal</a>
             @endif
 @if ($coupon->slug)
@@ -105,7 +104,7 @@
 
     <footer>
         @include('components.footer')
-    </footer> 
+    </footer>
     <script src="{{ asset('js/home.js') }}"></script>
 </body>
 </html>

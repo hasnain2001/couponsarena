@@ -8,24 +8,33 @@ header("X-Robots-Tag:index, follow");
 
    <!-- Your custom meta tags go here -->
    <title>{!! $blog->meta_title !!}</title>
-    <link rel="canonical" href="https://budgetheaven.com/blog-details/{{ Str::slug($blog->title) }}">
+    <link rel="canonical" href="https://CouponsArena.com/blog-details/{{ Str::slug($blog->title) }}">
         <meta name="description" content="{!! $blog->meta_description !!}">
 
  <meta name="keywords" content="{!! $blog->meta_keyword !!}">
  <meta http-equiv="Content-Type" content="">
  <meta name="robots" content="index, follow">
 
- <link rel="icon" href="{{ asset('images/icons.png') }}" type="image/x-icon">
+ <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
  <!----Custom Css ------>
  <link rel="stylesheet" href="{{ asset('cssfile/blog-detail.css') }}">
 
  </head>
 <body class="body">
-<x-nav/>
+<x-navbar/>
 <br>
 <!-- Blog posts -->
 <br>
 <div class="container">
+    <nav aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 0.25rem; padding: 10px;">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/" class="text-decoration-none text-primary" style="font-weight: 500;">Home</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page" style="font-weight: 600; color: #6c757d;">{{ $blog->title }}</li>
+        </ol>
+    </nav>
+
   <div class="row">
     <!-- Blog Post Column -->
  <div class="col-md-8">
@@ -43,13 +52,13 @@ header("X-Robots-Tag:index, follow");
     <div class="col-md-4">
       <aside class="sidebar p-3 bg-light">
         <!-- Sidebar Title -->
-        <h2 class="bold text-dark mb-3">Top Stores</h2>
+        <h2 class="bold text-dark mb-3">Latest Stores</h2>
         <!-- Store Listings -->
         <div class="row gx-2 gy-2">
           @foreach ($chunks as $store)
             <div class="col-md-6 col-sm-4 col-6">
                  <!-- Store Image -->
-                <img src="{{ asset('uploads/store/' . $store->store_image) }}" alt="{{ $store->name }}" class="mb-2 rounded-circle shadow" style="width: 100px; height: 100px; object-fit: cover;">
+                <img src="{{ asset('uploads/stores/' . $store->store_image) }}" alt="{{ $store->name }}" class="mb-2 rounded-circle shadow" style="width: 100px; height: 100px; object-fit: cover;">
                 <!-- Store Name -->
                 <p class="text-capitalize">{{ $store->name }}</p>
                 @if ($store->slug)

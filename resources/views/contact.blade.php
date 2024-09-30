@@ -6,29 +6,37 @@ header("X-Robots-Tag:index, follow");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      <title>Contact - Best Deals and Discounts |BudgetHeaven</title>
-     <meta name="description" content="Find the best deals, discounts, and coupons on BudgetHeaven. Save money on your favorite products from top brands.">
+      <title>Contact - Best Deals and Discounts |CouponsArena</title>
+     <meta name="description" content="Find the best deals, discounts, and coupons on CouponsArena. Save money on your favorite products from top brands.">
 
  <meta name="keywords" content="deals, discounts, coupons, savings, affiliate marketing">
 
   <meta name="author" content="John Doe">
  <meta name="robots" content="index, follow">
-    <link rel="icon" href="{{ asset('images/icons.png') }}" type="image/x-icon">
-<link rel="canonical" href="https://budgetheaven.com/about">
+    <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
+<link rel="canonical" href="https://CouponsArena.com/about">
     <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-      
+
 
 
 
 </head>
 <body>
-<x-nav/>
+<x-navbar/>
 <section class="contact-us py-5">
   <div class="container">
+    <nav aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 0.25rem; padding: 10px;">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/" class="text-decoration-none text-primary" style="font-weight: 500;">Home</a>
+            </li>
+<li class="breadcrumb-item active" aria-current="page" style="font-weight: 600; color: #6c757d;">Contact</li>
+        </ol>
+    </nav>
     <div class="row">
       <div class="col-md-6 mb-4 mb-md-0">
-        <img src="images/contactus.jpg" alt="Company Image" class="img-fluid rounded shadow-sm" style="height:400px; width:100%;">
+        <img src="{{asset('images/contact.png')}}" alt="Company Image" class="img-fluid rounded shadow-sm" style="height:400px; width:100%;">
       </div>
       <div class="col-md-6">
         <h1 class="display-4 text-center mb-4">Contact Us</h1>

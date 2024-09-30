@@ -49,27 +49,29 @@
                                 <div class="form-group">
                                     <label for="slug">Store Url/Slug <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="slug" id="slug" value="{{ $stores->slug }}" placeholder="define your store  url/slug " required>
+                                    <span class="text-danger">only text input </span>
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea name="description" id="description" class="form-control" cols="30" rows="5" style="resize: none;" required>{{ $stores->description }}</textarea>
+                                    <textarea name="description" id="description" class="form-control" cols="30" rows="5" style="resize: none;" >{{ $stores->description }}</textarea>
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="url">URL <span class="text-danger">*</span></label>
                                     <input type="url" class="form-control" name="url" id="url" value="{{ $stores->url }}" required>
-                                </div>
+                                </div> --}}
                                 <div class="form-group">
                                     <label for="destination_url">Destination URL <span class="text-danger">*</span></label>
                                     <input  type="url" class="form-control" name="destination_url" id="destination_url" value="{{ $stores->destination_url }} " required>
                                 </div>
                                 <div class="form-group">
                                     <label for="category">Category <span class="text-danger">*</span></label>
-                                    <select name="category" id="category" class="form-control">
-                                        <option value="" disabled selected>{{ $stores->category }}</option>
+                                    <select name="category" id="category" class="form-control" >
+                                        <option value="" disabled selected>Select a category</option>
                                         @foreach($categories as $category)
-                                            <option value="{{ $category->title }}">{{ $category->title }}</option>
+                                            <option value="{{ $category->slug }}">{{ $category->slug }}</option>
                                         @endforeach
                                     </select>
+
                                 </div>
                              <div class="form-group">
     <label for="name">Meta Title<span class="text-danger">*</span></label>
@@ -103,10 +105,10 @@
                     <div class="col-6">
                         <div class="card">
                             <div class="card-body">
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="name">Top Store <span class="text-danger">*</span></label>
                                     <input type="number" class="form-control" name="top_store" id="top_store" value="{{ $stores->top_store }}" min="0"  >
-                                </div>
+                                </div> --}}
                                 <div class="form-group">
                                     <label for="status">Status <span class="text-danger">*</span></label><br>
                                     <input type="radio" name="status" id="enable" {{ $stores->status == 'enable' ? 'checked' : '' }} value="enable">&nbsp;<label for="enable">Enable</label>

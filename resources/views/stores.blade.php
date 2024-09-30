@@ -6,15 +6,15 @@ header("X-Robots-Tag:index, follow");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BudgetHeaven - Best Deals and Discounts |BudgetHeaven</title>
+    <title>CouponsArena - Best Deals and Discounts |CouponsArena</title>
      <meta name="keywords" content="deals, discounts, coupons, savings, affiliate marketing">
 
        <meta name="author" content="John Doe">
  <meta name="robots" content="index, follow">
      <link rel="icon" href="{{ asset('images/icons.png') }}" type="image/x-icon">
     <!-- Styles -->
-     <meta name="description" content="Find the best deals, discounts, and coupons on BudgetHeaven. Save money on your favorite products from top brands.">
-<link rel="canonical" href="https://budgetheaven.com/stores">
+     <meta name="description" content="Find the best deals, discounts, and coupons on CouponsArena. Save money on your favorite products from top brands.">
+<link rel="canonical" href="https://CouponsArena.com/stores">
 
 <link rel="shortcut icon" href="{{ asset('images/favicon.png')}}" type="image/x-icon">
 
@@ -26,9 +26,6 @@ header("X-Robots-Tag:index, follow");
     <!--navbar -->
 @include('components.navbar')
     <!--navbar -->
-   <a href="#" class="scroll-to-top text-white">
-  <i class="fas fa-chevron-up"></i>
-</a>
 
     <ul class="pagination justify-content-center my-pagination">
         @foreach(range('A', 'Z') as $letter)
@@ -40,6 +37,14 @@ header("X-Robots-Tag:index, follow");
 
 
 <div class="container">
+    <nav aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 0.25rem; padding: 10px;">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/" class="text-decoration-none text-primary" style="font-weight: 500;">Home</a>
+            </li>
+<li class="breadcrumb-item active" aria-current="page" style="font-weight: 600; color: #6c757d;">Stores</li>
+        </ol>
+    </nav>
 <p class="h5 m-0">Total stores: <span class="fw-bold">{{ $stores->total() }}</span></p>
 
     <div class="row card-list g-4">

@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title') |BudgetHeaven</title>
+    <title>@yield('title') |Couponsarena</title>
     <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
 
 
@@ -71,9 +71,10 @@
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <span class="dropdown-item dropdown-header">Profile</span>
           <div class="dropdown-divider"></div>
-          <a href="profile" class="dropdown-item">
+          <a href="{{ route('profile.show') }}" class="dropdown-item">
             <i class="fas fa-user mr-2 text-primary"></i> My Profile
-          </a>
+        </a>
+
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="fas fa-sign-out-alt mr-2 text-danger"></i> Logout

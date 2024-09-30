@@ -42,8 +42,9 @@
                                     <input type="text" class="form-control" name="title" id="title" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="title">Category Url/slug <span class="text-danger">*</span></label>
+                                    <label for="title">Category Url/slug <span class="text-danger">* only text input</span></label>
                                     <input type="text" class="form-control" name="slug" id="title"  required>
+
                                 </div>
 
                                 <div class="form-group">

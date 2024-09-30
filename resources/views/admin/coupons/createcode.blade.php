@@ -1,6 +1,6 @@
 @extends('admin.master')
 @section('title')
-    Create
+    Create | Coupons
 @endsection
 @section('main-content')
 <style>
@@ -38,7 +38,7 @@
         @csrf
         <select class="form-select" aria-label="Default select example" onchange="navigateToPage(this)">
             <option selected>Select Deal/Code</option>
-            <option value="{{ route('admin.coupon.createcode') }}">Code</option>
+            <option value="{{ route('admin.coupon.code') }}">Code</option>
             <option value="{{ route('admin.coupon.create') }}">Deal</option>
         </select>
 
@@ -84,7 +84,7 @@
                             <input type="radio" name="status" id="disable" value="disable" required>&nbsp;<label for="disable">Disable</label>
                         </div>
                         <div class="form-group">
-                            <label for="top_coupons">Top Coupon <span class="text-danger">*</span></label><br>
+                            <label for="top_coupons">Top Coupons Code <span class="text-danger">*</span></label><br>
                             <input type="radio" name="top_coupons" id="top_0" value="0" onclick="updateTopCoupons(0)">
                             <label for="top_0">0</label>
 

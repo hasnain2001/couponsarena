@@ -6,18 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terms and Conditions</title>
-    <link rel="shortcut icon" href="{{ asset('images/icons.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
 
     <meta name="author" content="John Doe">
     <meta name="robots" content="index, follow">
-    <meta name="description" content="Find the best deals, discounts, and coupons on BudgetHeaven. Save money on your favorite products from top brands.">
-    <link rel="canonical" href="https://budgetheaven.com/terms-and-condition">
+    <meta name="description" content="Find the best deals, discounts, and coupons on CouponsArena. Save money on your favorite products from top brands.">
+    <link rel="canonical" href="https://CouponsArena.com/terms-and-condition">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTTXfVdR3rO8tHts/6zOeXt5lrGO7fVpyHDlHRl9e35G2oYy5v2cygVzQXvH7Np6Tq+0Vs1bqA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Styles -->
     <style>
@@ -143,30 +141,33 @@
 </head>
 
 <body>
-    <nav>
-        @include('components.navbar')
-      </nav>
+    <x-navbar/>
       <div class="container">
-		<div class="breadcrumb">
-			<a href="https://crazycoupons4u.com/"><i class="fas fa-home"></i></a>
-			<a class="active" href="javascript:;" > terms and conditions</a>
-		</div>
+        <nav aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 0.25rem; padding: 10px;">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="/" class="text-decoration-none text-primary" style="font-weight: 500;">Home</a>
+                </li>
+    <li class="breadcrumb-item active" aria-current="page" style="font-weight: 600; color: #6c757d;">terms and conditions</li>
+            </ol>
+        </nav>
+	
 		<div class="text-main">
 							<h1 class="page-heading">Terms and Condition</h1>
-				<p>These are the terms and conditions of CrazyCoupons4u alone. Our terms and policies are incorporated by reference herein govern your correct usage of all our services online. It may include any details or content therein, our website CrazyCoupons4u.com, any of our subdomains, and platforms where we proffer our services.</p>
-<p>By accessing to CrazyCoupons4u web page, you are proving your consent to every specific term and condition of our site. Also, you are accepting all laws and actions, and agree that in case of any noncompliance with the rules, you will be solely responsible.</p><p>If you are not willing to accept any of our terms and conditions, you may be prohibited immediately from accessing our webpage and any of its benefits. All materials on our webpage are in protection by copyright and trademark law.</p>
+				<p>These are the terms and conditions of CouponsArena alone. Our terms and policies are incorporated by reference herein govern your correct usage of all our services online. It may include any details or content therein, our website CouponsArena.com, any of our subdomains, and platforms where we proffer our services.</p>
+<p>By accessing to CouponsArena web page, you are proving your consent to every specific term and condition of our site. Also, you are accepting all laws and actions, and agree that in case of any noncompliance with the rules, you will be solely responsible.</p><p>If you are not willing to accept any of our terms and conditions, you may be prohibited immediately from accessing our webpage and any of its benefits. All materials on our webpage are in protection by copyright and trademark law.</p>
 <h2>The Utilisation of Our Site</h2>
-<p>Besides the permitted content of this site, you actively agree to not misuse any material on CrazyCoupons4u like saving, cutting, downloading, selling, pasting, licensing, transmitting, and publishing. Retrieval of any data or content of this site through any systematic approach is strictly prohibited.</p>
+<p>Besides the permitted content of this site, you actively agree to not misuse any material on CouponsArena like saving, cutting, downloading, selling, pasting, licensing, transmitting, and publishing. Retrieval of any data or content of this site through any systematic approach is strictly prohibited.</p>
 <p>Moreover, the usage of any material that is not permitted by the site is strictly prohibited.</p>
 <h2>Limitation Of Accountability</h2>
-<p>CrazyCoupons4u will never be accountable for (i) any accidental, consequential, as well as indirect damages that arise after the utilization or inability of the usage of the service, any relatable information, or transactions offered by the service, downloaded through the service or any late service. No matter if the site has been suggested of the possible accountability of such loses and damages or (ii) any claim, pointing to omissions, errors, or other faults in the accuracy of the service or its information or any details downloaded from the service. Some states do not allow accountability of accidental or consequential damages, and therefore you may be free from the above mentions.</p>
+<p>CouponsArena will never be accountable for (i) any accidental, consequential, as well as indirect damages that arise after the utilization or inability of the usage of the service, any relatable information, or transactions offered by the service, downloaded through the service or any late service. No matter if the site has been suggested of the possible accountability of such loses and damages or (ii) any claim, pointing to omissions, errors, or other faults in the accuracy of the service or its information or any details downloaded from the service. Some states do not allow accountability of accidental or consequential damages, and therefore you may be free from the above mentions.</p>
 <h2>Third-Party Sites</h2>
-<p>The site will transfer you to online retailers or other third-party sites through different links or frames of CrazyCoupons4u. It does not own any product or service available for consumers; therefore, anything on this site will never be for any business relationship. Other websites or third parties own the products you purchase.</p>
+<p>The site will transfer you to online retailers or other third-party sites through different links or frames of CouponsArena. It does not own any product or service available for consumers; therefore, anything on this site will never be for any business relationship. Other websites or third parties own the products you purchase.</p>
 <p>You are advised to go through all the terms and conditions or cookies and privacy policies of these sites before making a purchase. We will never be responsible for any inaccuracies or misrepresentations.</p>
 <h2>Links of Third Parties</h2>
-<p>CrazyCoupons4u is not responsible for any of the links on its site. Any third party link on this site is for your assistance. You tend to use any of the links on the website at your own risk.</p>
+<p>CouponsArena is not responsible for any of the links on its site. Any third party link on this site is for your assistance. You tend to use any of the links on the website at your own risk.</p>
 <h2>Revision Of Terms And Conditions</h2>
-<p>CrazyCoupons4u has a complete right to modify or edit any of the terms and conditions of the site. By agreeing to the usage of the site, you accept the current version of these terms and conditions of use.</p>
+<p>CouponsArena has a complete right to modify or edit any of the terms and conditions of the site. By agreeing to the usage of the site, you accept the current version of these terms and conditions of use.</p>
 						</div>
 	</div>
 </div>

@@ -56,6 +56,20 @@ color: white;
     .modal-content {
       background: #f7f7f7;
     }
+    .title{
+        color: #0054a6;
+    }
+    .top-store-name{
+        color: #1e1e1f;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 14px;
+        padding: 5px 5px 5px 0;
+    }
+    .card-body-store{
+        color: #1e1e1f;
+        background-color: #dbdbdb;
+        border-radius:5%;
+    }
   </style>
 
 <div class="conatain">
@@ -83,9 +97,12 @@ color: white;
               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-image-fill" viewBox="0 0 16 16">
                 <path d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2zm1 9v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062zm5-6.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/>
               </svg>
-              <p>No image available</p>
+              <span>{{ $coupon->store }}</span>
+
+
             </div>
-            @endif
+
+                      @endif
           </div>
 
           <div class="mb-4 coupon-body py-3 ">
@@ -96,8 +113,21 @@ color: white;
             </span>
 
             <div class="d-grid gap-2">
-                <a href="{{ $coupon->code }}" class="btn btn-dark" target="_blank">Get Code</a>
+
+                <a href="{{ $coupon->destination_url }}" target="_blank" class=" btn  btn-sm btn-primary btn-hover" id="getCode{{ $coupon->id }}" onclick="toggleCouponCode('{{ $coupon->id }}')">Get Code</a>
+                <div class="coupon-card d-flex flex-column">
+                    <span class="codeindex text-dark scratch" style="display: none;" id="codeIndex{{ $coupon->id }}">{{ $coupon->code }}</span>
+                    <button class="btn btn-info text-white btn-sm copy-btn btn-hover d-none mt-2" id="copyBtn{{ $coupon->id }}" onclick="copyCouponCode('{{ $coupon->id }}')">Copy Code</button>
+                    <p class="text-success copy-confirmation d-none mt-3" id="copyConfirmation{{ $coupon->id }}">Code copied!</p>
+
+                    <form method="post" action="{{ route('update.clicks') }}" id="clickForm">
+                        @csrf
+                        <input type="hidden" name="coupon_id" id="coupon_id">
+                    </form>
+                </div>
+                <p class="used font-weight-bold mt-2" id="output_{{ $coupon->id }}">Used By: {{ $coupon->clicks }}</p>
             </div>
+
 
         </div>
 
@@ -106,25 +136,7 @@ color: white;
         </div>
       </div>
 
-      <!-- Modal for Coupon Code -->
-      <div class="modal fade" id="codeModal{{ $coupon->id }}" tabindex="-1"
-           aria-labelledby="exampleModalLabel{{ $coupon->id }}" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3 class="modal-title" id="exampleModalLabel{{ $coupon->id }}">{{ $coupon->name }}</h3>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <h3>{{ $coupon->code ? $coupon->code : "Code not found" }}</h3>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-dark" onclick="copyCoupon('{{ $coupon->code }}')">Copy</button>
-            </div>
-          </div>
-        </div>
-      </div>
+
       @endforeach
     </div>
   </div>
@@ -154,9 +166,12 @@ color: white;
               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-image-fill" viewBox="0 0 16 16">
                 <path d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2zm1 9v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062zm5-6.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/>
               </svg>
-              <p>No image available</p>
+       <span>{{ $coupon->store }}</span>
+
             </div>
+
             @endif
+
           </div>
 
           <div class="mb-4 coupon-body py-3 ">
@@ -167,9 +182,13 @@ color: white;
             </span>
 
             <div class="d-grid gap-2">
-                <a href="{{ $coupon->destination_url }}" class="btn btn-dark" target="_blank">Get Deal</a>
+                <a href="{{ $coupon->destination_url }}" class="btn btn-dark" onclick="updateClickCount('{{ $coupon->id }}')" target="_blank">Get Deal</a>
+                <form method="post" action="{{ route('update.clicks') }}" id="clickForm">
+                    @csrf
+                    <input type="hidden" name="coupon_id" id="coupon_id">
+                </form>
             </div>
-
+            <p class="used font-weight-bold mt-2" id="output_{{ $coupon->id }}">Used By: {{ $coupon->clicks }}</p>
         </div>
 
 
@@ -177,29 +196,110 @@ color: white;
         </div>
       </div>
 
-      <!-- Modal for Coupon Code -->
-      <div class="modal fade" id="codeModal{{ $coupon->id }}" tabindex="-1"
-           aria-labelledby="exampleModalLabel{{ $coupon->id }}" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3 class="modal-title" id="exampleModalLabel{{ $coupon->id }}">{{ $coupon->name }}</h3>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <h3>{{ $coupon->code ? $coupon->code : "Code not found" }}</h3>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-dark" onclick="copyCoupon('{{ $coupon->code }}')">Copy</button>
-            </div>
-          </div>
-        </div>
-      </div>
+
       @endforeach
     </div>
   </div>
+  <div class="container mt-5">
+    <h3 class="mb-4 title text-center">Popular Stores Today</h3>
+    <div class="row  justify-content-center">
+        <div class="col-md-12 card">
+            <div class="row row-cols-2 row-cols-md-6 g-3 "> <!-- Change here to row-cols-2 -->
+                @foreach ($stores as $store) <!-- Corrected the variable name -->
+                <div class="col mb-4 ">
+
+                    <a href="{{ route('store_details', ['slug' => Str::slug($store->slug)]) }}" class="text-decoration-none">
+                        <div class="card-body card-body-store">
+                            <span class="top-store-name">{{ $store->name }}</span>
+                        </div>
+                    </a>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
 
 
     <script src="{{ asset('front/assets/js/java.js') }}"></script>
+    <script>
+        // Function to toggle coupon code visibility and copy button
+        function toggleCouponCode(couponId) {
+            // Set the coupon ID in localStorage to remember the state
+            localStorage.setItem('copiedCouponId', couponId);
+
+            const codeElement = document.getElementById(`codeIndex${couponId}`);
+            const copyButton = document.getElementById(`copyBtn${couponId}`);
+
+            if (codeElement.style.display === 'none') {
+                codeElement.style.display = 'inline';
+                copyButton.classList.remove('d-none');
+            } else {
+                codeElement.style.display = 'none';
+                copyButton.classList.add('d-none');
+            }
+
+            // Update the click count via AJAX
+            updateClickCount(couponId);
+        }
+
+        // Check localStorage on page load to restore the state
+        document.addEventListener('DOMContentLoaded', function() {
+            const copiedCouponId = localStorage.getItem('copiedCouponId');
+            if (copiedCouponId) {
+                const codeElement = document.getElementById(`codeIndex${copiedCouponId}`);
+                const copyButton = document.getElementById(`copyBtn${copiedCouponId}`);
+
+                codeElement.style.display = 'inline';
+                copyButton.classList.remove('d-none');
+            }
+        });
+
+        // Clear localStorage on refresh
+        window.addEventListener('beforeunload', function () {
+            localStorage.removeItem('copiedCouponId');
+        });
+
+        // Function to copy coupon code to clipboard
+        function copyCouponCode(couponId) {
+            const codeElement = document.getElementById(`codeIndex${couponId}`);
+            const code = codeElement.innerText.trim();
+
+            navigator.clipboard.writeText(code)
+                .then(() => {
+                    // Show success message
+                    const copyMessage = document.getElementById(`copyConfirmation${couponId}`);
+                    copyMessage.classList.remove('d-none');
+                    setTimeout(() => {
+                        copyMessage.classList.add('d-none');
+                    }, 1500);
+                })
+                .catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+        }
+
+        // Function to update click count via AJAX
+        function updateClickCount(couponId) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '{{ route("update.clicks") }}', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log('Click count updated successfully.');
+                }
+            };
+
+            xhr.send('coupon_id=' + couponId);
+        }
+
+        // Function to count clicks (fallback if not using AJAX)
+        function countClicks(couponId) {
+            document.getElementById('coupon_id').value = couponId;
+            document.getElementById('clickForm').submit();
+        }
+
+        </script>
 @endsection

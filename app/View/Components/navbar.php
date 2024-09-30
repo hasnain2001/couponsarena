@@ -5,15 +5,20 @@ namespace App\View\Components;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use App\Models\Categories;
+use App\Models\Stores;
 
-class navbar extends Component
+class Navbar extends Component
 {
+    public $categories;
+    public $stores;
+
     /**
      * Create a new component instance.
      */
     public function __construct()
     {
-        //
+
     }
 
     /**
@@ -21,6 +26,11 @@ class navbar extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.navbar');
+
+        $categories = Categories::paginate(10);
+        $stores = Stores::paginate(10);
+
+        // Pass paginated data to the view
+        return view('components.navbar', compact('categories', 'stores'));
     }
 }
