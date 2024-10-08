@@ -13,14 +13,21 @@ class HomeController extends Controller
 {
 public function notfound()
 {
-$Coupons  = Coupons::whereIn('id', function($query) {
-$query->select(DB::raw('MAX(id)'))
-->from('coupons')
-->groupBy('store');
-})
-->orderBy('created_at', 'desc')
-->paginate(24);
-return view('errors.404', compact('Coupons'));
+    $topcoupon = Coupons::where('top_coupons', '!=', 0)
+    ->whereNotNull('code')
+    ->where('code', '!=', '')
+    ->orderByRaw('CAST(`top_coupons` AS SIGNED) desc')
+    ->limit(8) ->get();
+    
+    $Coupons = Coupons::whereIn('id', function($query) {
+    $query->select(DB::raw('MAX(id)'))
+    ->from('coupons')
+    ->groupBy('store');
+    })
+    ->whereNull('code')
+    ->orderBy('created_at', 'desc')
+    ->paginate(8);
+return view('errors.404', compact('Coupons','topcoupon'));
 }
 
     public function index() {
@@ -32,8 +39,6 @@ return view('errors.404', compact('Coupons'));
     ->where('code', '!=', '')
     ->orderByRaw('CAST(`top_coupons` AS SIGNED) desc')
     ->limit(8) ->get();
-    $categories = Categories::all();
-    $blogs = Blog::latest()->paginate(10);
     $Coupons = Coupons::whereIn('id', function($query) {
     $query->select(DB::raw('MAX(id)'))
     ->from('coupons')
@@ -43,7 +48,7 @@ return view('errors.404', compact('Coupons'));
     ->orderBy('created_at', 'desc')
     ->paginate(8);
 
-    return view('welcome', compact('stores', 'categories', 'blogs', 'Coupons','topstores','topcoupon'));
+    return view('welcome', compact('stores',   'Coupons','topstores','topcoupon'));
     }
 
 
