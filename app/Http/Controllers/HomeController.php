@@ -25,7 +25,7 @@ return view('errors.404', compact('Coupons'));
 
     public function index() {
 
-    $stores = Stores::latest()->paginate(21);
+    $stores = Stores::latest()->paginate(24);
     $topstores = Stores::where('top_store', '!=', 0)->orderByRaw('CAST(`top_store` AS SIGNED) desc')->paginate(10) ;
     $topcoupon = Coupons::where('top_coupons', '!=', 0)
     ->whereNotNull('code')

@@ -8,7 +8,7 @@ header("X-Robots-Tag:index, follow");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   @if(isset($store) && is_object($store))
   <title>{!! $store->title !!}</title>
-  <link rel="canonical" href="https://https://vouchmenot.com/stores/{{ Str::slug($store->name) }}">
+  <link rel="canonical" href="https://couponsarena.com/store/{{ Str::slug($store->name) }}">
   <meta name="description" content="{!! $store->meta_description !!}">
   <meta name="keywords" content="{!! $store->meta_keyword !!}">
   <meta name="author" content="Najeeb">
@@ -82,7 +82,7 @@ header("X-Robots-Tag:index, follow");
                         <!-- Coupon Information -->
                         <div class="flex-grow-1 mb-3 mb-md-0">
                             <h5 class="mb-2">{{ $coupon->name }}</h5>
-                            <p class="mb-3">{{ $coupon->description }}</p>
+                            <p style="width: 400px;">{{ $coupon->description }}</p>
                             <span class="date" style="color: {{ strtotime($coupon->ending_date) < strtotime(now()) ? '#951d1d' : '#909090' }};">
                                 Ends: {{ \Carbon\Carbon::parse($coupon->ending_date)->format('d-m-Y') }}
                             </span>

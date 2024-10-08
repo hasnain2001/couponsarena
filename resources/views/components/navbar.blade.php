@@ -12,7 +12,7 @@
             flex-grow: 1;
             color: white;
             height: auto;
-        
+
         }
         nav a {
             color: white !important;
@@ -27,6 +27,9 @@
             justify-content: space-between;
             align-items: center;
             padding: 10px 15px;
+        }
+        .form-control{
+            width:350px;
         }
         .searchbtn {
             background-color: #10355a;
@@ -48,6 +51,7 @@
         }
         .language-selector {
             margin-left: 10px;
+            width: 80px;
         }
 
         #myBtn, .loader {
@@ -116,10 +120,14 @@
             .language-selector {
                 margin-left: 0;
                 margin-top: 10px;
+                width: 90%;
             }
             .logo {
                 height: auto;
                 max-height: 80px;
+            }
+            .form-control{
+                width:90%;
             }
         }
         #myBtn,
@@ -207,7 +215,7 @@
                                 <div class="row">
                                     @foreach ($categories as $category)
                                     <div class="col-md-3">
-                                        <a href="{{ route('related_category', ['slug' => Str::slug($category->slug)]) }}" class="dropdown-item text-primary">{{ $category->title }}</a>
+                                        <a href="{{ route('related_category', ['slug' => Str::slug($category->slug)]) }}" class="dropdown-item text-dark">{{ $category->title }}</a>
                                     </div>
                                     @endforeach
                                 </div>
@@ -226,11 +234,11 @@
             <!-- Search form and language selector on the right -->
             <div class="search-language-container">
                 <form action="{{ route('search') }}" method="GET" class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" name="query" placeholder="Search Voucher Codes" aria-label="Search" style="width: 350px;">
+                    <input class="form-control me-2" type="search" name="query" placeholder="Search Voucher Codes" aria-label="Search" >
                     <button class="searchbtn" type="submit"><i class="fas fa-search"></i></button>
                 </form>
                 <div class="language-selector">
-                    <select class="form-select" aria-label="Language selector" id="languageSelector">
+                    <select class="form-select" aria-label="Language selector" id="languageSelector" >
                         <option value="en" selected>EN</option>
                         <option value="es">ES</option>
                         <option value="fr">FR</option>

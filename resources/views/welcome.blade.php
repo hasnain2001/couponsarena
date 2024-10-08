@@ -70,7 +70,23 @@ color: white;
         background-color: #dbdbdb;
         border-radius:5%;
     }
-  </style>
+
+  .card-body-store {
+      height: 100%; /* Ensure the store name takes full height */
+      padding: 15px;
+  }
+  .top-store-name {
+      white-space: nowrap; 
+      overflow: hidden; 
+      text-overflow:ellipsis; 
+      max-width: 100%; 
+  }
+  @media (max-width: 768px) {
+      .top-store-name {
+          white-space: normal; 
+      }
+  }
+</style>
 
 <div class="conatain">
     <div class="row mb-4">
@@ -202,15 +218,14 @@ color: white;
   </div>
   <div class="container mt-5">
     <h3 class="mb-4 title text-center">Popular Stores Today</h3>
-    <div class="row  justify-content-center">
+    <div class="row justify-content-center">
         <div class="col-md-12 card">
-            <div class="row row-cols-2 row-cols-md-6 g-3 "> <!-- Change here to row-cols-2 -->
-                @foreach ($stores as $store) <!-- Corrected the variable name -->
-                <div class="col mb-4 ">
-
+            <div class="row row-cols-2 row-cols-md-6 g-3"> <!-- Using row-cols-2 to adjust columns for smaller screens -->
+                @foreach ($stores as $store)
+                <div class="col mb-4">
                     <a href="{{ route('store_details', ['slug' => Str::slug($store->slug)]) }}" class="text-decoration-none">
-                        <div class="card-body card-body-store">
-                            <span class="top-store-name">{{ $store->name }}</span>
+                        <div class="card-body card-body-store d-flex justify-content-center align-items-center">
+                            <span class="top-store-name text-center text-truncate">{{ $store->name }}</span> <!-- Added text-truncate for long names -->
                         </div>
                     </a>
                 </div>
@@ -219,6 +234,9 @@ color: white;
         </div>
     </div>
 </div>
+
+
+
 
 
     <script src="{{ asset('front/assets/js/java.js') }}"></script>

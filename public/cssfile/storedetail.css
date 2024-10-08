@@ -97,10 +97,12 @@
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5), -5px -5px 15px rgba(0, 0, 0, 0.5);
 }
 .get {
+    width: 120px;
     background: linear-gradient(to right, #2421ac, #b4adf3);
     color: #ffffff;
+    text-align: center;
     padding: 5px 15px;
-    border-radius: 5px;
+    border-radius: 25px 25px 25px 25px ;
     text-decoration: none;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3), -3px -3px 10px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;

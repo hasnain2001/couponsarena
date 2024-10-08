@@ -17,6 +17,8 @@
         return view('about');
     })->name('about');
 
+  
+
 
     Route::get('/network', function () {
         return view('network');
