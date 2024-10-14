@@ -16,7 +16,11 @@
     Route::get('/about', function () {
         return view('about');
     })->name('about');
-
+    Route::get('/{lang}', function ($locale = null) {
+     
+        App::setLocale($locale);
+          return view('main');
+      });
   
 
 
@@ -54,7 +58,7 @@
         })->name('dashboard');
     });
     Route::controller(HomeController::class)->group(function () {
-        Route::get('/', 'index');
+
         Route::get('/stores', 'stores')->name('stores');
         Route::get('/store/{slug}', 'StoreDetails')->name('store_details');
         Route::get('/category/{slug}', 'viewcategory')->name('related_category');

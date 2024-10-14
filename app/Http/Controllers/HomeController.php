@@ -33,7 +33,7 @@ return view('errors.404', compact('Coupons','topcoupon'));
     public function index() {
 
     $stores = Stores::latest()->paginate(24);
-    $topstores = Stores::where('top_store', '!=', 0)->orderByRaw('CAST(`top_store` AS SIGNED) desc')->paginate(10) ;
+ 
     $topcoupon = Coupons::where('top_coupons', '!=', 0)
     ->whereNotNull('code')
     ->where('code', '!=', '')
@@ -48,7 +48,7 @@ return view('errors.404', compact('Coupons','topcoupon'));
     ->orderBy('created_at', 'desc')
     ->paginate(8);
 
-    return view('welcome', compact('stores',   'Coupons','topstores','topcoupon'));
+    return view('welcome', compact('stores',   'Coupons','topcoupon'));
     }
 
 
@@ -131,14 +131,14 @@ public function StoreDetails($name, Request $request) {
     $codeCount = Coupons::where('store', $title)->whereNotNull('code')->count();
     $dealCount = Coupons::where('store', $title)->whereNull('code')->count();
 
-    $blogs = Blog::all();
+  
 
     // Fetch related stores
     $relatedStores = Stores::where('category', $store->category)
                            ->where('id', '!=', $store->id)
                            ->get();
 
-    return view('store_details', compact('store', 'coupons', 'relatedStores', 'blogs', 'codeCount', 'dealCount'));
+    return view('store_details', compact('store', 'coupons', 'relatedStores',  'codeCount', 'dealCount'));
 }
 
 public function categories() {

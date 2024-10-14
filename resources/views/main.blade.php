@@ -7,7 +7,7 @@ header("X-Robots-Tag:index, follow");
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>CouponsArena | Latest Discount Codes of 2024</title>
+        <title>CouponsArena @yield('title') | Latest Discount Codes of 2024</title>
 
         <link rel="shortcut icon" href="{{ asset('images/favicon.png')}}" type="image/x-icon">
         <meta http-equiv="refresh" content="70">
@@ -100,7 +100,15 @@ header("X-Robots-Tag:index, follow");
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-        @yield('main-content')
+<br><br>
+
+        <h1>Hi, @lang('lang.welcome')</h1>
+<a href="{{url('/')}}">home</a>
+<a href="{{url('/es')}}">ES</a>
+<a href="{{url('/fr')}}">Fr</a>
+<a href="{{url('/de')}}">De</a>
+<a href="{{url('/nl')}}">Nl</a>
+@yield('main-content')
         @include('components.footer')
 
 

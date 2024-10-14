@@ -1,6 +1,6 @@
 @extends('main')
 @section('title')
-    Dashboard
+  
 @endsection
 @section('main-content')
   <!-- Custom CSS for Styling -->

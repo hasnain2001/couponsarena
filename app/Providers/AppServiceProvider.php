@@ -4,6 +4,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Pluralizer;
 use App\Models\Categories;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,7 +30,9 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('footer', \App\View\Components\Footer::class);
 
         Blade::component('footer', \App\View\Components\Footer::class);
-        Blade::component('sidebar', \App\View\Components\Sidebar::class);
+        Blade::component('sidebar', \App\View\Components\Navbar::class);
+        Pluralizer::useLanguage('spanish');
+        
 
     }
 }

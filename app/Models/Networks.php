@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Networks extends Model
 {
     use HasFactory;
+    protected $table = 'networks';
     protected $fillable = [
         'title',
         'status',
