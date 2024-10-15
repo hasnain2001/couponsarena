@@ -16,13 +16,16 @@
     Route::get('/about', function () {
         return view('about');
     })->name('about');
-    Route::get('/{lang}', function ($locale = null) {
-     
-        App::setLocale($locale);
-          return view('main');
-      });
-  
 
+    Route::get('/{locale}', function (string $locale) {
+        if (! in_array($locale, ['en', 'fr','nl','es','de'])) { 
+            abort(404); // Handle unsupported locales
+        }
+    
+        App::setLocale($locale);
+        return view('main');
+    });
+    
 
     Route::get('/network', function () {
         return view('network');
@@ -58,12 +61,12 @@
         })->name('dashboard');
     });
     Route::controller(HomeController::class)->group(function () {
-
-        Route::get('/stores', 'stores')->name('stores');
-        Route::get('/store/{slug}', 'StoreDetails')->name('store_details');
-        Route::get('/category/{slug}', 'viewcategory')->name('related_category');
-        Route::get('/categories', 'categories')->name('categories');
-    Route::get('/blog', 'blog_home')->name('blog');
+    Route::get('/', 'index');
+    Route::get('/stores', 'stores')->name('stores');
+    Route::get('/store/{slug}', 'StoreDetails')->name('store_details');
+    Route::get('/category/{slug}', 'viewcategory')->name('related_category');
+    Route::get('/categories', 'categories')->name('categories');
+    Route::get('/blogs', 'blog_home')->name('blog');
     Route::get('/blog/{slug}',  'blog_show')->name('blog-details');
     Route::fallback('notfound')->name('404');
 

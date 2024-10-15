@@ -30,6 +30,8 @@ public function notfound()
 return view('errors.404', compact('Coupons','topcoupon'));
 }
 
+
+
     public function index() {
 
     $stores = Stores::latest()->paginate(24);

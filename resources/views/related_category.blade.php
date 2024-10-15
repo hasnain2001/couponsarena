@@ -76,6 +76,7 @@ header("X-Robots-Tag:index, follow");
         </div>
     </div>
 
+    <h1>Hi, @lang('lang.welcome')</h1>
    @include('components.footer')
 
   </body>

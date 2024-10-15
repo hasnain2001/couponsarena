@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('bootstrap-5.0.2-dist/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/css/flag-icon.min.css">
+
     <title>Navbar Example</title>
     <style>
         .navbar {
@@ -181,6 +183,21 @@
 #myBtn:hover {
     background-color: #555;
 }
+#languageSelector option[data-icon="flag-icon flag-icon-gb"] {
+    background-image: url('https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/flags/4x3/gb.svg');
+}
+#languageSelector option[data-icon="flag-icon flag-icon-es"] {
+    background-image: url('https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/flags/4x3/es.svg');
+}
+#languageSelector option[data-icon="flag-icon flag-icon-fr"] {
+    background-image: url('https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/flags/4x3/fr.svg');
+}
+#languageSelector option[data-icon="flag-icon flag-icon-de"] {
+    background-image: url('https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/flags/4x3/de.svg');
+}
+#languageSelector option[data-icon="flag-icon flag-icon-nl"] {
+    background-image: url('https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/flags/4x3/nl.svg');
+}
 
     </style>
 </head>
@@ -238,14 +255,15 @@
                     <button class="searchbtn" type="submit"><i class="fas fa-search"></i></button>
                 </form>
                 <div class="language-selector">
-                    <select class="form-select" aria-label="Language selector" id="languageSelector" >
-                        <option value="en" selected>EN</option>
-                        <option value="es">ES</option>
-                        <option value="fr">FR</option>
-                        <option value="de">DE</option>
-                        <option value="nl">NL</option>
+                    <select class="form-select" aria-label="Language selector" id="languageSelector">
+                        <option value="en" data-icon="flag-icon flag-icon-gb" selected>EN</option>
+                        <option value="es" data-icon="flag-icon flag-icon-es">ES</option>
+                        <option value="fr" data-icon="flag-icon flag-icon-fr">FR</option>
+                        <option value="de" data-icon="flag-icon flag-icon-de">DE</option>
+                        <option value="nl" data-icon="flag-icon flag-icon-nl">NL</option>
                     </select>
                 </div>
+                
             </div>
         </nav>
     </header>

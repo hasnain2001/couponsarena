@@ -103,7 +103,9 @@ header("X-Robots-Tag:index, follow");
 <br><br>
 
         <h1>Hi, @lang('lang.welcome')</h1>
-<a href="{{url('/')}}">home</a>
+    
+
+<a href="/">home</a>
 <a href="{{url('/es')}}">ES</a>
 <a href="{{url('/fr')}}">Fr</a>
 <a href="{{url('/de')}}">De</a>
