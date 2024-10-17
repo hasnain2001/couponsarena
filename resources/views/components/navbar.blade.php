@@ -257,10 +257,10 @@
                 <div class="language-selector">
                     <select class="form-select" aria-label="Language selector" id="languageSelector">
                         <option value="en" data-icon="flag-icon flag-icon-gb" selected>EN</option>
-                        <option value="es" data-icon="flag-icon flag-icon-es">ES</option>
-                        <option value="fr" data-icon="flag-icon flag-icon-fr">FR</option>
-                        <option value="de" data-icon="flag-icon flag-icon-de">DE</option>
-                        <option value="nl" data-icon="flag-icon flag-icon-nl">NL</option>
+                        <option value="es" data-icon="flag-icon flag-icon-es" selected>ES</option>
+                        <option value="fr" data-icon="flag-icon flag-icon-fr" selected>FR</option>
+                        <option value="de" data-icon="flag-icon flag-icon-de" selected>DE</option>
+                        <option value="nl" data-icon="flag-icon flag-icon-nl" selected>NL</option>
                     </select>
                 </div>
                 
@@ -273,11 +273,17 @@
     </button>
 
 <script>
-    document.getElementById('languageSelector').addEventListener('change', function () {
-        var selectedLang = this.value;
-        var url = `/${selectedLang}`;
-        window.location.href = url;
-    });
+document.getElementById('languageSelector').addEventListener('change', function () {
+    var selectedLang = this.value;
+    var url = `/${selectedLang}`;
+    
+    // Check if the selected language is "EN" to redirect to the homepage
+    if (selectedLang === 'en') {
+        url = '/';  // Redirect to the homepage for English
+    }
+
+    window.location.href = url;
+});
 
     // Scroll-to-top button logic
     let mybutton = document.getElementById("myBtn");

@@ -1,4 +1,5 @@
 <?php
 return[
-'welcome' => 'welcome to coupons arena espanish   '
+'welcome' => 'welcome to coupons arena espanish',
+'user' => ''
 ];

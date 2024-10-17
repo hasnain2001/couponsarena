@@ -11,7 +11,7 @@
     use App\Http\Controllers\StoresController;
     use App\Http\Controllers\BlogController;
 
-
+    use App\Models\Stores;
 
     Route::get('/about', function () {
         return view('about');
@@ -19,13 +19,13 @@
 
     Route::get('/{locale}', function (string $locale) {
         if (! in_array($locale, ['en', 'fr','nl','es','de'])) { 
-            abort(404); // Handle unsupported locales
+          
         }
     
         App::setLocale($locale);
-        return view('main');
-    });
     
+        return view('main',);
+    });
 
     Route::get('/network', function () {
         return view('network');

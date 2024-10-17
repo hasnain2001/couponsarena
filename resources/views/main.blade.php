@@ -26,15 +26,15 @@ header("X-Robots-Tag:index, follow");
         <link rel="stylesheet" href="{{ asset('bootstrap-5.0.2-dist/css/bootstrap.min.css') }}">
         <style>
             .carousel {
-                width: 100%;
-                height: 250px;
-                z-index: 1;
+           margin-left: 2.5%;
+           margin-top: 1%;
+            width: 95%;
+                z-index: 0;
             }
 
             .slider-image {
-     padding-left: 5%;
-     padding-right: 5%;
-                height: 300px;
+                width: 100%;
+                height: 350px;
             }
 
             .carousel-item {
@@ -70,7 +70,8 @@ header("X-Robots-Tag:index, follow");
     <body>
 
         @include('components.navbar')
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators custom-carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -79,10 +80,10 @@ header("X-Robots-Tag:index, follow");
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="{{ asset('images/ticket (1).png') }}" class="d-block w-100 slider-image" alt="Slide 1">
+                    <img src="{{ asset('images/banner1.png') }}" class="d-block w-100 slider-image" alt="Slide 1">
                 </div>
                 <div class="carousel-item">
-                    <img src="{{ asset('images/Untitled-1 (2).png') }}" class="d-block w-100 slider-image" alt="Slide 2">
+                    <img src="{{ asset('images/couponsarenaslider.png') }}" class="d-block w-100 slider-image" alt="Slide 2">
                 </div>
                 <div class="carousel-item">
                     <img src="{{ asset('images/Untitled-2 (1).png') }}" class="d-block w-100 slider-image" alt="Slide 3">
@@ -102,14 +103,24 @@ header("X-Robots-Tag:index, follow");
         </div>
 <br><br>
 
-        <h1>Hi, @lang('lang.welcome')</h1>
-    
+     
+<div class="container">
+    <ul class="" style="" >
+        <li><a href="/">Endlish</a></li>
+        <li><a href="{{url('/es')}}">ES</a></li>
+        <li><a href="{{url('/fr')}}">Fr</a></li>
+        <li><a href="{{url('/de')}}">De</a></li>
+        <li><a href="{{url('/nl')}}">Nl</a></li>
+    </ul>
 
-<a href="/">home</a>
-<a href="{{url('/es')}}">ES</a>
-<a href="{{url('/fr')}}">Fr</a>
-<a href="{{url('/de')}}">De</a>
-<a href="{{url('/nl')}}">Nl</a>
+  
+
+<h1>Hi,{{ __('lang.welcome') }} </h1>
+<span>@lang('lang.user')</span>
+</div>
+
+
+
 @yield('main-content')
         @include('components.footer')
 
