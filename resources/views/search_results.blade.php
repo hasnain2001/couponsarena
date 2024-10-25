@@ -41,7 +41,16 @@
                     @foreach ($stores as $store)
                         <div class="col-6 col-lg-3 mb-4 d-flex">
                             <div class="card shadow flex-fill">
-                                <a href="{{ $store->slug ? route('store_details', ['slug' => Str::slug($store->slug)]) : 'javascript:;' }}" class="anchor-search">
+                                @php
+                                // Ensure 'lang' parameter is set properly (fallback to 'en' if needed)
+                                $language = app()->getLocale() ?? 'en';
+                            
+                                // Generate store URL or fallback to '#' if store slug is missing
+                                $storeurl = $store->slug 
+                                    ? route('store_details', ['lang' => $language, 'slug' => Str::slug($store->slug)]) 
+                                    : '#';
+                            @endphp
+                                <a href="{{$storeurl }}" class="anchor-search">
                                     <div class="card-body d-flex flex-column">
                                         @if ($store->store_image)
                                             <img src="{{ asset('uploads/stores/' . $store->store_image) }}" class="" alt="">

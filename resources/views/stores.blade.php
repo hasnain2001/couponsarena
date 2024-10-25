@@ -6,12 +6,12 @@ header("X-Robots-Tag:index, follow");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CouponsArena - Best Deals and Discounts |CouponsArena</title>
+    <title>Stores - Best Deals and Discounts |CouponsArena</title>
      <meta name="keywords" content="deals, discounts, coupons, savings, affiliate marketing">
 
        <meta name="author" content="John Doe">
  <meta name="robots" content="index, follow">
-     <link rel="icon" href="{{ asset('images/icons.png') }}" type="image/x-icon">
+
     <!-- Styles -->
      <meta name="description" content="Find the best deals, discounts, and coupons on CouponsArena. Save money on your favorite products from top brands.">
 <link rel="canonical" href="https://CouponsArena.com/stores">
@@ -27,16 +27,18 @@ header("X-Robots-Tag:index, follow");
 @include('components.navbar')
     <!--navbar -->
 
-    <ul class="pagination justify-content-center my-pagination">
+    {{-- <ul class="pagination justify-content-center my-pagination">
         @foreach(range('A', 'Z') as $letter)
             <li class="page-item">
                 <a class="page-link" href="{{ route('stores', ['letter' => $letter]) }}">{{ $letter }}</a>
             </li>
         @endforeach
-    </ul>
+    </ul> --}}
+
 
 
 <div class="container">
+
     <nav aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 0.25rem; padding: 10px;">
         <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item">
@@ -45,18 +47,19 @@ header("X-Robots-Tag:index, follow");
 <li class="breadcrumb-item active" aria-current="page" style="font-weight: 600; color: #6c757d;">Stores</li>
         </ol>
     </nav>
-<p class="h5 m-0">Total stores: <span class="fw-bold">{{ $stores->total() }}</span></p>
+    <p class="h5 m-0">Total stores: <span class="fw-bold">{{ $stores->count() }}</span></p>
 
     <div class="row card-list g-4">
         @forelse ($stores as $store)
             <div class="col-lg-2 col-md-4 col-sm-6 col-6">
                 @php
 
-                $storeurl = $store->slug
-                ? route('store_details', ['slug' => Str::slug($store->slug)])
-                : '#';
-                @endphp
-                    <a href="{{$storeurl }}" class="card-link text-decoration-none">
+    $storeurl = $store->slug
+        ? route('store_details', ['lang' => app()->getLocale(), 'slug' => $store->slug])
+        : '#';
+@endphp
+
+<a href="{{ $storeurl }}" class="card-link text-decoration-none">
 
 
                 <div class="shadow-bg h-100">
@@ -78,13 +81,13 @@ header("X-Robots-Tag:index, follow");
             </div>
         @endforelse
     </div>
-
-    {{$stores->links('vendor.pagination.bootstrap-5')  }}
+{{-- 
+    {{$stores->links('vendor.pagination.bootstrap-5')  }} --}}
 </div>
 
 
 <br>
-<x-footer/>
+@include('components.footer')
 
 </body>
 </html>

@@ -8,24 +8,25 @@
     use App\Http\Controllers\CouponsController;
     use App\Http\Controllers\HomeController;
     use App\Http\Controllers\NetworksController;
+    use App\Http\Controllers\LanguageController;
     use App\Http\Controllers\StoresController;
     use App\Http\Controllers\BlogController;
+    
 
-    use App\Models\Stores;
-
+ 
+    // Route::get('/{locale}', function (string $locale) {
+    //     if (! in_array($locale, ['en', 'es', 'fr','ur' ])) {
+    //         abort(400);
+    //     }
+    //       App::setLocale($locale);
+    //     return view('main');       })->name('greeting');
+    
+    
     Route::get('/about', function () {
         return view('about');
     })->name('about');
 
-    Route::get('/{locale}', function (string $locale) {
-        if (! in_array($locale, ['en', 'fr','nl','es','de'])) { 
-          
-        }
-    
-        App::setLocale($locale);
-    
-        return view('main',);
-    });
+
 
     Route::get('/network', function () {
         return view('network');
@@ -60,33 +61,50 @@
             return view('dashboard');
         })->name('dashboard');
     });
-    Route::controller(HomeController::class)->group(function () {
-    Route::get('/', 'index');
-    Route::get('/stores', 'stores')->name('stores');
-    Route::get('/store/{slug}', 'StoreDetails')->name('store_details');
-    Route::get('/category/{slug}', 'viewcategory')->name('related_category');
-    Route::get('/categories', 'categories')->name('categories');
-    Route::get('/blogs', 'blog_home')->name('blog');
-    Route::get('/blog/{slug}',  'blog_show')->name('blog-details');
-    Route::fallback('notfound')->name('404');
 
-    Route::get('coupons', [CouponsController::class, 'index'])->name('coupons.index');
-    Route::put('/updateCoupon/{id}', [CouponsController::class, 'update'])->name('updateCoupon');
-    Route::post('/update-clicks', [CouponsController::class, 'updateClicks'])->name('update.clicks');
-    Route::get('/clicks/{couponId}', [CouponsController::class, 'openCoupon'])->name('open.coupon');
-    Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-    Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
-    Route::post('/coupons', [CouponsController::class, ''])->name('coupons.updateRanking');
-    Route::get('/search', [SearchController::class, 'searchResults'])->name('search');
+    // Route::group(['prefix' => '{locale}', 'middleware' => 'web'], function () {
+    //     Route::get('/stores/{lang}', [HomeController::class, 'stores'])->name('stores');
+    // });
+        Route::controller(HomeController::class)->group(function () {
+        Route::get('/{lang?}', 'index')->name('home');
+        Route::get('/{lang}/stores', 'stores')->name('store.show');
+        Route::get('/{lang}/store/{slug}', 'StoreDetails')->name('store_details');
 
-    });
 
-    ini_set('memory_limit', '1024M');
+      
+        Route::get('/category/{slug}', 'viewcategory')->name('related_category');
+
+        Route::get('/categories', 'categories')->name('categories');
+        Route::get('/{lang}/blog', 'blog_home')->name('blog');
+
+        Route::get('/blog/{slug}',  'blog_show')->name('blog-details');
+       Route::get('/store/search', [SearchController::class, 'searchResults'])->name('storesearch');
+        });
+
+        Route::get('coupons', [CouponsController::class, 'index'])->name('coupons.index');
+        Route::put('/updateCoupon/{id}', [CouponsController::class, 'update'])->name('updateCoupon');
+        Route::post('/update-clicks', [CouponsController::class, 'updateClicks'])->name('update.clicks');
+        Route::get('/clicks/{couponId}', [CouponsController::class, 'openCoupon'])->name('open.coupon');
+        Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+        Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+        Route::post('/coupons', [CouponsController::class, ''])->name('coupons.updateRanking');
 
 
 
 
     Route::middleware('auth')->group(function () {
+
+           // Stores Routes Begin
+   Route::controller(LanguageController::class)->prefix('admin')->name('admin.lang.')->group(function () {
+    Route::get('/lang', 'language')->name('lang');
+    Route::get('/lang/Create', 'create_language')->name('create');
+    Route::post('/lang/stores', 'store_language')->name('store');
+    Route::get('/lang/edit/{id}', 'edit_language')->name('edit');
+    Route::post('/lang/update/{id}', 'update_language')->name('update');
+    Route::get('/lang/delete/{id}', 'delete_language')->name('delete');
+    Route::post('/lang/deleteSelected', 'deleteSelected')->name('deleteSelected');
+    Route::get('/lang/{slug}', 'StoreDetails')->name('details');
+});
 
     // AdminBlogs Routes Begin
     Route::controller(BlogController::class)->prefix('admin')->group(function () {
@@ -101,15 +119,15 @@
     });
 
     // Stores Routes Begin
-    Route::controller(StoresController::class)->prefix('admin')->group(function () {
-        Route::get('/store', 'store')->name('admin.store');
-        Route::get('/store/create', 'create_store')->name('admin.store.create');
-        Route::post('/store/store', 'store_store')->name('admin.store.store');
-        Route::get('/store/edit/{id}', 'edit_store')->name('admin.store.edit');
-        Route::post('/store/update/{id}', 'update_store')->name('admin.store.update');
-        Route::get('/store/delete/{id}', 'delete_store')->name('admin.store.delete');
-        Route::post('/store/deleteSelected', 'deleteSelected')->name('admin.store.deleteSelected');
-        Route::get('/store/{slug}', 'StoreDetails')->name('admin.store_details');
+    Route::controller(StoresController::class)->prefix('admin')->name('admin.')->group(function () {
+        Route::get('/store', 'store')->name('stores');
+        Route::get('/Store/Create', 'create_store')->name('store.create');
+        Route::post('/store/stores', 'store_store')->name('store.store');
+        Route::get('/store/edit/{id}', 'edit_store')->name('store.edit');
+        Route::post('/store/update/{id}', 'update_store')->name('store.update');
+        Route::get('/store/delete/{id}', 'delete_store')->name('store.delete');
+        Route::post('/store/deleteSelected', 'deleteSelected')->name('store.deleteSelected');
+        Route::get('/stores/{slug}', 'StoreDetails')->name('store_details');
     });
 
 

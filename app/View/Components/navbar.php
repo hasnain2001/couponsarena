@@ -6,12 +6,15 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 use App\Models\Categories;
-use App\Models\Stores;
+use App\Models\Language;
+
 
 class Navbar extends Component
 {
     public $categories;
-    public $stores;
+   
+    public $Langs;
+    public $languageCode;
 
     /**
      * Create a new component instance.
@@ -27,10 +30,11 @@ class Navbar extends Component
     public function render(): View|Closure|string
     {
 
-        $categories = Categories::paginate(10);
-        $stores = Stores::paginate(10);
-
-        // Pass paginated data to the view
-        return view('components.navbar', compact('categories', 'stores'));
+        $categories = Categories::all();
+        $Langs = Language::all();
+        $languageCode = $lang ?? 'en';
+        app()->setLocale($languageCode);
+  
+        return view('components.navbar', compact('categories', ));
     }
 }

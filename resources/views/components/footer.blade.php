@@ -146,24 +146,24 @@
                 <div class="col-md-8 offset-md-1 ">
                     <div class="footer-right">
                         <div class="social-icons">
-                            <p class="subscribe mt-2">Subscribe to our  Newsletter</p>
+                            <p class="subscribe mt-2">@lang('message.Subscribe to our Newsletter')</p>
                             <form class="mt-2">
                                 @csrf
                                 <div class="input-group">
-                                    <input type="text" name="email" class="form-control" placeholder="Enter your email" required>
-                                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                                    <input type="text" name="email" class="form-control" placeholder="@lang('message.Enter Your Email')" required>
+                                    <button type="submit" class="btn btn-primary">@lang('message.Subscribe ')</button>
                                 </div>
                             </form>
                         </div>
 
                         <div class="footer-links">
-                            <a href="{{route('about')}}">About Us</a>
-                            <a href="{{ route('privacy')}}">Privacy Policy</a>
-                            <a href="{{ route('terms_and_condition')}}">Terms and Condition</a>
-                            <a href="{{ route('cookies')}}">Cookies Policy</a>
-                            <a href="{{ route('imprint') }}">Imprint</a>
+                            <a href="{{route('about')}}">@lang('message.About Us ')</a>
+                            <a href="{{ route('privacy')}}">@lang('message.Privacy Policy') </a>
+                            <a href="{{ route('terms_and_condition')}}">@lang('message.Terms and Condition')</a>
+                            <a href="{{ route('cookies')}}">@lang('message.Cookies Policy')</a>
+                            <a href="{{ route('imprint') }}">@lang('message.Imprint')</a>
                         </div>
-                        <p>Copyright &copy; 2024 couponsarena.com - All rights reserved</p>
+                        <p>@lang('message.Copyright &copy; 2024 couponsarena.com - All rights reserved')</p>
                     </div>
                 </div>
             </div>

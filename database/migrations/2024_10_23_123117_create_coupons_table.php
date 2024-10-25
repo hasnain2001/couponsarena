@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->unsignedBigInteger('language_id'); 
+            $table->foreign('language_id')
+                  ->references('id')->on('language')
+                  ->onDelete('cascade');
             $table->longText('description')->nullable();
             $table->string('code')->nullable();
             $table->integer('top_coupons')->nullable()->default(0);

@@ -56,7 +56,7 @@
                         </div>
                        <div class="form-group">
                                     <label for="code">Code</label>
-                                    <input type="text" class="form-control" name="code" id="code">
+                                    <input type="text" class="form-control" name="code" id="code" required>
                                 </div>
                         <div class="form-group">
                             <label for="destination_url">Destination URL <span class="text-danger">*</span></label>
@@ -78,6 +78,14 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-body">
+                        <div class="form-group">
+                        <select name="language_id" id="language_id" class="form-control" required>
+                            <option disabled selected>--Select Langs--</option>
+                            @foreach ($langs as $lang)
+                                <option value="{{ $lang->id }}">{{ $lang->name }}</option>
+                            @endforeach
+                        </select>
+                      </div>
                         <div class="form-group">
                             <label for="status">Status <span class="text-danger">*</span></label><br>
                             <input type="radio" name="status" id="enable" value="enable" required>&nbsp;<label for="enable">Enable</label>

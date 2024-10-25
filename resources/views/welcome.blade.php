@@ -91,11 +91,11 @@ color: white;
 <div class="conatain">
     <div class="row mb-4">
       <div class="col-12">
-        <h2 class="title text-center">Trending Promo Codes To Save Everyday</h2>
+        <h2 class="title text-center">@lang('message.Trending Promo Codes To Save Everyday')</h2>
       </div>
     </div>
     <div class="row coupon-grid g-4">
-      @foreach ($topcoupon as $coupon)
+      @foreach ($topcouponcode as $coupon)
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="coupon-card h-100 card rounded ">
           @php
@@ -130,7 +130,7 @@ color: white;
 
             <div class="d-grid gap-2">
 
-                <a href="{{ $coupon->destination_url }}" target="_blank" class=" btn  btn-sm btn-primary btn-hover" id="getCode{{ $coupon->id }}" onclick="toggleCouponCode('{{ $coupon->id }}')">Get Code</a>
+                <a href="{{ $coupon->destination_url }}" target="_blank" class=" btn  btn-sm btn-primary btn-hover" id="getCode{{ $coupon->id }}" onclick="toggleCouponCode('{{ $coupon->id }}')">@lang('message.Get Code')</a>
                 <div class="coupon-card d-flex flex-column">
                     <span class="codeindex text-dark scratch" style="display: none;" id="codeIndex{{ $coupon->id }}">{{ $coupon->code }}</span>
                     <button class="btn btn-info text-white btn-sm copy-btn btn-hover d-none mt-2" id="copyBtn{{ $coupon->id }}" onclick="copyCouponCode('{{ $coupon->id }}')">Copy Code</button>
@@ -141,7 +141,7 @@ color: white;
                         <input type="hidden" name="coupon_id" id="coupon_id">
                     </form>
                 </div>
-                <p class="used font-weight-bold mt-2" id="output_{{ $coupon->id }}">Used By: {{ $coupon->clicks }}</p>
+                <p class="used font-weight-bold mt-2" id="output_{{ $coupon->id }}">@lang('message.Used By'): {{ $coupon->clicks }}</p>
             </div>
 
 
@@ -160,11 +160,11 @@ color: white;
 <div class="conatain">
     <div class="row mb-4">
       <div class="col-12">
-        <h2 class="title text-center">Top Deals Today</h2>
+        <h2 class="title text-center">@lang('message.Top Deals Today')</h2>
       </div>
     </div>
     <div class="row coupon-grid g-4">
-      @foreach ($Coupons as $coupon)
+      @foreach ($Couponsdeals as $coupon)
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="coupon-card h-100 card rounded ">
           @php
@@ -193,18 +193,22 @@ color: white;
           <div class="mb-4 coupon-body py-3 ">
 
             <h6 class="text-left">{{ $coupon->name }}</h6>
+   
             <span class="d-block mb-2 {{ \Carbon\Carbon::parse($coupon->ending_date)->isPast() ? 'text-danger' : 'text-muted' }}">
                 Ends: {{ \Carbon\Carbon::parse($coupon->ending_date)->format('d M, Y') }}
             </span>
 
             <div class="d-grid gap-2">
-                <a href="{{ $coupon->destination_url }}" class="btn btn-dark" onclick="updateClickCount('{{ $coupon->id }}')" target="_blank">Get Deal</a>
+                <a href="{{ $coupon->destination_url }}" class="btn btn-dark" onclick="updateClickCount('{{ $coupon->id }}')" target="_blank">@lang('message.Get Deal')</a>
                 <form method="post" action="{{ route('update.clicks') }}" id="clickForm">
                     @csrf
                     <input type="hidden" name="coupon_id" id="coupon_id">
                 </form>
             </div>
-            <p class="used font-weight-bold mt-2" id="output_{{ $coupon->id }}">Used By: {{ $coupon->clicks }}</p>
+            <p class="used font-weight-bold mt-2" id="output_{{ $coupon->id }}">@lang('message.Used By') {{ $coupon->clicks }}</p>
+            {{-- <span>top: {{ $coupon->top_coupons ?? 0 }}</span> --}}
+
+     
         </div>
 
 
@@ -217,19 +221,32 @@ color: white;
     </div>
   </div>
   <div class="container mt-5">
-    <h3 class="mb-4 title text-center">Popular Stores Today</h3>
+    <h3 class="mb-4 title text-center">@lang('message.Popular Stores Today')</h3>
     <div class="row justify-content-center">
         <div class="col-md-12 card">
             <div class="row row-cols-2 row-cols-md-6 g-3"> <!-- Using row-cols-2 to adjust columns for smaller screens -->
                 @foreach ($stores as $store)
                 <div class="col mb-4">
-                    <a href="{{ route('store_details', ['slug' => Str::slug($store->slug)]) }}" class="text-decoration-none">
+                  @php
+                  
+                  $language = $store->language->code; 
+                  $storeurl = $store->slug 
+                      ? route('store_details', ['lang' => $language, 'slug' =>Str::slug($store->slug)]) 
+                      : '#';
+              @endphp
+ 
+              <a href="{{ $storeurl }}" class="card-link text-decoration-none">
                         <div class="card-body card-body-store d-flex justify-content-center align-items-center">
                             <span class="top-store-name text-center text-truncate">{{ $store->name }}</span> <!-- Added text-truncate for long names -->
                         </div>
                     </a>
                 </div>
+                {{-- <a href="{{ route('stores', ['lang' => $store->language->code, 'id' => $store->id]) }}">
+                  {{ $store->name }}
+                </a> --}}
                 @endforeach
+                
+
             </div>
         </div>
     </div>

@@ -119,6 +119,7 @@ return [
     | Supported drivers: "file", "cache"
     |
     */
+    // 'supported_locales' => ['en', 'fr', 'ur','es',''],
 
     'maintenance' => [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),

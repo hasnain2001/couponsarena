@@ -1,60 +1,70 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Spatie\ImageOptimizer\OptimizerChainFactory;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Imagick\Driver;
 use App\Models\Categories;
 use App\Models\Networks;
 use App\Models\Coupons;
-use Illuminate\Http\Request;
+use App\Models\Language;
 use App\Models\Stores;
 use Illuminate\Validation\Rule;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class StoresController extends Controller
 {
-    public function StoreDetails($name) {
+    public function StoreDetails($name)
+    {
         $slug = Str::slug($name);
         $title = ucwords(str_replace('-', ' ', $slug));
         $store = Stores::where('slug', $title)->first();
         if (!$store) {
             return redirect('404');
         }
-     $coupons = Coupons::where('store', $title)->orderByRaw('CAST(`order` AS SIGNED) ASC')->get();
-     $relatedStores = Stores::where('category', $store->category)->where('id', '!=', $store->id)->get();
+        $coupons = Coupons::where('store', $title)->orderByRaw('CAST(`order` AS SIGNED) ASC')->get();
+        $relatedStores = Stores::where('category', $store->category)->where('id', '!=', $store->id)->get();
 
         return view('admin.stores.store-detail', compact('store', 'coupons', 'relatedStores'));
     }
 
-       public function top_store() {
-        // Fetch all stores with their respective categories
-   $storesByCategory = Stores ::table('stores')
-        ->select('category', Categories::raw('count(*) as total'))
-        ->groupBy('category')
+
+
+    // In your StoreController
+    public function store()
+    {
+        $stores = Stores::with('language')->select('id', 'name', 'slug', 'status', 'created_at', 'updated_at', 'store_image', 'network', 'category')
+        ->orderBy('created_at', 'desc')
         ->get();
 
-        return view('blog', compact('storesByCategory'));
+      
+        return view('admin.stores.index', compact('stores',));
     }
-    public function store() {
-        $stores = Stores::get();
-        return view('admin.stores.index', compact('stores'));
-    }
+    
 
-    public function create_store() {
+    public function create_store()
+    {
         $categories = Categories::all();
         $networks = Networks::all();
-        return view('admin.stores.create', compact('categories', 'networks'));
+        $langs = Language::get();
+        
+        return view('admin.stores.create', compact('categories', 'networks','langs'));
     }
 
 
 
-    public function store_store(Request $request) {
+
+
+    public function store_store(Request $request)
+    {
         // Validate the incoming request data
         $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:stores,slug',
-            'top_store' =>'nullable|integer',
+            'language_id' =>'required|integer',
+            'slug' => 'nullable|string|max:255|unique:stores,slug', // Slug is now nullable
+            'top_store' => 'nullable|integer',
             'description' => 'nullable|string',
             'url' => 'nullable|url',
             'destination_url' => 'nullable|url',
@@ -67,46 +77,35 @@ class StoresController extends Controller
             'network' => 'nullable|string',
             'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // Validates image file
         ]);
-
+    
+        // Generate a slug from the name if not provided
+        $slug = $request->input('slug') ? $request->input('slug') : Str::slug($request->input('name'));
+    
         // Handle the file upload if a store image is provided
         $storeImage = null;
         if ($request->hasFile('store_image')) {
             $file = $request->file('store_image');
             $storeImage = md5($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
             $filePath = public_path('uploads/stores/') . $storeImage;
-
+    
             // Save the file to the specified location
             $file->move(public_path('uploads/stores/'), $storeImage);
-
+    
             // Ensure that the file has been saved before trying to read it
             if (file_exists($filePath)) {
-                // // Use Imagick to create a new image instance
-                // $image = ImageManager::imagick()->read($filePath);
-
-                // // Resize the image to 300x200 pixels
-                // $image->resize(300, 200);
-
-                // // Optionally, resize only the height to 200 pixels
-                // $image->resize(null, 200, function ($constraint) {
-                //     $constraint->aspectRatio();
-                // });
-
                 // Optimize the image
                 $optimizer = OptimizerChainFactory::create();
                 $optimizer->optimize($filePath);
-
-                // Save the resized and optimized image
-                // $image->save($filePath);
-            }
-            else{
-                return redirect()->back()->with('not found');
+            } else {
+                return redirect()->back()->with('error', 'Image not found');
             }
         }
-
+    
         // Create a new store record
         Stores::create([
             'name' => $request->input('name'),
-            'slug' => $request->input('slug'),
+            'slug' => $slug, // Use the generated or provided slug
+            'language_id' => $request->input('language_id'),
             'top_store' => $request->input('top_store'),
             'description' => $request->input('description'),
             'url' => $request->input('url'),
@@ -121,20 +120,23 @@ class StoresController extends Controller
             'network' => $request->input('network'),
             'store_image' => $storeImage ?? 'No Store Image',
         ]);
-
+    
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Store Created Successfully');
     }
+    
 
-
-    public function edit_store($id) {
+    public function edit_store($id)
+    {
         $stores = Stores::find($id);
         $categories = Categories::all();
         $networks = Networks::all();
-        return view('admin.stores.edit', compact('stores', 'categories', 'networks'));
+        $langs = Language::get();
+        return view('admin.stores.edit', compact('stores', 'categories', 'networks','langs'));
     }
 
-    public function update_store(Request $request, $id) {
+    public function update_store(Request $request, $id)
+    {
         // Find the store by ID
         $store = Stores::find($id);
 
@@ -147,7 +149,7 @@ class StoresController extends Controller
                 'max:255',
                 Rule::unique('stores')->ignore($store->id),
             ],
-            'top_store' =>'nullable|integer',
+            'top_store' => 'nullable|integer',
             'description' => 'nullable|string',
             // 'url' => 'nullable|url',
             // 'destination_url' => 'nullable|url',
@@ -174,7 +176,7 @@ class StoresController extends Controller
 
             // Ensure that the file has been saved before trying to read it
             if (file_exists($filePath)) {
-                // // Use Imagick to create a new image instance
+                // Use Imagick to create a new image instance
                 // $image = ImageManager::imagick()->read($filePath);
 
                 // // Resize the image to 300x200 pixels
@@ -213,9 +215,10 @@ class StoresController extends Controller
         ]);
 
         // Redirect back with a success message
-        return redirect()->back()->with('success', 'Store Updated Successfully');
+        return redirect()->route('admin.stores')->with('success', 'Store Updated Successfully');
     }
-    public function delete_store($id) {
+    public function delete_store($id)
+    {
         // Find the store by id
         $store = Stores::find($id);
 
@@ -234,7 +237,7 @@ class StoresController extends Controller
     }
 
 
-public function deleteSelected(Request $request)
+    public function deleteSelected(Request $request)
     {
         $storeIds = $request->input('selected_stores');
 
@@ -247,6 +250,4 @@ public function deleteSelected(Request $request)
             return redirect()->back()->with('error', 'No stores selected for deletion');
         }
     }
-
-
 }

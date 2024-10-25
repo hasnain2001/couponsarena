@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Pluralizer;
 use App\Models\Categories;
+use App\Models\Language;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,16 +24,15 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::addNamespace('errors', resource_path('views/errors'));
+    
         Blade::component('navbar', \App\View\Components\Navbar::class);
-        View::composer('*', function ($view) {
-            $view->with('categories', Categories::all());
-        });
-        Blade::component('footer', \App\View\Components\Footer::class);
-
         Blade::component('footer', \App\View\Components\Footer::class);
         Blade::component('sidebar', \App\View\Components\Navbar::class);
-        Pluralizer::useLanguage('spanish');
-        
-
+    
+        // Share categories and languages across all views
+        View::composer('*', function ($view) {
+            $view->with('categories', Categories::all());
+            $view->with('langs', Language::all()); 
+                });
     }
 }

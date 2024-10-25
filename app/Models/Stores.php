@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Stores extends Model
 {
     use HasFactory;
-    protected $table = 'stores';
+
     protected $fillable = [
+        'language_id',
         'name',
         'slug',
         'top_store',
@@ -33,8 +34,10 @@ public function category()
 {
     return $this->belongsTo(Categories::class);
 }
-public function coupons() {
-    return $this->hasMany(Coupons::class);
+
+public function language()
+{
+    return $this->belongsTo(Language::class, 'language_id');
 }
 
 

@@ -24,12 +24,14 @@
         <section class="content">
             <div class="container-fluid">
                 @if(session('success'))
-                    <div class="alert alert-success alert-dismissable">
-                        <i class="fa fa-ban"></i>
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <b>{{ session('success') }}</b>
-                    </div>
-                @endif
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                    <strong>Success!</strong> {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -48,6 +50,7 @@
                     <th>Network</th>
                     <th>Featured</th>
                     <th>Status</th>
+                    <th>Lang</th>
                    <th>created at</th>
                     <th> last updated </th>
                     <th>Action</th>
@@ -71,6 +74,12 @@
             <i class="fas fa-check-circle text-success"></i>
           @endif
                         </td>
+                        
+                        <td>{{ $store->language->code ??'No language' }}</td>
+
+
+                              
+                     
                                          <td>
     <span class="  text-dark" data-bs-toggle="tooltip" title="{{ $store->created_at->setTimezone('Asia/Karachi')->format('l, F j, Y h:i A') }}">
         {{ $store->created_at->setTimezone('Asia/Karachi')->format('M d, Y h:i A') }}
@@ -98,8 +107,8 @@
                     <th>Store Image</th>
                     <th>Network</th>
                     <th>Featured</th>
-
                     <th>Status</th>
+                    <th>Lang</th>
                   <th>created at</th>
                     <th> last updated </th>
                     <th>Action</th>

@@ -53,7 +53,7 @@
         }
         .language-selector {
             margin-left: 10px;
-            width: 80px;
+            width: 100px;
         }
 
         #myBtn, .loader {
@@ -206,7 +206,7 @@
         <!-- Logo section with white background -->
         <div class="logo-container d-sm-block d-none">
             <a class="navbar-brand" href="/">
-                <img src="{{ asset('images/AOlSOt.png') }}" alt="Logo" class="logo">
+                <img src="{{ asset('images/logodesktop.png') }}" alt="Logo" class="logo" loading="lazy">
             </a>
         </div>
 
@@ -214,7 +214,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark text-white">
             <div class="container-fluid">
                 <a class="navbar-brand d-block d-sm-none mb-logo" href="/">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="logo" loading="lazy>
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -224,25 +224,30 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                            <a class="nav-link active" aria-current="page" href="/">@lang('message.home')</a>
                         </li>
                         <li class="nav-item dropdown mega-dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">@lang('message.category')</a>
                             <div class="dropdown-menu mega-menu p-3" aria-labelledby="navbarDropdown">
                                 <div class="row">
                                     @foreach ($categories as $category)
                                     <div class="col-md-3">
-                                        <a href="{{ route('related_category', ['slug' => Str::slug($category->slug)]) }}" class="dropdown-item text-dark">{{ $category->title }}</a>
+                <a href="{{ route('related_category', ['lang' => app()->getLocale(), 'slug' => Str::slug($category->slug)]) }}" 
+                                            class="dropdown-item text-dark">
+                                             {{ $category->title }}
+                                         </a>
+                                         
                                     </div>
                                     @endforeach
                                 </div>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('contact') }}">Contact Us</a>
+                            <a class="nav-link" href="{{ route('contact')}}">@lang('message.contact')</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('blog') }}">News</a>
+                            <a class="nav-link" href="{{ route('blog', ['lang' => 'en']) }}">@lang('message.news')</a>
+
                         </li>
                     </ul>
                 </div>
@@ -250,19 +255,19 @@
 
             <!-- Search form and language selector on the right -->
             <div class="search-language-container">
-                <form action="{{ route('search') }}" method="GET" class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" name="query" placeholder="Search Voucher Codes" aria-label="Search" >
+                <form action="{{ route('storesearch') }}" method="GET" class="d-flex" role="search">
+            
+                    <input class="form-control me-2" type="search" name="query" placeholder="@lang('message.search')" aria-label="Search" >
                     <button class="searchbtn" type="submit"><i class="fas fa-search"></i></button>
                 </form>
                 <div class="language-selector">
                     <select class="form-select" aria-label="Language selector" id="languageSelector">
-                        <option value="en" data-icon="flag-icon flag-icon-gb" selected>EN</option>
-                        <option value="es" data-icon="flag-icon flag-icon-es" selected>ES</option>
-                        <option value="fr" data-icon="flag-icon flag-icon-fr" selected>FR</option>
-                        <option value="de" data-icon="flag-icon flag-icon-de" selected>DE</option>
-                        <option value="nl" data-icon="flag-icon flag-icon-nl" selected>NL</option>
+                        @foreach ($langs as $lang)
+                        <option value="{{ $lang->code }}" >{{ $lang->name }}</option>
+                        @endforeach
                     </select>
                 </div>
+                
                 
             </div>
         </nav>
@@ -273,18 +278,18 @@
     </button>
 
 <script>
-document.getElementById('languageSelector').addEventListener('change', function () {
-    var selectedLang = this.value;
-    var url = `/${selectedLang}`;
-    
-    // Check if the selected language is "EN" to redirect to the homepage
-    if (selectedLang === 'en') {
-        url = '/';  // Redirect to the homepage for English
-    }
+    // Add event listener for the select dropdown
+    document.getElementById('languageSelector').addEventListener('change', function () {
+        var selectedLang = this.value;
+        var url = `/${selectedLang}`;
+        
+        // Check if the selected language is "EN" to redirect to the homepage
+        if (selectedLang === 'en') {
+            url = '/';  // Redirect to the homepage for English
+        }
 
-    window.location.href = url;
-});
-
+        window.location.href = url;  // Redirect the user to the new URL
+    });
     // Scroll-to-top button logic
     let mybutton = document.getElementById("myBtn");
     window.onscroll = function() {scrollFunction()};
@@ -299,7 +304,26 @@ document.getElementById('languageSelector').addEventListener('change', function 
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
     }
+    $(document).ready(function() {
+    $('#searchInput').autocomplete({
+        source: function(request, response) {
+            $.ajax({
+                url: '{{ route('storesearch') }}',
+                dataType: 'json',
+                data: {
+                    query: request.term
+                },
+                success: function(data) {
+                    response(data.stores);
+                }
+            });
+        },
+        minLength:10 
+    });
+});
 </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 </body>
 </html>

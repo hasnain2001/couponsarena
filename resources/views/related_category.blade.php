@@ -50,9 +50,17 @@ header("X-Robots-Tag:index, follow");
         <div class="row card-list g-4">
             @forelse ($stores as $store)
                 <div class="col-lg-2 col-md-4 col-sm-6 col-6">
-                    @if ($store->slug)
-                        <a href="{{ route('store_details', ['slug' => Str::slug($store->slug)]) }}" class="card-link text-decoration-none">
-                    @endif
+                    @php
+                    // Ensure 'lang' parameter is set properly (fallback to 'en' if needed)
+                    $language = app()->getLocale() ?? 'en';
+                
+                    // Generate store URL or fallback to '#' if store slug is missing
+                    $storeurl = $store->slug 
+                        ? route('store_details', ['lang' => $language, 'slug' => $store->slug]) 
+                        : '#';
+                @endphp
+                
+                <a href="{{ $storeurl }}" class="card-link text-decoration-none">
 
                     <div class="shadow-bg h-100">
                         <div class="card-body ">
@@ -62,9 +70,8 @@ header("X-Robots-Tag:index, follow");
                         </div>
                     </div>
 
-                    @if ($store->slug)
-                        </a>
-                    @endif
+                                          </a>
+                
                 </div>
             @empty
                 <div class="col-12">
@@ -76,7 +83,6 @@ header("X-Robots-Tag:index, follow");
         </div>
     </div>
 
-    <h1>Hi, @lang('lang.welcome')</h1>
    @include('components.footer')
 
   </body>

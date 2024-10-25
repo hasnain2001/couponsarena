@@ -11,10 +11,12 @@
         "laravel/framework": "^11.9",
         "laravel/jetstream": "^5.2",
         "laravel/sanctum": "^4.0",
+        "laravel/socialite": "^5.16",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.0",
         "spatie/image-optimizer": "^1.7",
         "spatie/laravel-image-optimizer": "^1.8",
+        "spatie/laravel-translatable": "^6.8",
         "tanmuhittin/laravel-google-translate": "^2.3"
     },
     "require-dev": {

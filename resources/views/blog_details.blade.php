@@ -61,14 +61,19 @@ header("X-Robots-Tag:index, follow");
                 <img src="{{ asset('uploads/stores/' . $store->store_image) }}" alt="{{ $store->name }}" class="mb-2 rounded-circle shadow" style="width: 100px; height: 100px; object-fit: cover;">
                 <!-- Store Name -->
                 <p class="text-capitalize">{{ $store->name }}</p>
-                @if ($store->slug)
-                <a href="{{ route('store_details', ['slug' => Str::slug($store->slug)]) }}" class="get">
+                @php
+                // Ensure 'lang' parameter is set properly (fallback to 'en' if needed)
+                $language = app()->getLocale() ?? 'en';
+            
+                // Generate store URL or fallback to '#' if store slug is missing
+                $storeurl = $store->slug 
+                    ? route('store_details', ['lang' => $language, 'slug' => $store->slug]) 
+                    : '#';
+            @endphp
+            <a href="{{ $storeurl }}" class="btn btn-dark btn-sm">
                     Visit Store
                 </a>
-                @else
-               <a href="#" class="get">No Slug /Url</a>
-
-                @endif
+       
 
             </div>
           @endforeach

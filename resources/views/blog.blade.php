@@ -87,23 +87,28 @@ header("X-Robots-Tag:index, follow");
 <ul class="list-group list-group-flush">
     @foreach ($chunks as $store)
     @php
-    $storeUrl = $store->slug
-        ? route('store_details', ['slug' => Str::slug($store->slug)])
-        : '#';
-@endphp
-    <li class="list-group-item d-flex align-items-center justify-content-between">
-        <div class="d-flex align-items-center">
-            <img src="{{ asset('uploads/stores/' . $store->store_image) }}" alt="{{ $store->name }}" class="rounded-circle" style="width: 60px; height: 60px;">
-            <div class="store-info ml-3 ">
-                <span class="fw-bold frugal-heaven-text-name">{{ $store->name }}</span>
+        // Ensure 'lang' parameter is set properly (fallback to 'en' if needed)
+        $language = app()->getLocale() ?? 'en';
+    
+        // Generate store URL or fallback to '#' if store slug is missing
+        $storeurl = $store->slug 
+            ? route('store_details', ['lang' => $language, 'slug' => $store->slug]) 
+            : '#';
+    @endphp
+    
+    <a href="{{ $storeurl }}" class="btn btn-dark btn-sm">
+        <li class="list-group-item d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+                <img src="{{ asset('uploads/stores/' . $store->store_image) }}" alt="{{ $store->name }}" class="rounded-circle" style="width: 60px; height: 60px;">
+                <div class="store-info ml-3">
+                    <span class="fw-bold frugal-heaven-text-name">{{ $store->name }}</span>
+                </div>
             </div>
-        </div>
-
-
-
-        <a href="{{ $storeUrl }}" class="btn btn-dark btn-sm" {{ $store->slug ? '' : 'disabled' }}>Visit Store</a>
-    </li>
-@endforeach
+            Visit Store
+        </li>
+    </a>
+    @endforeach
+    
 
 </ul>
 

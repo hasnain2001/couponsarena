@@ -156,9 +156,18 @@ header("X-Robots-Tag:index, follow");
                 <h4 class="text-center mb-4">Related Stores</h4>
                 <div class="row row-cols-2 gy-3">
                     @foreach ($relatedStores as $relatedStore)
-                        @php
-                            $storeurl = $relatedStore->slug ? route('store_details', ['slug' => Str::slug($relatedStore->slug)]) : '#';
-                        @endphp
+                    @php
+                    // Ensure 'lang' parameter is set properly (fallback to 'en' if needed)
+                    $language = app()->getLocale() ?? 'en';
+                
+                    // Generate store URL or fallback to '#' if store slug is missing
+                    $storeurl = $relatedStore->slug 
+                        ? route('store_details', ['lang' => $language, 'slug' => $relatedStore->slug]) 
+                        : '#';
+                @endphp
+                
+   
+                <a href="{{ $storeurl }}" class="card-link text-decoration-none">
                         <div class="col">
                             <div class="related-store-box text-left">
                                 <a href="{{ $storeurl }}" class="store-link">{{ $relatedStore->name }}</a>

@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Coupons extends Model
 {
     use HasFactory;
-      // Explicitly define the table name
-      protected $table = 'coupons';
+
+    protected $table = 'coupons';
+
     protected $fillable = [
+        'language_id',
         'name',
         'clicks',
         'order',
@@ -28,4 +30,9 @@ class Coupons extends Model
     protected $casts = [
         'ending_date' => 'datetime',
     ];
+
+    public function language()
+{
+    return $this->belongsTo(Language::class, 'language_id');
+}
 }

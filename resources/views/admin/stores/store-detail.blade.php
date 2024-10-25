@@ -26,12 +26,15 @@
         <section class="content">
             <div class="container-fluid">
                 @if(session('success'))
-                    <div class="alert alert-success alert-dismissable">
-                        <i class="fa fa-ban"></i>
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <b>{{ session('success') }}</b>
-                    </div>
-                @endif
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                    <strong>Success!</strong> {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+            
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -49,6 +52,7 @@
             <th>Coupon Name</th>
             <th>Store</th>
             <th>Deal/Code</th>
+            <th>lang</th>
             <th>Status</th>
             <th>create at</th>
             <th>Last Updated</th> <!-- Add this column header -->
@@ -70,6 +74,7 @@
                     <span>Deal</span>
                                    @endif
                 </td>
+                <td>{{ $store->language->name ??'No language' }}</td>
                 <td>
                    @if ($coupon->status == "disable")
                         <i class="fa fa-fw fa-times-circle" style="color: blue;"></i>
@@ -102,7 +107,8 @@
             <th width="30px">#</th>
             <th>Coupon Name</th>
             <th>Store</th>
-            <th>Never Expire</th>
+            <th>Deal/Code</th>
+            <th>lang</th>
             <th>Status</th>
             <th>created at</th>
             <th>Last Updated</th> <!-- Add this column footer -->

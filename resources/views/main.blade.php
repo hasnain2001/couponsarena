@@ -64,8 +64,24 @@ header("X-Robots-Tag:index, follow");
             .custom-carousel-indicators .active {
                 background-color: #ff6347; /* Change this color for an attractive look */
             }
-        </style>
+            @media only screen and (max-width: 1200px) {
+    .slider-image {
+        height: 300px; /* Slightly smaller for medium-sized screens */
+    }
+}
 
+@media only screen and (max-width: 768px) {
+    .slider-image {
+        height: 250px; /* Adjust for tablets */
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .slider-image {
+        height: 200px; /* Adjust for smaller mobile devices */
+    }
+}
+        </style>
     </head>
     <body>
 
@@ -80,19 +96,19 @@ header("X-Robots-Tag:index, follow");
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="{{ asset('images/banner1.png') }}" class="d-block w-100 slider-image" alt="Slide 1">
+                    <img src="{{ asset('images/banner1.png') }}" class="d-block w-100 slider-image" alt="Slide 1" loading="lazy">
                 </div>
                 <div class="carousel-item">
-                    <img src="{{ asset('images/couponsarenaslider.png') }}" class="d-block w-100 slider-image" alt="Slide 2">
+                    <img src="{{ asset('images/couponsarenaslider.png') }}" class="d-block w-100 slider-image" alt="Slide 2" loading="lazy">
                 </div>
                 <div class="carousel-item">
-                    <img src="{{ asset('images/Untitled-2 (1).png') }}" class="d-block w-100 slider-image" alt="Slide 3">
+                    <img src="{{ asset('images/Untitled-2 (1).png') }}" class="d-block w-100 slider-image" alt="Slide 3" loading="lazy">
                 </div>
                 <div class="carousel-item">
-                    <img src="{{ asset('images/black friday sale.png') }}" class="d-block w-100 slider-image" alt="Slide 4">
+                    <img src="{{ asset('images/black friday sale.png') }}" class="d-block w-100 slider-image" alt="Slide 4"  loading="lazy">
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" loading="lazy">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
@@ -103,21 +119,9 @@ header("X-Robots-Tag:index, follow");
         </div>
 <br><br>
 
-     
-<div class="container">
-    <ul class="" style="" >
-        <li><a href="/">Endlish</a></li>
-        <li><a href="{{url('/es')}}">ES</a></li>
-        <li><a href="{{url('/fr')}}">Fr</a></li>
-        <li><a href="{{url('/de')}}">De</a></li>
-        <li><a href="{{url('/nl')}}">Nl</a></li>
-    </ul>
 
-  
 
-<h1>Hi,{{ __('lang.welcome') }} </h1>
-<span>@lang('lang.user')</span>
-</div>
+
 
 
 

@@ -33,6 +33,15 @@
                     <b>{{ session('success') }}</b>
                 </div>
             @endif
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
             <form name="UpdateCoupon" id="UpdateCoupon" method="POST" action="{{ route('admin.coupon.update', $coupons->id) }}">
                 @csrf
                 <div class="row">
@@ -119,14 +128,22 @@
                                 </div> --}}
                                 <div class="form-group">
                                     <label for="store">Store <span class="text-danger">*</span></label>
-                                    {{-- <select name="store" id="store" class="form-control fw-bold">
+                                    <select name="store" id="store" class="form-control fw-bold">
                                         <option value="" disabled selected>{{ $coupons->store }}</option>
                                         @foreach($stores as $store)
                                             <option value="{{ $store->slug }}">{{ $store->slug }}</option>
                                         @endforeach
-                                    </select> --}}
-
-                                <span>{{ $coupons->store }}</span>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lang">Language <span class="text-danger">*</span></label>
+                                    <select name="language_id" id="lang" class="form-control" required>
+                                        <option disabled selected>--Select Langs--</option>
+                                        <option value="{{ $coupons->language->name }}" disabled selected>{{ $coupons->language->name }}</option>
+                                        @foreach ($langs as $lang)
+                                            <option value="{{ $lang->id }}">{{ $lang->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
