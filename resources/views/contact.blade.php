@@ -1,7 +1,7 @@
 <?php
 header("X-Robots-Tag:index, follow");
 ?><!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +23,7 @@ header("X-Robots-Tag:index, follow");
 
 </head>
 <body>
-<x-navbar/>
+@include('components.navbar')
 <section class="contact-us py-5">
   <div class="container">
     <nav aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 0.25rem; padding: 10px;">
@@ -39,39 +39,39 @@ header("X-Robots-Tag:index, follow");
         <img src="{{asset('images/contact.png')}}" alt="Company Image" class="img-fluid rounded shadow-sm" style="height:400px; width:100%;">
       </div>
       <div class="col-md-6">
-        <h1 class="display-4 text-center mb-4">Contact Us</h1>
+        <h1 class="display-6 text-center mb-4">@lang('message.contact')</h1>
         <form action="#" method="POST" class="row justify-content-center">
           <div class="col-md-6 mb-3">
             <div class="form-group">
-              <label for="firstName" class="form-label">First Name</label>
+              <label for="firstName" class="form-label">@lang('message.First Name')</label>
               <input type="text" class="form-control" id="firstName" name="firstName" required>
             </div>
           </div>
           <div class="col-md-6 mb-3">
             <div class="form-group">
-              <label for="lastName" class="form-label">Last Name</label>
+              <label for="lastName" class="form-label">@lang('message.Last Name')</label>
               <input type="text" class="form-control" id="lastName" name="lastName" required>
             </div>
           </div>
           <div class="col-md-6 mb-3">
             <div class="form-group">
-              <label for="email" class="form-label">Email Address</label>
+              <label for="email" class="form-label">@lang('message.Email Address')</label>
               <input type="email" class="form-control" id="email" name="email" required>
             </div>
           </div>
           <div class="col-md-6 mb-3">
             <div class="form-group">
-              <label for="website" class="form-label">Website Name</label>
+              <label for="website" class="form-label">@lang('message.Website Name')</label>
               <input type="text" class="form-control" id="website" name="website" required>
             </div>
           </div>
           <div class="col-12 mb-3">
             <div class="form-group">
-              <label for="message" class="form-label">Write your message</label>
+              <label for="message" class="form-label">@lang('message.Write your message')</label>
               <textarea class="form-control" id="message" name="message" rows="8" required></textarea>
             </div>
           </div>
-          <button type="submit" class="btn btn-dark btn-lg">Submit</button>
+          <button type="submit" class="btn btn-dark btn-lg">@lang('message.Submit')</button>
         </form>
       </div>
       <div class="col-5 mt-4">
@@ -87,7 +87,8 @@ header("X-Robots-Tag:index, follow");
 
 <br>
    <br>
-<x-footer/>
+
+   @include('components.footer')
 
 </body>
 </html>

@@ -53,11 +53,13 @@ header("X-Robots-Tag:index, follow");
         @forelse ($stores as $store)
             <div class="col-lg-2 col-md-4 col-sm-6 col-6">
                 @php
+                  
+                $language = $store->language->code; 
+                $storeurl = $store->slug 
+                    ? route('store_details', ['lang' => $language, 'slug' =>Str::slug($store->slug)]) 
+                    : '#';
+            @endphp
 
-    $storeurl = $store->slug
-        ? route('store_details', ['lang' => app()->getLocale(), 'slug' => $store->slug])
-        : '#';
-@endphp
 
 <a href="{{ $storeurl }}" class="card-link text-decoration-none">
 

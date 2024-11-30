@@ -34,7 +34,7 @@
             width:350px;
         }
         .searchbtn {
-            background-color: #10355a;
+            background-color: #161414;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -44,7 +44,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .searchbtn:hover {
-            background-color: #003d7a;
+            background-color: #b4a9a9;
             transform: scale(1.05);
         }
         .search-language-container {
@@ -90,7 +90,7 @@
         .header-container {
             padding-left: 0;
             height: 110px;
-            background-color: #003d7a;
+            background-color: #080808;
         }
 
         /* Media Queries for Mobile */
@@ -115,16 +115,14 @@
                 width: 100%;
                 align-items: stretch;
             }
+            .dropdown{
+                width: 100%;
+            }
             .searchbtn {
                 width: 20%;
                 margin-top: 10px;
             }
-            .language-selector {
-                margin-left: 0;
-                margin-top: 10px;
-                width: 90%;
-            }
-            .logo {
+                     .logo {
                 height: auto;
                 max-height: 80px;
             }
@@ -145,11 +143,11 @@
     border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb {
-    background: #003d7a;
+    background: #ababbe;
     border-radius: 5px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #372cd3;
+    background: #000000;
 }
 .loader {
     width: 120px;
@@ -167,13 +165,13 @@
     }
 }
 #myBtn {
-    display: none;
+
     bottom: 20px;
     right: 30px;
-    z-index: 99;
+    z-index: 10;
     border: none;
     outline: 0;
-    background-color: #003d7a;
+    background-color: #080808;
     color: #fff;
     cursor: pointer;
     padding: 15px;
@@ -183,40 +181,30 @@
 #myBtn:hover {
     background-color: #555;
 }
-#languageSelector option[data-icon="flag-icon flag-icon-gb"] {
-    background-image: url('https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/flags/4x3/gb.svg');
-}
-#languageSelector option[data-icon="flag-icon flag-icon-es"] {
-    background-image: url('https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/flags/4x3/es.svg');
-}
-#languageSelector option[data-icon="flag-icon flag-icon-fr"] {
-    background-image: url('https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/flags/4x3/fr.svg');
-}
-#languageSelector option[data-icon="flag-icon flag-icon-de"] {
-    background-image: url('https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/flags/4x3/de.svg');
-}
-#languageSelector option[data-icon="flag-icon flag-icon-nl"] {
-    background-image: url('https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/flags/4x3/nl.svg');
+.dropdown-item {
+    width:80px ;
+  padding-left: 0;
+    font-size: 16px;
 }
 
     </style>
 </head>
 <body>
+
     <header class="header-container">
-        <!-- Logo section with white background -->
+        <!-- Logo section -->
         <div class="logo-container d-sm-block d-none">
             <a class="navbar-brand" href="/">
                 <img src="{{ asset('images/logodesktop.png') }}" alt="Logo" class="logo" loading="lazy">
             </a>
         </div>
 
-        <!-- Navbar section -->
-        <nav class="navbar navbar-expand-lg navbar-dark text-white">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid">
                 <a class="navbar-brand d-block d-sm-none mb-logo" href="/">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="logo" loading="lazy>
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="logo" loading="lazy">
                 </a>
-
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -224,59 +212,72 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">@lang('message.home')</a>
+                            <a class="nav-link active" href="{{ url(app()->getLocale() . '/') }}">@lang('message.home')</a>
+
                         </li>
                         <li class="nav-item dropdown mega-dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">@lang('message.category')</a>
+                            <a class="nav-link dropdown-toggle" href="{{ route('categories') }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">@lang('message.category')</a>
                             <div class="dropdown-menu mega-menu p-3" aria-labelledby="navbarDropdown">
                                 <div class="row">
                                     @foreach ($categories as $category)
-                                    <div class="col-md-3">
-                <a href="{{ route('related_category', ['lang' => app()->getLocale(), 'slug' => Str::slug($category->slug)]) }}" 
-                                            class="dropdown-item text-dark">
-                                             {{ $category->title }}
-                                         </a>
-                                         
-                                    </div>
+                                        <div class="col-md-3">
+                                            
+                                            <a href="{{ route('related_category', ['lang' => app()->getLocale(), 'slug' => Str::slug($category->slug)]) }}" class="dropdown-item text-dark">{{ $category->title }}</a>
+
+                                        </div>
                                     @endforeach
                                 </div>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('contact')}}">@lang('message.contact')</a>
+                            <a class="nav-link" href="{{ url(app()->getLocale() . '/contact') }}">
+                                @lang('message.contact')
+                            </a>
+                            
+                            
+                            
+                           
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('blog', ['lang' => 'en']) }}">@lang('message.news')</a>
-
+                            <a class="nav-link" href="{{ url(app()->getLocale() . '/blog') }}">@lang('message.news')</a>
                         </li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Search form and language selector on the right -->
+            <!-- Search and Language Selector -->
             <div class="search-language-container">
                 <form action="{{ route('storesearch') }}" method="GET" class="d-flex" role="search">
-            
-                    <input class="form-control me-2" type="search" name="query" placeholder="@lang('message.search')" aria-label="Search" >
+                    <input class="form-control me-2" type="search" name="query" placeholder="@lang('message.search')" aria-label="Search">
                     <button class="searchbtn" type="submit"><i class="fas fa-search"></i></button>
                 </form>
-                <div class="language-selector">
-                    <select class="form-select" aria-label="Language selector" id="languageSelector">
+
+                <li class="nav-item dropdown list-unstyled ">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ strtoupper($currentLang) }}
+                    </a>
+                    <ul class="dropdown-menu text-center shadow" aria-labelledby="navbarDropdown" style="min-width: auto;">
                         @foreach ($langs as $lang)
-                        <option value="{{ $lang->code }}" >{{ $lang->name }}</option>
+                            <li>
+                                <a href="{{ url('/' . $lang->code) }}" class="dropdown-item text-dark">
+                                    {{ strtoupper($lang->code) }}
+                                </a>
+                            </li>
                         @endforeach
-                    </select>
-                </div>
-                
-                
+                    </ul>
+                </li>
             </div>
         </nav>
     </header>
-
 <button onclick="topFunction()" id="myBtn" title="Go to top">
         <i class="fas fa-chevron-up"></i>
     </button>
-
+ <script>
+     function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+ </script>
 <script>
     // Add event listener for the select dropdown
     document.getElementById('languageSelector').addEventListener('change', function () {
@@ -300,10 +301,7 @@
             mybutton.style.display = "none";
         }
     }
-    function topFunction() {
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-    }
+   
     $(document).ready(function() {
     $('#searchInput').autocomplete({
         source: function(request, response) {

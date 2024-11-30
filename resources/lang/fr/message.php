@@ -16,11 +16,23 @@ return[
 'Subscribe to our Newsletter' => 'Abonnez-vous à notre newsletter',
 'Enter Your Email' => 'Entrez votre e-mail',
 'Subscribe ' => 'Sabonner',
-'About Us ' => 'À propos de nous',
+'About-Us' => 'À propos de nous',
 'Privacy Policy' => 'Politique de confidentialité',
 'Terms and Condition' => 'Conditions générales',
 'Cookies Policy' => 'Politique de cookies',
 'Imprint' => 'Mentions légales',
 'Copyright &copy; 2024 couponsarena.com - All rights reserved' => 'Droit d\'auteur &copy; 2024 couponsarena.com - Tous droits réservés',
 
+
+//for contact page /
+'contact-us' => 'Nous Contacter',
+'First Name' => 'Prénom',
+'Last Name' => 'Nom',
+'Email Address' => 'Adresse e-mail',
+'Website Name' => 'Nom du site web',
+'Write your message' => 'Écrivez votre message',
+'Submit' => 'Soumettre',
 ];
+
+  
+

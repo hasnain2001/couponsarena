@@ -13,20 +13,22 @@ class SetLocale
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
-        $locale = $request->segment(1);
-        // Get the first segment of the URL
+        // Retrieve the locale from the route parameters
+        $locale = $request->route('locale');
 
-        // Define the available locales in your application
-        $availableLocales = ['en', 'fr', 'es', 'nl'];
+        // Define the supported locales
+        $supportedLocales = ['en', 'nl', 'fr', 'es', 'de', 'pl',];
 
-        // Set the application locale if it's a valid locale
-        if (in_array($locale, $availableLocales)) {
+        // Check if the locale is supported
+        if (in_array($locale, $supportedLocales)) {
+            // Set the locale for the application
             App::setLocale($locale);
+        } else {
+            // Default to English or any other fallback
+            App::setLocale('en');
         }
-
-        return $next($request);
 
         return $next($request);
     }

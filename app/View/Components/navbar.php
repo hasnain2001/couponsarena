@@ -7,21 +7,22 @@ use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 use App\Models\Categories;
 use App\Models\Language;
-
+use Illuminate\Support\Facades\Session;
 
 class Navbar extends Component
 {
     public $categories;
-   
-    public $Langs;
-    public $languageCode;
+    public $langs;
+    public $currentLang;
 
     /**
      * Create a new component instance.
      */
     public function __construct()
     {
-
+        $this->categories = Categories::all();
+        $this->langs = Language::all();
+        $this->currentLang = Session::get('language', 'EN');
     }
 
     /**
@@ -29,12 +30,10 @@ class Navbar extends Component
      */
     public function render(): View|Closure|string
     {
-
-        $categories = Categories::all();
-        $Langs = Language::all();
-        $languageCode = $lang ?? 'en';
-        app()->setLocale($languageCode);
-  
-        return view('components.navbar', compact('categories', ));
+        return view('components.navbar', [
+            'categories' => $this->categories,
+            'langs' => $this->langs,
+            'currentLang' => $this->currentLang,
+        ]);
     }
 }

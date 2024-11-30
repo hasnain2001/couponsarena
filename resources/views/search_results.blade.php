@@ -41,15 +41,17 @@
                     @foreach ($stores as $store)
                         <div class="col-6 col-lg-3 mb-4 d-flex">
                             <div class="card shadow flex-fill">
-                                @php
-                                // Ensure 'lang' parameter is set properly (fallback to 'en' if needed)
-                                $language = app()->getLocale() ?? 'en';
-                            
-                                // Generate store URL or fallback to '#' if store slug is missing
-                                $storeurl = $store->slug 
-                                    ? route('store_details', ['lang' => $language, 'slug' => Str::slug($store->slug)]) 
-                                    : '#';
-                            @endphp
+                          @php
+    $language = $store->language ? $store->language->code : 'en'; // Default to 'en' if language is null
+    $storeSlug = Str::slug($store->slug);
+
+    // Conditionally generate the URL based on the language
+    $storeurl = $store->slug
+        ? ($language === 'en'
+            ? route('store_details', ['slug' => $storeSlug])  // English route without 'lang'
+            : route('store_details.withLang', ['lang' => $language, 'slug' => $storeSlug]))  // Other languages
+        : '#';
+@endphp
                                 <a href="{{$storeurl }}" class="anchor-search">
                                     <div class="card-body d-flex flex-column">
                                         @if ($store->store_image)

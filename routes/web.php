@@ -2,6 +2,8 @@
 
     use Illuminate\Support\Facades\Route;
     use Illuminate\Support\Facades\App;
+    use App\Http\Middleware\Localization;
+
     use App\Http\Controllers\CategoriesController;
     use App\Http\Controllers\SearchController;
     use App\Http\Controllers\ContactController;
@@ -11,9 +13,8 @@
     use App\Http\Controllers\LanguageController;
     use App\Http\Controllers\StoresController;
     use App\Http\Controllers\BlogController;
-    
+use App\Http\Middleware\SetLocale;
 
- 
     // Route::get('/{locale}', function (string $locale) {
     //     if (! in_array($locale, ['en', 'es', 'fr','ur' ])) {
     //         abort(400);
@@ -22,19 +23,22 @@
     //     return view('main');       })->name('greeting');
     
     
-    Route::get('/about', function () {
-        return view('about');
-    })->name('about');
+  
+    Route::middleware([SetLocale::class])->group(function () {
+    Route::group([
+        'prefix' => '{locale}',
+        
+         ], function () {
 
 
-
-    Route::get('/network', function () {
-        return view('network');
-    })->name('network');
-
-
-    Route::get('/contact', function () { return view('contact'); })->name('contact');
-
+        Route::get('/contact', function () {
+            return view('contact');
+                     })->name('contact');
+        Route::get('/about', function () {
+            return view('about');
+        })->name('about');
+    
+    
     Route::get('/terms-and-condition', function () {
         return view('terms_and_condition');
     })->name('terms_and_condition');
@@ -52,6 +56,16 @@
     })->name('imprint');
 
 
+    });  
+ });
+    
+    
+    
+    
+    
+
+
+
     Route::middleware([
         'auth:sanctum',
         config('jetstream.auth_session'),
@@ -65,30 +79,33 @@
     // Route::group(['prefix' => '{locale}', 'middleware' => 'web'], function () {
     //     Route::get('/stores/{lang}', [HomeController::class, 'stores'])->name('stores');
     // });
+    Route::middleware([Localization::class])->group(function () {
         Route::controller(HomeController::class)->group(function () {
+     
         Route::get('/{lang?}', 'index')->name('home');
         Route::get('/{lang}/stores', 'stores')->name('store.show');
-        Route::get('/{lang}/store/{slug}', 'StoreDetails')->name('store_details');
+        Route::get('store/{slug}', function($slug) {
+        return app(HomeController::class)->StoreDetails('en', $slug, request());
+        })->name('store_details');
+        Route::get('/{lang}/store/{slug}', [HomeController::class, 'StoreDetails'])->name('store_details.withLang');
 
 
-      
-        Route::get('/category/{slug}', 'viewcategory')->name('related_category');
-
+        Route::get('/category/{slug}', [HomeController::class, 'viewcategory'])->name('related_category');
         Route::get('/categories', 'categories')->name('categories');
         Route::get('/{lang}/blog', 'blog_home')->name('blog');
-
-        Route::get('/blog/{slug}',  'blog_show')->name('blog-details');
-       Route::get('/store/search', [SearchController::class, 'searchResults'])->name('storesearch');
+        Route::get('/blog/{slug}', 'blog_show')->name('blog-details');
+     
+        });
         });
 
         Route::get('coupons', [CouponsController::class, 'index'])->name('coupons.index');
         Route::put('/updateCoupon/{id}', [CouponsController::class, 'update'])->name('updateCoupon');
         Route::post('/update-clicks', [CouponsController::class, 'updateClicks'])->name('update.clicks');
         Route::get('/clicks/{couponId}', [CouponsController::class, 'openCoupon'])->name('open.coupon');
-        Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-        Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+        // Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+        // Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
         Route::post('/coupons', [CouponsController::class, ''])->name('coupons.updateRanking');
-
+        Route::get('/stores/search', [SearchController::class, 'searchResults'])->name('storesearch');
 
 
 
@@ -108,7 +125,7 @@
 
     // AdminBlogs Routes Begin
     Route::controller(BlogController::class)->prefix('admin')->group(function () {
-        Route::get('/blog',  'blogs_show')->name('admin.show');
+        Route::get('/Blog',  'blogs_show')->name('admin.show');
         Route::get('/blog/create',  'create')->name('admin.blog.create');
         Route::post('/blog/store', 'store')->name('admin.blog.store');
         Route::get('/blog/{id}/edit', 'edit')->name('admin.blog.edit');

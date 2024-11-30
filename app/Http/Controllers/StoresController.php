@@ -94,6 +94,16 @@ class StoresController extends Controller
             // Ensure that the file has been saved before trying to read it
             if (file_exists($filePath)) {
                 // Optimize the image
+                // Use Imagick to create a new image instance
+                $image = ImageManager::imagick()->read($filePath);
+
+                // Resize the image to 300x200 pixels
+                $image->resize(300, 200);
+
+                // Optionally, resize only the height to 200 pixels
+                $image->resize(null, 200, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
                 $optimizer = OptimizerChainFactory::create();
                 $optimizer->optimize($filePath);
             } else {
@@ -149,6 +159,7 @@ class StoresController extends Controller
                 'max:255',
                 Rule::unique('stores')->ignore($store->id),
             ],
+            'language_id' =>'required|integer',
             'top_store' => 'nullable|integer',
             'description' => 'nullable|string',
             // 'url' => 'nullable|url',
@@ -199,6 +210,7 @@ class StoresController extends Controller
         $store->update([
             'name' => $request->input('name'),
             'slug' => $request->input('slug'),
+            'language_id' => $request->input('language_id'),
             'top_store' => $request->input('top_store'),
             'description' => $request->input('description'),
             'url' => $request->input('url'),

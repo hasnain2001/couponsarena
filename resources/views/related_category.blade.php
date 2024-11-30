@@ -50,15 +50,17 @@ header("X-Robots-Tag:index, follow");
         <div class="row card-list g-4">
             @forelse ($stores as $store)
                 <div class="col-lg-2 col-md-4 col-sm-6 col-6">
-                    @php
-                    // Ensure 'lang' parameter is set properly (fallback to 'en' if needed)
-                    $language = app()->getLocale() ?? 'en';
-                
-                    // Generate store URL or fallback to '#' if store slug is missing
-                    $storeurl = $store->slug 
-                        ? route('store_details', ['lang' => $language, 'slug' => $store->slug]) 
-                        : '#';
-                @endphp
+                @php
+    $language = $store->language ? $store->language->code : 'en'; // Default to 'en' if language is null
+    $storeSlug = Str::slug($store->slug);
+
+    // Conditionally generate the URL based on the language
+    $storeurl = $store->slug
+        ? ($language === 'en'
+            ? route('store_details', ['slug' => $storeSlug])  // English route without 'lang'
+            : route('store_details.withLang', ['lang' => $language, 'slug' => $storeSlug]))  // Other languages
+        : '#';
+@endphp
                 
                 <a href="{{ $storeurl }}" class="card-link text-decoration-none">
 

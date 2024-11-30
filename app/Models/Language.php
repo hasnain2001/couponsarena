@@ -26,7 +26,7 @@ class Language extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function stores()
+    public function stores():HasMany
     {
         return $this->hasMany(Stores::class, 'language_id', 'id');
     }
@@ -37,6 +37,6 @@ class Language extends Model
      */
     public function coupons(): HasMany
     {
-        return $this->hasMany(Coupons::class, 'lang_id', 'id');
+        return $this->hasMany(Coupons::class, 'language_id', 'id');
     }
 }

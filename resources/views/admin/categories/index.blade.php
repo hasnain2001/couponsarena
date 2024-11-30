@@ -56,7 +56,7 @@
                         <td><input type="checkbox" name="selected_categories[]" value="{{ $category->id }}"></td>
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $category->title }}</td>
-                        <td><img class="btn-circle" src="{{ asset('uploads/categories/' . $category->category_image) }}" style="max-width: 100px;"></td>
+                        <td><img class=" img-thumbnail" src="{{ asset('uploads/categories/' . $category->category_image) }}" style="width:80px;"></td>
                             {{-- <td>
                                 @if ($category->authentication == "No Auth")
                                     <i class="fa fa-fw fa-times-circle"></i>

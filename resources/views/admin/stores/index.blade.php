@@ -50,7 +50,7 @@
                     <th>Network</th>
                     <th>Featured</th>
                     <th>Status</th>
-                    <th>Lang</th>
+                    {{-- <th>Lang</th> --}}
                    <th>created at</th>
                     <th> last updated </th>
                     <th>Action</th>
@@ -75,7 +75,7 @@
           @endif
                         </td>
                         
-                        <td>{{ $store->language->code ??'No language' }}</td>
+                        {{-- <td>{{ $store->language->code ??'No language' }}</td> --}}
 
 
                               
@@ -108,7 +108,7 @@
                     <th>Network</th>
                     <th>Featured</th>
                     <th>Status</th>
-                    <th>Lang</th>
+                    {{-- <th>Lang</th> --}}
                   <th>created at</th>
                     <th> last updated </th>
                     <th>Action</th>

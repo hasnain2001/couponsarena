@@ -139,11 +139,12 @@
                                     <label for="lang">Language <span class="text-danger">*</span></label>
                                     <select name="language_id" id="lang" class="form-control" required>
                                         <option disabled selected>--Select Langs--</option>
-                                        <option value="{{ $coupons->language->name }}" disabled selected>{{ $coupons->language->name }}</option>
+                                        <option value="" disabled selected>{{ $coupons->language->code ?? '--Select Langs--' }}</option>
                                         @foreach ($langs as $lang)
-                                            <option value="{{ $lang->id }}">{{ $lang->name }}</option>
+                                            <option value="{{ $lang->id }}">{{ $lang->code }}</option>
                                         @endforeach
                                     </select>
+                                    
                                 </div>
                             </div>
                         </div>

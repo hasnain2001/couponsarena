@@ -1,0 +1,18 @@
+<?php
+return [
+    'terms_title' => 'Allgemeine Geschäftsbedingungen',
+    'terms_intro' => 'Dies sind die Allgemeinen Geschäftsbedingungen von CouponsArena. Unsere Bedingungen und Richtlinien sind hierin enthalten und regeln die korrekte Nutzung aller unserer Online-Dienste. Dies kann alle Details oder Inhalte in diesem Dokument, unsere Website CouponsArena.com, eines unserer Subdomains und Plattformen, auf denen wir unsere Dienste anbieten, umfassen.',
+    'terms_agreement' => 'Durch den Zugriff auf die CouponsArena-Webseite bestätigen Sie Ihr Einverständnis mit jedem spezifischen Begriff und jeder Bedingung unserer Seite. Sie akzeptieren auch alle Gesetze und Maßnahmen und stimmen zu, dass Sie im Falle eines Verstoßes gegen die Regeln voll verantwortlich sind.',
+    'terms_prohibition' => 'Wenn Sie nicht bereit sind, einen unserer Bedingungen zu akzeptieren, kann Ihnen der Zugriff auf unsere Webseite und alle damit verbundenen Vorteile sofort untersagt werden. Alle Materialien auf unserer Webseite sind durch Urheberrechts- und Markenrecht geschützt.',
+    'utilisation_title' => 'Die Nutzung Unserer Seite',
+    'utilisation_content' => 'Neben dem erlaubten Inhalt dieser Seite stimmen Sie aktiv zu, kein Material auf CouponsArena zu missbrauchen, wie z.B. speichern, schneiden, herunterladen, verkaufen, einfügen, lizenzieren, übertragen und veröffentlichen. Das Abrufen von Daten oder Inhalten dieser Seite durch einen systematischen Ansatz ist strikt untersagt. Darüber hinaus ist die Verwendung von Materialien, die von der Seite nicht genehmigt sind, strikt untersagt.',
+    'limitation_title' => 'Haftungsbeschränkung',
+    'limitation_content' => 'CouponsArena wird niemals haftbar sein für (i) Schäden, die zufällig, mittelbar oder indirekt sind und die aus der Nutzung oder der Unfähigkeit zur Nutzung des Dienstes, relevanter Informationen oder Transaktionen resultieren, die durch den Dienst angeboten, heruntergeladen oder verspätet angeboten wurden. Egal, ob die Seite auf die mögliche Haftung solcher Verluste und Schäden hingewiesen wurde oder (ii) jede Forderung, die sich auf Auslassungen, Fehler oder andere Mängel in der Genauigkeit des Dienstes oder dessen Informationen oder aller Details bezieht, die vom Dienst heruntergeladen wurden. Einige Bundesstaaten erlauben keine Haftung für zufällige oder Folgeschäden, und daher könnten Sie von dem oben Genannten befreit sein.',
+    'third_party_sites_title' => 'Drittanbieter-Websites',
+    'third_party_sites_content' => 'Die Seite kann Sie über verschiedene Links oder Frames von CouponsArena zu Online-Händlern oder anderen Drittanbieter-Websites weiterleiten. Sie besitzt kein Produkt oder Dienst, das für Verbraucher verfügbar ist; daher wird nichts auf dieser Seite für eine geschäftliche Beziehung sein. Andere Websites oder Dritte besitzen die Produkte, die Sie kaufen. Es wird empfohlen, alle Bedingungen oder Cookie- und Datenschutzrichtlinien dieser Seiten zu lesen, bevor Sie einen Kauf tätigen. Wir sind niemals verantwortlich für Ungenauigkeiten oder Falschdarstellungen.',
+    'links_title' => 'Links von Dritten',
+    'links_content' => 'CouponsArena ist nicht verantwortlich für irgendwelche Links auf seiner Seite. Jeder Link von Dritten auf dieser Seite dient Ihrer Unterstützung. Sie verwenden einen der Links auf der Webseite auf eigenes Risiko.',
+    'revision_title' => 'Änderung der Bedingungen',
+    'revision_content' => 'CouponsArena hat das vollständige Recht, eine der Bedingungen der Seite zu ändern oder zu bearbeiten. Durch die Zustimmung zur Nutzung der Seite akzeptieren Sie die aktuelle Version dieser Nutzungsbedingungen.',
+];
+

@@ -7,6 +7,7 @@ use App\Models\Coupons;
 use App\Models\Language;
 use App\Models\Stores;
 use Livewire\Attributes\Validate;
+use Illuminate\Support\Str;
 
 class CouponsController extends Controller
 {
@@ -149,7 +150,7 @@ public function update(Request $request)
             'language_id' => 'nullable|integer', // Allow null, so it doesn't throw an error if not provided
             'description' => 'nullable|string|max:1000',
             'code' => 'nullable|string|max:100',
-            'destination_url' => 'nullable|url',
+            'destination_url' => 'nullable',
             'ending_date' => 'nullable|date|after_or_equal:today',
             'authentication' => 'nullable|array',
             'authentication.*' => 'string',
@@ -171,13 +172,15 @@ public function update(Request $request)
             'top_coupons' => $request->top_coupons,
         ]);
     
-         $store = Stores::where('slug', $coupons->store)->first();
+        $store = Stores::where('slug', $coupons->store)->first();
+
         if ($store) {
-            return redirect()->route('admin.store_details', ['slug' => $store->slug])
-                             ->with('success', 'Coupon Updated Successfully');
+            $url = route('admin.store_details', ['slug' => Str::slug($store->slug)]);
+            return redirect($url)->with('success', 'Coupon Updated Successfully');
         }
-    
+        
         return redirect()->back()->with('error', 'Store not found.');
+        
     }
     
 

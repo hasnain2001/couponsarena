@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <!-- Add Bootstrap CSS -->
-<link rel="stylesheet" href="{{ asset('bootstrap-5.0.2-dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap-5.0.2-dist/css/bootstrap.min.css') }}">
     <style>
         body {
             background-image: url({{ asset('images/login.png') }});
@@ -17,7 +17,7 @@
             align-items: center;
         }
         .login-card {
-            background-color: rgba(255, 255, 255, 0.8); /* Transparent background */
+            background-color: rgba(255, 255, 255, 0.8);
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -27,42 +27,38 @@
             justify-content: center;
             margin-bottom: 20px;
         }
-        .heading  {
+        .heading {
             text-align: center;
             font-size: 25px;
             color: black;
-
         }
     </style>
 </head>
 <body>
-          <!-- Validation Errors -->
-@if ($errors->any())
-    <div class="alert alert-danger mb-4">
-        <ul class="mb-0">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+    <!-- Validation Errors -->
+    @if ($errors->any())
+        <div class="alert alert-danger mb-4">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-
-        <!-- Session Status -->
-        @if (session('status'))
+    <!-- Session Status -->
+    @if (session('status'))
         <div class="alert alert-success mb-4">
             {{ session('status') }}
         </div>
-        @endif
-
+    @endif
 
     <div class="login-card col-md-4 col-sm-8">
         <!-- Logo Section -->
         <div class="logo">
             <img src="{{ asset('images/logo.png') }}" alt="Logo" width="100">
-
         </div>
-<div class="">    <h1 class="heading">Login</h1></div>
+        <div><h1 class="heading">Login</h1></div>
 
         <!-- Login Form -->
         <form method="POST" action="{{ route('login') }}">
@@ -77,7 +73,12 @@
             <!-- Password -->
             <div class="mb-3">
                 <label for="password" class="form-label">{{ __('Password') }}</label>
-                <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password">
+                <div class="input-group">
+                    <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password">
+                    <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility()">
+                        Show
+                    </button>
+                </div>
             </div>
 
             <!-- Remember Me -->
@@ -99,6 +100,21 @@
             </div>
         </form>
     </div>
+
+    <!-- JavaScript to toggle password visibility -->
+    <script>
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById('password');
+            const toggleButton = event.currentTarget;
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                toggleButton.textContent = 'Hide';
+            } else {
+                passwordField.type = 'password';
+                toggleButton.textContent = 'Show';
+            }
+        }
+    </script>
 
     <!-- Bootstrap JS -->
     <script src="{{ asset('bootstrap-5.0.2-dist/js/bootstrap.min.js') }}"></script>
