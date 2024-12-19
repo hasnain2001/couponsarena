@@ -51,13 +51,13 @@
                     </div>
                     <div class="col-6">
                         <div class="card">
-                            <div class="card-body">
+                            {{-- <div class="card-body">
                                 <div class="form-group">
                                     <label for="status">Status <span class="text-danger">*</span></label><br>
                                     <input type="radio" name="status" id="enable" {{ $language->status == 'enable' ? 'checked' : '' }} value="enable">&nbsp;<label for="enable">Enable</label>
                                     <input type="radio" name="status" id="disable" {{ $language->status == 'disable' ? 'checked' : '' }} value="disable">&nbsp;<label for="disable">Disable</label>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <div class="col-12">

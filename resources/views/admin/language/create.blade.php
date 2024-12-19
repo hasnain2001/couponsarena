@@ -47,10 +47,7 @@
                                     <label for="code">language code /fr/es/de/ <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="code" id="code" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="language_image">language image <span class="text-danger">*</span></label>
-                                    <input type="file" class="form-control" name="language_image" id="language_image" >
-                                </div>
+                             
                             </div>
                         </div>
                     </div>
@@ -58,7 +55,7 @@
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary">Save</button>
                        
-                        <a href="{{ route('admin.lang.lang') }}" class="btn btn-secondary">Cancel</a>
+                        <a href="{{ route('admin.lang') }}" class="btn btn-secondary">Cancel</a>
                         <button type="reset" class="btn btn-dark">Reset</button>
                     </div>
                 </div>

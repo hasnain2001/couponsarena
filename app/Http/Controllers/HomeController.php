@@ -41,7 +41,8 @@ public function index(Request $request, $lang = null) {
     });
 
     // Fetch stores for the specified language
-    $stores = Stores::where('language_id', $language->id)
+    $stores = Stores::select('id', 'name', 'language_id', 'slug',)
+    ->where('language_id', $language->id)
         ->latest() // Shortcut for orderBy('created_at', 'desc')
         ->paginate(12)
         ->through(function ($store) use ($language) {
@@ -50,7 +51,8 @@ public function index(Request $request, $lang = null) {
         });
 
     // Fetch top coupon codes for the specified language
-    $topcouponcode = Coupons::whereNotNull('code')
+    $topcouponcode = Coupons::select('id', 'name', 'language_id', 'created_at','name','ending_date','store','clicks') 
+    ->whereNotNull('code')
         ->where('code', '!=', '')
         ->where('language_id', $language->id)
         ->where('top_coupons', '>', 0)
@@ -60,20 +62,11 @@ public function index(Request $request, $lang = null) {
 
     // Optimize top deals query
     // Fetch top deals for the specified language
-    $Couponsdeals = Coupons::select('*')
-        ->whereIn('id', function($query) use ($language) {
-            $query->select(DB::raw('MAX(id)'))
-                  ->from('coupons')
-                  ->where('top_coupons', '>', 0)
-                  ->where('language_id', $language->id) // Filter by language
-                  ->groupBy('store')
-                  ->union(
-                      Coupons::select(DB::raw('MAX(id)'))
-                      ->from('coupons')
-                      ->whereNull('top_coupons')
-                      ->where('language_id', $language->id) // Filter by language
-                      ->groupBy('store')
-                  );
+    $Couponsdeals = Coupons::select('id', 'name', 'language_id', 'created_at', 'ending_date', 'store','clicks')
+        ->where('language_id', $language->id)
+        ->where(function ($query) {
+            $query->where('top_coupons', '>', 0)
+                  ->orWhereNull('top_coupons');
         })
         ->whereNull('code') // Ensure no coupon code
         ->orderBy('top_coupons', 'desc')
@@ -84,13 +77,6 @@ public function index(Request $request, $lang = null) {
     return view('welcome', compact('stores', 'Couponsdeals', 'topcouponcode'));
 }
 
-
-
-public function topStores(Request $request)
-{
-$topstores = Stores::latest()->paginate(30);
-return view('home', compact('topstores'));
-}
 
 public function search(Request $request) {
 $query = $request->input('query');
@@ -202,46 +188,54 @@ public function StoreDetails($lang = 'en', $slug, Request $request)
         abort(404); // Store not found
     }
 
-    // Redirect if the language code doesn't match the store's language
-    if ($lang !== $store->language->code) {
-        return redirect(route('store_details.withLang', ['lang' => $store->language->code, 'slug' => $slug]));
+    // Check if the store has an associated language
+    if (!$store->language) {
+        return response()->json(['error' => 'No language select for this store.'], 404);
     }
 
-    // (Existing sorting and fetching logic here)
-        // Sorting and fetching coupons
-        $sort = $request->query('sort', 'all');
-        if ($sort === 'codes') {
-            $coupons = Coupons::where('store', $store->name)
-                              ->whereNotNull('code')
-                              ->orderByRaw('CAST(`order` AS SIGNED) ASC')
-                              ->get();
-        } elseif ($sort === 'deals') {
-            $coupons = Coupons::where('store', $store->name)
-                              ->whereNull('code')
-                              ->orderByRaw('CAST(`order` AS SIGNED) ASC')
-                              ->get();
-        } else {
-            $coupons = Coupons::where('store', $store->name)
-                              ->orderByRaw('CAST(`order` AS SIGNED) ASC')
-                              ->get();
-        }
-    
-        // Count the number of codes and deals
-        $codeCount = Coupons::where('store', $store->name)
-                            ->whereNotNull('code')
-                            ->count();
-        $dealCount = Coupons::where('store', $store->name)
-                            ->whereNull('code')
-                            ->count();
-    
-        // Fetch related stores based on the same category
-        $relatedStores = Stores::where('category', $store->category)
-                               ->where('id', '!=', $store->id)
-                               ->where('language_id', $store->language_id)
-                               ->get(); 
+    // Redirect if the language code doesn't match the store's language
+    if ($lang !== $store->language->code) {
+        return redirect()->route('store_details.withLang', [
+            'lang' => $store->language->code,
+            'slug' => $slug
+        ]);
+    }
+
+    // Sorting and fetching coupons
+    $sort = $request->query('sort', 'all');
+    if ($sort === 'codes') {
+        $coupons = Coupons::where('store', $store->name)
+                          ->whereNotNull('code')
+                          ->orderByRaw('CAST(`order` AS SIGNED) ASC')
+                          ->get();
+    } elseif ($sort === 'deals') {
+        $coupons = Coupons::where('store', $store->name)
+                          ->whereNull('code')
+                          ->orderByRaw('CAST(`order` AS SIGNED) ASC')
+                          ->get();
+    } else {
+        $coupons = Coupons::where('store', $store->name)
+                          ->orderByRaw('CAST(`order` AS SIGNED) ASC')
+                          ->get();
+    }
+
+    // Count the number of codes and deals
+    $codeCount = Coupons::where('store', $store->name)
+                        ->whereNotNull('code')
+                        ->count();
+    $dealCount = Coupons::where('store', $store->name)
+                        ->whereNull('code')
+                        ->count();
+
+    // Fetch related stores based on the same category
+    $relatedStores = Stores::where('category', $store->category)
+                           ->where('id', '!=', $store->id)
+                           ->where('language_id', $store->language_id)
+                           ->get();
 
     return view('store_details', compact('store', 'coupons', 'relatedStores', 'codeCount', 'dealCount'));
 }
+
 
 
 

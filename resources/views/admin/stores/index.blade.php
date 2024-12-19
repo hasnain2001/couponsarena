@@ -3,7 +3,7 @@
     Stores
 @endsection
 @section('datatable-content')
-    <div class=" container content-wrapper">
+    <div class="content-wrapper">
 
         <section class="content-header">
             <div class="container-fluid">

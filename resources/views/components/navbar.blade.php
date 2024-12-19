@@ -9,185 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/css/flag-icon.min.css">
 
     <title>Navbar Example</title>
-    <style>
-        .navbar {
-            flex-grow: 1;
-            color: white;
-            height: auto;
-
-        }
-        nav a {
-            color: white !important;
-        }
-        .logo {
-            width: 100%;
-            height: 100px;
-            padding-left: 0%;
-        }
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 15px;
-        }
-        .form-control{
-            width:350px;
-        }
-        .searchbtn {
-            background-color: #161414;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .searchbtn:hover {
-            background-color: #b4a9a9;
-            transform: scale(1.05);
-        }
-        .search-language-container {
-            display: flex;
-            align-items: center;
-        }
-        .language-selector {
-            margin-left: 10px;
-            width: 100px;
-        }
-
-        #myBtn, .loader {
-            position: fixed;
-        }
-        ::-webkit-scrollbar {
-            width: 20px;
-        }
-        .loader {
-            width: 120px;
-            height: 20px;
-            background: linear-gradient(#0054a6 0 0) 0/0 no-repeat #ddd;
-            animation: 2s linear infinite l1;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 9999;
-        }
-
-        /* Mega menu styling */
-        .mega-dropdown {
-            position: static !important;
-        }
-        .mega-menu {
-            width: 100%;
-            left: 0;
-            right: 0;
-        }
-        .logo-container {
-            background-color: white;
-            padding-left: 0;
-            padding-top: 15px;
-        }
-        .header-container {
-            padding-left: 0;
-            height: 110px;
-            background-color: #080808;
-        }
-
-        /* Media Queries for Mobile */
-        @media (max-width: 768px) {
-            .mb-logo {
-                max-width: 150px;
-                height: 100px;
-                padding-right: 20%;
-            }
-            .header-container {
-                padding: 10px;
-                flex-direction: column;
-                height: auto;
-            }
-            .navbar {
-                flex-grow: 0;
-                padding: 0;
-                padding-left: 0;
-            }
-            .search-language-container {
-                flex-direction: column;
-                width: 100%;
-                align-items: stretch;
-            }
-            .dropdown{
-                width: 100%;
-            }
-            .searchbtn {
-                width: 20%;
-                margin-top: 10px;
-            }
-                     .logo {
-                height: auto;
-                max-height: 80px;
-            }
-            .form-control{
-                width:90%;
-            }
-        }
-        #myBtn,
-.loader {
-    position: fixed;
-}
-
-::-webkit-scrollbar {
-    width: 20px;
-}
-::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px rgb(97, 82, 82);
-    border-radius: 10px;
-}
-::-webkit-scrollbar-thumb {
-    background: #ababbe;
-    border-radius: 5px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: #000000;
-}
-.loader {
-    width: 120px;
-    height: 20px;
-    background: linear-gradient(#6d12aa 0 0) 0/0 no-repeat #ddd;
-    animation: 2s linear infinite l1;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
-}
-@keyframes l1 {
-    100% {
-        background-size: 100%;
-    }
-}
-#myBtn {
-
-    bottom: 20px;
-    right: 30px;
-    z-index: 10;
-    border: none;
-    outline: 0;
-    background-color: #080808;
-    color: #fff;
-    cursor: pointer;
-    padding: 15px;
-    border-radius: 10px;
-    font-size: 18px;
-}
-#myBtn:hover {
-    background-color: #555;
-}
-.dropdown-item {
-    width:80px ;
-  padding-left: 0;
-    font-size: 16px;
-}
-
-    </style>
+    <link rel="stylesheet" href="{{asset('cssfile/navbar.css')}}">
+  
 </head>
 <body>
 
@@ -202,8 +25,8 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand d-block d-sm-none mb-logo" href="/">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="logo" loading="lazy">
+                <a class="d-block d-sm-none " href="/">
+                    <img src="{{ asset('images/mb-logo.png') }}" alt="Logo" class="mb-logo" loading="lazy">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -243,7 +66,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+       
 
             <!-- Search and Language Selector -->
             <div class="search-language-container">
@@ -267,6 +90,7 @@
                     </ul>
                 </li>
             </div>
+        </div>
         </nav>
     </header>
 <button onclick="topFunction()" id="myBtn" title="Go to top">
@@ -302,26 +126,9 @@
         }
     }
    
-    $(document).ready(function() {
-    $('#searchInput').autocomplete({
-        source: function(request, response) {
-            $.ajax({
-                url: '{{ route('storesearch') }}',
-                dataType: 'json',
-                data: {
-                    query: request.term
-                },
-                success: function(data) {
-                    response(data.stores);
-                }
-            });
-        },
-        minLength:10 
-    });
-});
+ 
 </script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
 
 </body>
 </html>

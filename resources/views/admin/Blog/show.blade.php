@@ -17,12 +17,12 @@
     }
 </style>
 
-    <div class="wrapper bg-white">
+    <div class=" bg-white">
         <div class="content-wrapper">
             <section class="content">
-                <div class="container bg-light justify-content">
+                <div class=" bg-light justify-content">
                     @section('main-content')
-                        <div class="container">
+                        <div class="">
 @if (session('success'))
     <div class="alert alert-custom alert-dismissible fade show" role="alert">
         {{ session('success') }}
@@ -34,7 +34,7 @@
 
                           
                             <section class="content-header">
-                                <div class="container-fluid">
+                                <div class="">
                                     <div class="row mb-2">
                                         <div class="col-sm-6">
                                             <h1>Blog</h1>

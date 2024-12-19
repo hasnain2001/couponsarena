@@ -29,7 +29,7 @@ header("X-Robots-Tag:index, follow");
     <nav aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 0.25rem; padding: 10px;">
         <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item">
-                <a href="/" class="text-decoration-none text-primary" style="font-weight: 500;">Home</a>
+                <a href="{{ url(app()->getLocale() . '/') }}" class="text-decoration-none text-primary" style="font-weight: 500;">Home</a>
             </li>
 <li class="breadcrumb-item active" aria-current="page" style="font-weight: 600; color: #6c757d;">Contact</li>
         </ol>
