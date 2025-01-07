@@ -8,14 +8,29 @@ use Intervention\Image\Drivers\Imagick\Driver;
 use App\Models\Categories;
 use App\Models\Networks;
 use App\Models\Coupons;
+use App\Models\DeleteStore;
 use App\Models\Language;
 use App\Models\Stores;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class StoresController extends Controller
 {
+    // In StoreController.php
+// In EmployeeController.php
+public function checkSlug(Request $request)
+{
+    $slug = $request->slug;
+    $exists = Stores::where('slug', $slug)->exists();  // Adjust Store to your model name
+
+    return response()->json([
+        'exists' => $exists
+    ]);
+}
+
+
     public function StoreDetails($name)
     {
         $slug = Str::slug($name);
@@ -62,7 +77,7 @@ class StoresController extends Controller
         // Validate the incoming request data
         $request->validate([
             'name' => 'required|string|max:255',
-            'language_id' =>'required|integer',
+            'language_id' =>'nullable|integer',
             'slug' => 'nullable|string|max:255|unique:stores,slug', // Slug is now nullable
             'top_store' => 'nullable|integer',
             'description' => 'nullable|string',
@@ -95,15 +110,15 @@ class StoresController extends Controller
             if (file_exists($filePath)) {
                 // Optimize the image
                 // Use Imagick to create a new image instance
-                $image = ImageManager::imagick()->read($filePath);
+                // $image = ImageManager::imagick()->read($filePath);
 
-                // Resize the image to 300x200 pixels
-                $image->resize(300, 200);
+                // // Resize the image to 300x200 pixels
+                // $image->resize(300, 200);
 
-                // Optionally, resize only the height to 200 pixels
-                $image->resize(null, 200, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
+                // // Optionally, resize only the height to 200 pixels
+                // $image->resize(null, 200, function ($constraint) {
+                //     $constraint->aspectRatio();
+                // });
                 $optimizer = OptimizerChainFactory::create();
                 $optimizer->optimize($filePath);
             } else {
@@ -229,25 +244,33 @@ class StoresController extends Controller
         // Redirect back with a success message
         return redirect()->route('employee.stores')->with('success', 'Store Updated Successfully');
     }
+  
     public function delete_store($id)
     {
-        // Find the store by id
+        // Find the store by ID
         $store = Stores::find($id);
-
-        // Check if store exists
+    
         if ($store) {
-            // Find and delete all coupons that have the same store name
+            // Log the store deletion attempt in the delete_store table
+            DeleteStore::create([
+                'store_id' => $store->id,
+                'store_name' => $store->name,
+                'deleted_by' => Auth::id(),
+                
+            ]);
+    
+            // Delete associated coupons with the same store name
             Coupons::where('store', $store->name)->delete();
-
-            // Delete the store
+    
+            // Delete the store (soft delete if the SoftDeletes trait is used)
             $store->delete();
-
-            return redirect()->back()->with('success', 'Store and associated coupons deleted successfully');
+    
+            return redirect()->back()->with('success', 'Store and associated coupons marked for deletion.');
         }
-
-        return redirect()->back()->with('error', 'Store not found');
+    
+        return redirect()->back()->with('error', 'Store not found.');
     }
-
+    
 
     public function deleteSelected(Request $request)
     {

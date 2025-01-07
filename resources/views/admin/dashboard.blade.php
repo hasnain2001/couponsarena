@@ -24,6 +24,17 @@
             <div class="container-fluid">
              
                 <div class="row text-center">
+                    <div class="col-md-2">
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body bg-dark">
+                                <h5 class="card-title">
+                                    <i class="fas fa-store text-warning"></i> Stores
+                                </h5>
+                                <p class="card-text fs-4">{{ $stores->count() }}</p>
+                                <a href="{{route('admin.stores')}}" class="text-warning">View Details <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Blogs -->
                     <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
                         <div class="small-box bg-info">

@@ -51,7 +51,9 @@
                                     <div class="form-group">
                                         <label for="slug">Url/Slug<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="slug" id="slug" required>
+                                        <small id="slug-message"></small> <!-- Added this line -->
                                     </div>
+                                    
                                     <div class="form-group">
                                         <label for="description">Description</label>
                                         <textarea name="description" id="description" class="form-control" cols="30" rows="3" style="resize: none;"
@@ -150,7 +152,7 @@
                                     <div class="col-12">
 
                                         <button type="submit" class="btn btn-primary">Save</button>
-                                        <a href="{{ route('employee.store') }}" class="btn btn-secondary">Cancel</a>
+                                        <a href="{{ route('employee.stores') }}" class="btn btn-secondary">Cancel</a>
                                         <button type="reset" class="btn btn-light"> Reset</button>
 
                                     </div>
@@ -183,5 +185,56 @@
             }
         });
     </script>
-
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            // Filter non-alphabetic characters in the 'name' input field and auto-fill 'slug'
+            const inputOne = document.getElementById('name');
+            const textOnlyInput = document.getElementById('slug');
+        
+            inputOne.addEventListener('input', () => {
+                const value = inputOne.value;
+                // Filter out non-alphabetic characters and update slug automatically
+                const filteredValue = value.replace(/[^A-Za-z\s]/g, '');
+                textOnlyInput.value = filteredValue;
+                
+                // Automatically check slug existence after auto-filling
+                checkSlugExistence(filteredValue);
+            });
+        
+            $(document).ready(function() {
+                // Check slug existence when the user types manually in the slug field
+                $('#slug').on('keyup', function() {
+                    var slug = $(this).val();
+                    
+                    // Check if the slug has any value (optional: avoid AJAX if empty)
+                    if (slug) {
+                        checkSlugExistence(slug);
+                    } else {
+                        $('#slug-message').text('Please enter a slug').css('color', 'black');
+                    }
+                });
+            });
+        
+            // Function to check if the slug exists
+            function checkSlugExistence(slug) {
+                $.ajax({
+                    url: '{{ route('employee.check.slug') }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        slug: slug
+                    },
+                    success: function(response) {
+                        if (response.exists) {
+                            $('#slug-message').text('Store already exists').css('color', 'red');
+                        } else {
+                            $('#slug-message').text('Store is available').css('color', 'green');
+                        }
+                    }
+                });
+            }
+        </script>
+        
+    
+   
 @endsection

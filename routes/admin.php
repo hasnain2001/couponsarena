@@ -17,6 +17,7 @@ Route::middleware([RoleMiddleware::class])->group(function () {
     Route::controller(AdminController::class)->name('admin.')->group(function () {
         Route::get('/admin/dashboard', 'dashboard')->name('dashboard');
         Route::get('/admin/users', 'index')->name('user.index');
+        Route::get('/admin/delete-store', 'deletedStores')->name('delete_store');
         Route::get('/user/edit/{id}', 'edit_user')->name('user.edit');
         Route::post('/user/update/{id}', 'update_user')->name('user.update');
         Route::delete('/users/{id}',  'destroy')->name('user.destroy');
@@ -55,6 +56,7 @@ Route::middleware([RoleMiddleware::class])->group(function () {
         Route::get('/store/delete/{id}', 'delete_store')->name('store.delete');
         Route::post('/store/deleteSelected', 'deleteSelected')->name('store.deleteSelected');
         Route::get('/stores/{slug}', 'StoreDetails')->name('store_details');
+        Route::post('/check-slug', 'checkSlug')->name('check.slug');
     });
 
 
@@ -94,4 +96,6 @@ Route::middleware([RoleMiddleware::class])->group(function () {
         Route::post('/custom-sortable', 'update')->name('admin.custom-sortable');
     Route::post('/coupon/deleteSelected', 'deleteSelected')->name('admin.coupon.deleteSelected');
 });
+
+
 });

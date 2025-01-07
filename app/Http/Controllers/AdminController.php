@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Categories;
 use App\Models\Coupons;
+use App\Models\DeleteStore;
 use App\Models\Language;
 use App\Models\Networks;
 use App\Models\Stores;
@@ -24,10 +25,16 @@ class AdminController extends Controller
         $langs =Language::all();
         return view('admin.dashboard',compact('stores','coupons','blogs','categories','networks','users','langs'));
     }
+
+    public function deletedStores()
+{
+    $deletedStores = DeleteStore::with('deletedBy')->get();
+    return view('admin.deleted.delete_stores', compact('deletedStores'));
+}
     public function index()
     {  
-    $stores =Stores::all();
-    return view('admin.user.index', compact('stores',));
+    $users =User::all();
+    return view('admin.user.index', compact('users',));
     }
     
 
@@ -48,7 +55,7 @@ class AdminController extends Controller
             'role' => $request->input('role'),
       
         ]);
-        return redirect()->back()->with('success', 'user Updated Successfully');
+        return redirect()->route('admin.user.index')->with('success', 'user Updated Successfully');
     }
     public function destroy($id)
     {

@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('translate', function (Blueprint $table) {
+        Schema::create('delete_store', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('language_id'); 
-            $table->foreign('language_id')
-                  ->references('id')->on('language')
-                  ->onDelete('cascade');
+            $table->unsignedBigInteger('store_id');
+            $table->string('store_name');
+            $table->unsignedBigInteger('deleted_by'); // Admin/User ID who attempted the deletion
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('translate');
+        Schema::dropIfExists('delete_store');
     }
 };

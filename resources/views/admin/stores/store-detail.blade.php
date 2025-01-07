@@ -203,7 +203,7 @@ $(function() {
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: "{{ route('custom-sortable') }}",  // The route to handle sorting
+            url: "{{ route('admin.custom-sortable') }}",  // The route to handle sorting
             data: {
                 order: order,
                 _token: token

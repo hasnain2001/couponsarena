@@ -1,15 +1,15 @@
-@extends('layouts.guest')
-@section('main-content')
+<x-guest-layout>
 <style>
     .dropdown-item{
         margin: 12px;
     }
 </style>
+@section('main-content')
 <div class="container py-5">
     <!-- Header Section -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="text-primary fw-bold mb-0">{{ __('Dashboard') }}</h2>
-        <span>  {{ Auth::user()->name }}</span>
+      
         <div class="dropdown">
             <button class="btn btn-outline-primary dropdown-toggle d-flex align-items-center" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="{{asset('images/profile.png')}}" alt="Profile Picture" class="rounded-circle me-2"  style="width: 40px; height: 40px;">
@@ -51,7 +51,7 @@
         <div class="col-md-8">
             <div class="card shadow">
                 <div class="card-header bg-primary text-white text-center">
-                    <h5 class="mb-0">{{ __('Welcome!') }}</h5>
+                    <h5 class="mb-0">{{ __('Welcome!') }}   <span>  {{ Auth::user()->name }}</span></h5>
                 </div>
                 <div class="card-body text-center">
                     <p class="mb-0">{{ __('You\'re logged in!') }}</p>
@@ -61,3 +61,4 @@
     </div>
 </div>
 @endsection
+</x-guest-layout>

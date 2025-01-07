@@ -54,7 +54,7 @@
     <div class="form-group">
     <label for="slug">Store Url/Slug <span class="text-danger">*</span></label>
     <input type="text" class="form-control" name="slug" id="slug" value="{{ $stores->slug }}" placeholder="define your store  url/slug " required>
-    <span class="text-danger">only text input </span>
+    <small id="slug-message"></small> <!-- Added this line -->
     </div>
     <div class="form-group">
     <label for="description">Description</label>
@@ -81,7 +81,7 @@
     </div>
     <div class="form-group">
     <label for="lang">Language <span class="text-danger">*</span></label>
-    <select name="language_id" id="lang" class="form-control" required>
+    <select name="language_id" id="lang" class="form-control" >
     <option disabled selected>--Select Langs--</option>
 
     <!-- Check if $stores->language exists before displaying the language name -->
@@ -199,4 +199,53 @@
     }
     });
     </script>
+       <script>
+        // Filter non-alphabetic characters in the 'name' input field and auto-fill 'slug'
+        const inputOne = document.getElementById('name');
+        const textOnlyInput = document.getElementById('slug');
+    
+        inputOne.addEventListener('input', () => {
+            const value = inputOne.value;
+            // Filter out non-alphabetic characters and update slug automatically
+            const filteredValue = value.replace(/[^A-Za-z\s]/g, '');
+            textOnlyInput.value = filteredValue;
+            
+            // Automatically check slug existence after auto-filling
+            checkSlugExistence(filteredValue);
+        });
+    
+        $(document).ready(function() {
+            // Check slug existence when the user types manually in the slug field
+            $('#slug').on('keyup', function() {
+                var slug = $(this).val();
+                
+                // Check if the slug has any value (optional: avoid AJAX if empty)
+                if (slug) {
+                    checkSlugExistence(slug);
+                } else {
+                    $('#slug-message').text('Please enter a slug').css('color', 'black');
+                }
+            });
+        });
+    
+        // Function to check if the slug exists
+        function checkSlugExistence(slug) {
+            $.ajax({
+                url: '{{ route('admin.check.slug') }}',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    slug: slug
+                },
+                success: function(response) {
+                    if (response.exists) {
+                        $('#slug-message').text('Store already exists').css('color', 'red');
+                    } else {
+                        $('#slug-message').text('Store is available').css('color', 'green');
+                    }
+                }
+            });
+        }
+    </script>
+    
     @endsection

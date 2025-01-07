@@ -37,6 +37,7 @@ Route::middleware([SetLocale::class])->group(function () {
         return view('imprint');
     })->name('imprint');
   
+  
 
     });});
  Route::middleware([Localization::class])->group(function () {

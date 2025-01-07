@@ -68,6 +68,7 @@
             <div class="mb-3">
                 <label for="email" class="form-label">{{ __('Email') }}</label>
                 <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username">
+                <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
 
             <!-- Password -->
@@ -78,14 +79,19 @@
                     <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility()">
                         Show
                     </button>
+                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
                 </div>
             </div>
-
+           
             <!-- Remember Me -->
             <div class="form-check mb-3">
                 <input type="checkbox" class="form-check-input" id="remember_me" name="remember">
                 <label class="form-check-label" for="remember_me">{{ __('Remember me') }}</label>
             </div>
+                <!-- Login Button -->
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">{{ __('Log in') }}</button>
+                  </div>
 
             <!-- Forgot Password Link -->
             @if (Route::has('password.request'))
@@ -93,12 +99,14 @@
                     <a href="{{ route('password.request') }}" class="text-sm text-decoration-none">{{ __('Forgot your password?') }}</a>
                 </div>
             @endif
-
-            <!-- Login Button -->
-            <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary">{{ __('Log in') }}</button>
-            </div>
+    
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                     <a href="{{route('register')}}" class="btn btn-primary" >Register</a>
+              </div>
+            
         </form>
+
+
     </div>
 
     <!-- JavaScript to toggle password visibility -->

@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('authentication')->nullable();
             $table->string('network')->nullable();
             $table->string('store_image')->nullable();
+            $table->softDeletes();
              $table->string('title')->nullable();
             $table->longText('meta_tag')->nullable();
             $table->longText('meta_keyword')->nullable();
@@ -42,5 +43,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('stores');
+        Schema::table('stores', function (Blueprint $table) {
+            $table->dropSoftDeletes(); // Removes 'deleted_at' column
+        });
     }
 };

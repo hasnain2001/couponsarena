@@ -90,74 +90,216 @@
 
             <div class="sidebar">
 
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
+              <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
 
-                        <li class="nav-item">
-                            <a href="{{ route('admin.dashboard') }}" class="nav-link active">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Dashboard
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Setup Manager
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.category') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Categories</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.stores') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Stores</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.coupon') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Coupons</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.network') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Network</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.blog.show') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Blog</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                  <a href="{{ route('admin.lang') }}" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
-                                      <p>lang</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.dashboard') }}" class="nav-link active">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Dashboard
+                            </p>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-ticket-alt"></i>
+                            <p>
+                                Coupons
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                        
+                           
+                            <li class="nav-item">
+                                <a href="{{ route('admin.coupon') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Coupons</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.coupon.create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Add New Coupons</p>
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-store-alt"></i>
+                            <p>
+                                Stores
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                          
+                            <li class="nav-item">
+                                <a href="{{ route('admin.stores') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Stores</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.store.create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Add New Stores</p>
+                                </a>
+                            </li>
+                            
+                          
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-store-alt"></i>
+                            <p>
+                                Deleted Stores
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                                    
+      <li class="nav-item">
+                                <a href="{{ route('admin.delete_store') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Delete Store</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-user-alt"></i>
+                            <p>
+                                User
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                                    
+                          
+                            <li class="nav-item">
                                 <a href="{{ route('admin.user.index') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>User</p>
                                 </a>
                             </li>
-                            </ul>
+                           
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-language"></i>
+                            <p>
+                                lang
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                                    
+                            <li class="nav-item">
+                                <a href="{{ route('admin.lang') }}" class="nav-link ">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p class="text-white">lang</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.lang.create') }}" class="nav-link ">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p class="text-white">Add New lang</p>
+                                </a>
+                            </li>
+                         
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-blog"></i>
+                            <p>
+                                Blog
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                         
+                           
+                        <li class="nav-item">
+                        <a href="{{ route('admin.blog.show') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Blog</p>
+                        </a>
                         </li>
+                           
+                            <li class="nav-item">
+                                <a href="{{ route('admin.blog.create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Add New Blog</p>
+                                </a>
+                            </li>
+                        
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-network-wired"></i>
+                            <p>
+                                Network
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                        
+                        <li class="nav-item">
+                                <a href="{{ route('admin.network') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Network</p>
+                                </a>
+                                </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.network.create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Add New Network</p>
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-list"></i>
+                            <p>
+                                Categories
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.category') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Categories</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.category.create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Add New Categories</p>
+                                </a>
+                            </li>
+                           
+                           
+                        </ul>
+                    </li>
+                 
 
-                    </ul>
-                </nav>
+                </ul>
+            </nav>
 
             </div>
 

@@ -8,15 +8,27 @@ use Intervention\Image\Drivers\Imagick\Driver;
 use App\Models\Categories;
 use App\Models\Networks;
 use App\Models\Coupons;
+use App\Models\DeleteStore;
 use App\Models\Language;
 use App\Models\Stores;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class StoresController extends Controller
 {
-    public function StoreDetails($name)
+    
+    public function checkSlug(Request $request)
+{
+    $slug = $request->slug;
+    $exists = Stores::where('slug', $slug)->exists();
+
+    return response()->json([
+        'exists' => $exists
+    ]);
+}
+public function StoreDetails($name)
     {
         $slug = Str::slug($name);
         $title = ucwords(str_replace('-', ' ', $slug));
@@ -153,13 +165,8 @@ class StoresController extends Controller
         // Validate the request data
         $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('stores')->ignore($store->id),
-            ],
-            'language_id' =>'required|integer',
+            'slug' => ['required','string','max:255',Rule::unique('stores')->ignore($store->id),],
+            'language_id' =>'nullable|integer',
             'top_store' => 'nullable|integer',
             'description' => 'nullable|string',
             // 'url' => 'nullable|url',
@@ -231,23 +238,29 @@ class StoresController extends Controller
     }
     public function delete_store($id)
     {
-        // Find the store by id
+        // Find the store by ID
         $store = Stores::find($id);
-
-        // Check if store exists
+    
         if ($store) {
-            // Find and delete all coupons that have the same store name
+            // Log the store deletion attempt in the delete_store table
+            DeleteStore::create([
+                'store_id' => $store->id,
+                'store_name' => $store->name,
+                'deleted_by' => Auth::id(),
+                
+            ]);
+    
+            // Delete associated coupons with the same store name
             Coupons::where('store', $store->name)->delete();
-
-            // Delete the store
+    
+            // Delete the store (soft delete if the SoftDeletes trait is used)
             $store->delete();
-
-            return redirect()->back()->with('success', 'Store and associated coupons deleted successfully');
+    
+            return redirect()->back()->with('success', 'Store and associated coupons marked for deletion.');
         }
-
-        return redirect()->back()->with('error', 'Store not found');
+    
+        return redirect()->back()->with('error', 'Store not found.');
     }
-
 
     public function deleteSelected(Request $request)
     {

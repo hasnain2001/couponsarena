@@ -51,7 +51,7 @@ public function index(Request $request, $lang = null) {
         });
 
     // Fetch top coupon codes for the specified language
-    $topcouponcode = Coupons::select('id', 'name', 'language_id', 'created_at','name','ending_date','store','clicks') 
+    $topcouponcode = Coupons::select('id', 'name', 'language_id', 'created_at','name','ending_date','store','clicks','destination_url') 
     ->whereNotNull('code')
         ->where('code', '!=', '')
         ->where('language_id', $language->id)
@@ -62,7 +62,7 @@ public function index(Request $request, $lang = null) {
 
     // Optimize top deals query
     // Fetch top deals for the specified language
-    $Couponsdeals = Coupons::select('id', 'name', 'language_id', 'created_at', 'ending_date', 'store','clicks')
+    $Couponsdeals = Coupons::select('id', 'name', 'language_id', 'created_at', 'ending_date', 'store','clicks','destination_url')
         ->where('language_id', $language->id)
         ->where(function ($query) {
             $query->where('top_coupons', '>', 0)

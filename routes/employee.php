@@ -31,6 +31,8 @@ Route::middleware([RoleMiddleware::class])->group(function () {
           Route::get('/store/delete/{id}', 'delete_store')->name('store.delete');
           Route::post('/store/deleteSelected', 'deleteSelected')->name('store.deleteSelected');
           Route::get('/stores/{slug}', 'StoreDetails')->name('store_details');
+          Route::post('/check-slug', 'checkSlug')->name('check.slug');
+
       });
   
   

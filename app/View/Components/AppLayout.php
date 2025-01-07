@@ -14,8 +14,5 @@ class AppLayout extends Component
     {
         return view('layouts.app');
     }
-    public function guest(): View
-    {
-        return view('layouts.guest');
-    }
+   
 }
