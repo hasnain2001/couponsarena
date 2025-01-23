@@ -19,7 +19,7 @@ header("X-Robots-Tag:index, follow");
 <link rel="shortcut icon" href="{{ asset('images/favicon.png')}}" type="image/x-icon">
 
            <style>
-.my-pagination{flex-wrap:wrap}.my-pagination .page-item{margin:5px}.my-pagination .page-link{border:1px solid #ddd;border-radius:50%;padding:10px 15px;color:#007bff;transition:background-color .3s,color .3s}.my-pagination .page-link:hover{background-color:red;color:#fff;text-decoration:none}.my-pagination .page-item.active .page-link{background-color:#007bff;border-color:#007bff;color:#fff}@media (max-width:768px){.my-pagination .page-link{padding:8px 12px;font-size:14px}}@media (max-width:576px){.my-pagination .page-link{padding:6px 10px;font-size:12px}}.card-list{display:flex;flex-wrap:wrap;justify-content:center}.card-link{display:block;color:inherit;text-decoration:none}.card{transition:transform .2s}.card:hover{transform:translateY(-5px)}.stores-img{width:100px;height:100px;object-fit:cover;border-radius:50%}.card-title{font-size:18px;color:#333;margin-top:15px;text-align:center}@media (max-width:768px){.card-list .col-sm-12{margin-bottom:20px}.card-title{font-size:16px}}
+.my-pagination{flex-wrap:wrap}.my-pagination .page-item{margin:5px}.my-pagination .page-link{border:1px solid #ddd;border-radius:50%;padding:10px 15px;color:#007bff;transition:background-color .3s,color .3s}.my-pagination .page-link:hover{background-color:red;color:#fff;text-decoration:none}.my-pagination .page-item.active .page-link{background-color:#007bff;border-color:#007bff;color:#fff}@media (max-width:768px){.my-pagination .page-link{padding:8px 12px;font-size:14px}}@media (max-width:576px){.my-pagination .page-link{padding:6px 10px;font-size:12px}}.card-list{display:flex;flex-wrap:wrap;justify-content:center}.card-link{display:block;color:inherit;text-decoration:none}.card{transition:transform .2s}.card:hover{transform:translateY(-5px)}.stores-img{width:100px;height:100px;object-fit:contain;border-radius:50%}.card-title{font-size:18px;color:#333;margin-top:15px;text-align:center}@media (max-width:768px){.card-list .col-sm-12{margin-bottom:20px}.card-title{font-size:16px}}
 </style>
 </head>
 <body class="body">
@@ -52,12 +52,17 @@ header("X-Robots-Tag:index, follow");
     <div class="row card-list g-4">
         @forelse ($stores as $store)
             <div class="col-lg-2 col-md-4 col-sm-6 col-6">
-                @php
-                  
-                $language = $store->language->code; 
-                $storeurl = $store->slug 
-                    ? route('store_details', ['lang' => $language, 'slug' =>Str::slug($store->slug)]) 
-                    : '#';
+        
+              @php
+              $language = $store->language->code;
+              $storeSlug = Str::slug($store->slug);
+            
+              // Conditionally generate the URL based on the language
+              $storeurl = $store->slug
+                  ? ($language === 'en'
+                      ? route('store_details', ['slug' => $storeSlug])  // English route without 'lang'
+                      : route('store_details.withLang', ['lang' => $language, 'slug' => $storeSlug]))  // Other languages
+                  : '#';
             @endphp
 
 

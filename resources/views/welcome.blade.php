@@ -54,9 +54,9 @@ $store = App\Models\Stores::where('slug', $coupon->store)->first();
 
 <div class="coupon-header text-center">
 @if ($store && $store->store_image)
-<img src="{{ asset('uploads/stores/' . $store->store_image) }}"
-  alt="{{ $store->name }} Image" class="coupon-image img-fluid"
-  loading="lazy">
+<a href="{{ route('store_details', ['slug' => Str::slug($store->slug)]) }}">
+    <img src="{{ asset('uploads/stores/' . $store->store_image) }}" alt="{{ $store->name }} Image" class="coupon-image " loading="lazy">
+</a>
 @else
 <div class="no-image-placeholder bg-light text-center py-4">
 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-image-fill" viewBox="0 0 16 16">
@@ -123,9 +123,9 @@ $store = App\Models\Stores::where('slug', $coupon->store)->first();
 
 <div class="coupon-header text-center">
 @if ($store && $store->store_image)
-<img src="{{ asset('uploads/stores/' . $store->store_image) }}"
-  alt="{{ $store->name }} Image" class="coupon-image img-fluid"
-  loading="lazy">
+<a href="{{ route('store_details', ['slug' => Str::slug($store->slug)]) }}">
+    <img src="{{ asset('uploads/stores/' . $store->store_image) }}" alt="{{ $store->name }} Image" class="coupon-image " loading="lazy">
+</a>
 @else
 <div class="no-image-placeholder bg-light text-center py-4">
 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-image-fill" viewBox="0 0 16 16">

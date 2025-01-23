@@ -1,0 +1,51 @@
+<?php
+return [
+    'home' => 'hem',
+    'contact' => 'Kontakta oss',
+    'news' => 'Nyheter',
+    'category' => 'Kategorier',
+    'search' => 'Sök här',
+    'Trending Promo Codes To Save Everyday' => 'Trendiga Rabattkoder för Dagliga Besparingar',
+    'Top Deals Today' => 'Dagens Bästa Erbjudanden',
+    'Popular Stores Today' => 'Populära Butiker Idag',
+    'Used By' => 'Används av',
+    'Get Deal' => 'Få Erbjudande',
+    'Get Code' => 'Få Kod',
+
+    // För sidfoten
+    'Subscribe to our Newsletter' => 'Prenumerera på vårt Nyhetsbrev',
+    'Enter Your Email' => 'Ange din e-postadress',
+    'Subscribe ' => 'Prenumerera',
+    'About-Us' => 'Om Oss',
+    'Privacy Policy' => 'Integritetspolicy',
+    'Terms and Condition' => 'Villkor och Bestämmelser',
+    'Cookies Policy' => 'Cookiepolicy',
+    'Imprint' => 'Impressum',
+    'Copyright &copy; 2024 couponsarena.com - All rights reserved' => 'Copyright &copy; 2024 couponsarena.com - Alla rättigheter förbehållna',
+
+    // För kontaktsidan
+    'contact-us ' => 'Kontakta oss',
+    'First Name' => 'Förnamn',
+    'Last Name' => 'Efternamn',
+    'Email Address' => 'E-postadress',
+    'Website Name' => 'Webbplatsens Namn',
+    'Write your message' => 'Skriv ditt meddelande',
+    'Submit' => 'Skicka',
+
+    // För cookies-sidan
+    'cookies_title' => 'Cookiepolicy',
+    'info_use' => 'Vårt huvudsakliga användande av cookies är att förbättra CouponsArena. Genom att fortsätta använda vår webbplats accepterar du våra villkor och vår cookiepolicy.',
+    'what_are_cookies' => 'Cookies är små textfiler som skickas från vår webbplats till en användares dator för att komma ihåg deras identitet. De används av nästan alla större webbplatser.',
+    'security_privacy' => 'Vi använder cookies på vår plattform och garanterar att ingen av dina uppgifter avslöjas.',
+    'registration_subscription' => 'För att säkerställa en optimal upplevelse vid registrering använder vi cookies för att bekräfta de steg du följer.',
+    'personalisation' => 'CouponsArena använder cookies för att identifiera ditt beteende och uppskatta dina shoppingpreferenser.',
+    'analytics' => 'Vi använder cookies för att identifiera våra användare och känna till deras geografiska plats, vilket bidrar till att förbättra CouponsArena.',
+    'third_party_cookies' => 'Vi samarbetar med tredjepartscookies för att erbjuda personligt innehåll och annonser.',
+    'heading-1' => 'Information om vår användning av cookies',
+    'heading-2' => 'Vad är cookies?',
+    'heading-3' => 'Säkerhet och integritet',
+    'heading-4' => 'Registrering och prenumeration',
+    'heading-5' => 'Anpassning av kunder',
+    'heading-6' => 'Statistik och analys',
+    'heading-7' => 'Delning av tredjepartscookies',
+];

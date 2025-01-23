@@ -76,6 +76,7 @@ header("X-Robots-Tag:index, follow");
 
     </div>
     @endforeach
+    {{ $blogs->links('vendor.pagination.custom') }}
 </div>
 </div>
 
@@ -122,9 +123,8 @@ header("X-Robots-Tag:index, follow");
 
 </div>
 
-<br><br>
 <div class="container">
-{{ $blogs->links('vendor.pagination.bootstrap-5') }}
+
 </div>
 
 <x-footer/>

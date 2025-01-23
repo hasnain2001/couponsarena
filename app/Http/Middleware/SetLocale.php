@@ -19,7 +19,7 @@ class SetLocale
         $locale = $request->route('locale');
 
         // Define the supported locales
-        $supportedLocales = ['en', 'nl', 'fr', 'es', 'de', 'pl',];
+        $supportedLocales = ['en', 'nl', 'fr', 'es', 'de', 'pl','ch','it','se','cz'];
 
         // Check if the locale is supported
         if (in_array($locale, $supportedLocales)) {

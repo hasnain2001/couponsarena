@@ -1,0 +1,51 @@
+<?php
+return [
+    'home' => 'Domů',
+    'contact' => 'Kontaktujte nás',
+    'news' => 'Novinky',
+    'category' => 'Kategorie',
+    'search' => 'Hledat zde',
+    'Trending Promo Codes To Save Everyday' => 'Nejnovější slevové a promo kódy',
+    'Top Deals Today' => 'Nejnovější nabídky dne',
+    'Popular Stores Today' => 'Oblíbené obchody dne',
+    'Used By' => 'Použito',
+    'Get Deal' => 'Získat nabídku',
+    'Get Code' => 'Získat kód',
+
+    // pro zápatí /
+    'Subscribe to our Newsletter' => 'Přihlaste se k odběru newsletteru',
+    'Enter Your Email' => 'Zadejte svůj e-mail',
+    'Subscribe ' => 'Přihlásit se',
+    'About-Us' => 'O nás',
+    'Privacy Policy' => 'Zásady ochrany osobních údajů',
+    'Terms and Condition' => 'Podmínky použití',
+    'Cookies Policy' => 'Zásady používání cookies',
+    'Imprint' => 'Impresum',
+    'Copyright &copy; 2024 couponsarena.com - All rights reserved' => 'Copyright &copy; 2024 couponsarena.com - Všechna práva vyhrazena',
+
+    // pro kontaktní stránku /
+    'contact-us ' => 'Kontaktujte nás',
+    'First Name' => 'Jméno',
+    'Last Name' => 'Příjmení',
+    'Email Address' => 'E-mailová adresa',
+    'Website Name' => 'Název webu',
+    'Write your message' => 'Napište svou zprávu',
+    'Submit' => 'Odeslat',
+
+    // pro stránku cookies /
+    'cookies_title' => 'Zásady používání cookies',
+    'info_use' => 'Naším hlavním účelem používání cookies je zlepšení webu CouponsArena. Pokračováním v používání našich stránek souhlasíte s našimi podmínkami a zásadami cookies.',
+    'what_are_cookies' => 'Cookies jsou malé textové soubory, které jsou uloženy do počítače uživatele internetu pro rozpoznání jeho identity. Využívá je téměř každá webová stránka.',
+    'security_privacy' => 'Používáme cookies na naší platformě a zaručujeme, že vaše informace nebudou uniklé.',
+    'registration_subscription' => 'Abychom zajistili skvělý uživatelský zážitek při registraci a odběru, používáme cookies ke kontrole jednotlivých kroků.',
+    'personalisation' => 'CouponsArena používá cookies k identifikaci vašeho chování a odhadování vašich nákupních preferencí.',
+    'analytics' => 'Používáme cookies k rozpoznání našich uživatelů a získání informací o jejich poloze, což nám pomáhá zlepšovat CouponsArena.',
+    'third_party_cookies' => 'Spolupracujeme s různými třetími stranami, které pomáhají poskytovat personalizované informace a reklamy.',
+    'heading-1' => 'Informace o našem používání cookies',
+    'heading-2' => 'Co jsou cookies?',
+    'heading-3' => 'Bezpečnost a soukromí',
+    'heading-4' => 'Registrace a odběr',
+    'heading-5' => 'Personalizace zákazníků',
+    'heading-6' => 'Statistika a analýza',
+    'heading-7' => 'Sdílení cookies třetích stran',
+];

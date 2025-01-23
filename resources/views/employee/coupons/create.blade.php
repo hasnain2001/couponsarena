@@ -84,12 +84,13 @@
                         <div class="form-group">
                             <label for="lang">Language <span class="text-danger">*</span></label>
                         
-                                <select name="language_id" id="language_id" class="form-control" required>
-                                <option disabled selected>--Select Langs--</option>
+                            <select name="language_id" id="language_id" class="form-control" required>
+                                <option value="" selected>--Select Langs--</option>
                                 @foreach ($langs as $lang)
                                     <option value="{{ $lang->id }}">{{ $lang->name }}</option>
                                 @endforeach
-                            </select>
+                              </select>
+                              
                             
                         </div>
                         <div class="form-group">

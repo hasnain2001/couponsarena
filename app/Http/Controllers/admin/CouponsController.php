@@ -9,6 +9,7 @@ use App\Models\Language;
 use App\Models\Stores;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Validator;
 
 class CouponsController extends Controller
 {
@@ -100,21 +101,17 @@ public function update(Request $request)
     }
 
     public function store_coupon(Request $request) {
-        // Define validation rules
         $request->validate([
             'name' => 'required|string|max:255',
-            'language_id' =>'nullable|integer',
+            'language_id' => 'nullable|integer',
             'description' => 'nullable|string|max:1000',
             'code' => 'nullable|string|max:100',
             'destination_url' => 'nullable|url',
             'ending_date' => 'nullable|date|after_or_equal:today',
-            // 'status' => 'required|in:active,inactive',
             'authentication' => 'nullable|array',
             'authentication.*' => 'string',
             'store' => 'nullable|string|max:255',
-        'top_coupons' => 'nullable|integer|min:0',
-
-
+            'top_coupons' => 'nullable|integer|min:0',
         ]);
 
         // Create coupon using validated data

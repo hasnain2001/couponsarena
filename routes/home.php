@@ -11,8 +11,6 @@ use App\Http\Controllers\HomeController;
 
 Route::middleware([SetLocale::class])->group(function () {
     Route::group(['prefix' => '{locale}',], function () {
-
-
         Route::get('/contact', function () {
             return view('contact');
                      })->name('contact');

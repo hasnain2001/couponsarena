@@ -10,7 +10,18 @@
 
     <title>Navbar Example</title>
     <link rel="stylesheet" href="{{asset('cssfile/navbar.css')}}">
-  
+  <style>
+.social-icons a {
+    margin-right: 10px;
+    font-size: 24px; /* Increase icon size */
+}
+.social-icons a:last-child {
+    margin-right: 0;
+}
+
+
+      
+  </style>
 </head>
 <body>
 
@@ -25,8 +36,8 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid">
-                <a class="d-block d-sm-none " href="/">
-                    <img src="{{ asset('images/mb-logo.png') }}" alt="Logo" class="mb-logo" loading="lazy">
+                <a class="navbar-brand d-block d-sm-none mb-logo" href="/">
+                    <img src="{{ asset('images/mb-logo.png') }}" alt="Logo" class="logo" loading="lazy">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -45,7 +56,7 @@
                                     @foreach ($categories as $category)
                                         <div class="col-md-3">
                                             
-                                            <a href="{{ route('related_category', ['lang' => app()->getLocale(), 'slug' => Str::slug($category->slug)]) }}" class="dropdown-item text-dark">{{ $category->title }}</a>
+<a href="{{ route('related_category', ['slug' => Str::slug($category->slug)]) }}" class="dropdown-item text-dark">{{ $category->title }}</a>
 
                                         </div>
                                     @endforeach
@@ -66,7 +77,7 @@
                         </li>
                     </ul>
                 </div>
-       
+            </div>
 
             <!-- Search and Language Selector -->
             <div class="search-language-container">
@@ -74,6 +85,14 @@
                     <input class="form-control me-2" type="search" name="query" placeholder="@lang('message.search')" aria-label="Search">
                     <button class="searchbtn" type="submit"><i class="fas fa-search"></i></button>
                 </form>
+                            <!-- Social Icons -->
+               <div class="social-icons d-flex" >
+    <a href="https://web.facebook.com/people/Coupons-Arena/61571970471132/" target="_blank"><i class="fab fa-facebook"></i></a>
+    <a href="https://www.instagram.com/coupons.arena/#" target="_blank"><i class="fab fa-instagram"></i></a>
+    <!--<a href="https://twitter.com/honeycombdeals/" target="_blank"><i class="fab fa-twitter"></i></a>-->
+    <!--<a href="https://www.pinterest.com/honeycombdeals_official/" target="_blank"><i class="fab fa-pinterest"></i></a>-->
+</div>
+
 
                 <li class="nav-item dropdown list-unstyled ">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -90,7 +109,6 @@
                     </ul>
                 </li>
             </div>
-        </div>
         </nav>
     </header>
 <button onclick="topFunction()" id="myBtn" title="Go to top">

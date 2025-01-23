@@ -258,7 +258,7 @@ return redirect('404');
     }
 
     // Fetch related coupons and stores
-    $stores = Stores::where('category', $title)->paginate(12);
+    $stores = Stores::where('category', $title)->orderBy('created_at','desc')->get();
 
 
     return view('related_category', compact('category', 'stores' ));

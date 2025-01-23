@@ -1,0 +1,35 @@
+<?php
+
+return [
+'heading-1' => 'Vítejte na Coupons Arena: Váš nákupní guru',
+
+'heading-2' => 'Máte už dost placení plné ceny? Rozumíme vám! Coupons Arena je váš důvěryhodný společník ve světě slev, nabídek, promo kódů, balíčků a neocenitelných tipů, jak ušetřit peníze. Jsme více než jen webová stránka; dáváme vám možnost být chytrým a informovaným nakupujícím, což vaše nákupy činí naplňujícími a šetrnými k rozpočtu.',
+'heading-3' => 'Naše vize: Podpora chytřejšího nakupování',
+'heading-4'=>'Naše mise je jasná: poskytovat jednotné místo, kde nakupující najdou různé slevové kupóny, které odpovídají jejich jedinečným potřebám a preferencím. Věříme, že šetření peněz by mělo být snadné, vzrušující a odměňující. Spojujeme spotřebitele s exkluzivními nabídkami a spolupracujeme s předními prodejci, abychom redefinovali způsob, jakým lidé přistupují k online nakupování.',
+'heading-5'=>'Odemkněte svůj potenciál úspor s Coupons Arena',
+'heading-6'=>'',
+'heading-7' => 'Slevové kódy',
+'heading-8'=> 'Kurujeme a poskytujeme širokou škálu slevových kódů od vašich oblíbených značek a prodejců.',
+'heading-9' =>'2. Nabídky a Akce',
+'heading-10' => 'Objevte nejnovější a nejžhavější nabídky na Coupons Arena. Ušetřete velké částky na všem, co potřebujete a milujete.',
+'heading-11' => '3. Slevové balíčky',
+
+'heading-12' =>'Šetřete ještě více prozkoumáním našich balíčkových nabídek. Najděte skvělé nabídky na doplňkové produkty.',
+'heading-13' => '4. Porovnání produktů',
+'heading-14' => 'Při nakupování je důležité dělat informovaná rozhodnutí. Nabízíme podrobná porovnání produktů, abychom vám pomohli vybrat nejlepší možnost, která vyhovuje vašim potřebám a rozpočtu.',
+'heading-15' => '',
+'heading-16'=>'Proč si vybrat Coupons Arena jako svého nákupního partnera?',
+'heading-17' => '',
+'Access promotions you wont find anywhere else' =>'Důvěryhodné informace',
+'Personalized Recommendations:' => 'Různorodá nabídka nabídek',
+'Tailored deals based on your preferences.' =>'Přizpůsobené nabídky na základě vašich preferencí.',
+'Real-Time Savings:'=>'Úspory v reálném čase:',
+'Stay ahead with the latest and most up-to-date coupons.'=> 'Zůstaňte napřed s nejnovějšími a aktuálními slevovými kódy.',
+'Community Engagement:'=> 'Komunita a podpora',
+' Connect with fellow savers, share tips, and celebrate your successes.'=>'Spojte se s dalšími šetřícími, sdílejte tipy a oslavujte své úspěchy.',
+'heading-18' =>'',
+'heading-19' => '',
+'heading-20' => '',
+'heading-21'  => '',
+'heading-22' => '',
+];

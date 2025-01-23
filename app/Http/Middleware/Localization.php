@@ -18,7 +18,7 @@ class Localization
         $locale = $request->route('locale');
 
         // Define the available locales in your application
-        $availableLocales = ['en', 'fr', 'es', 'de', 'nl', 'au'];
+        $availableLocales = ['en', 'fr', 'es', 'de', 'nl', 'au','ch','it','se','cz'];
 
         // Set the application locale if it's a valid locale, otherwise default to 'en'
         if (in_array($locale, $availableLocales)) {

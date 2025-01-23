@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="title">Category Url/slug <span class="text-danger">* only text input</span></label>
-                                    <input type="text" class="form-control" name="slug" id="title"  required>
+                                    <input type="text" class="form-control" name="slug" id="slug"  required>
 
                                 </div>
 
@@ -91,4 +91,18 @@
         </div>
     </section>
 </div>
+<script>
+     const inputOne = document.getElementById('title');
+            const textOnlyInput = document.getElementById('slug');
+        
+            inputOne.addEventListener('input', () => {
+                const value = inputOne.value;
+                // Filter out non-alphabetic characters and update slug automatically
+                const filteredValue = value.replace(/[^A-Za-z\s]/g, '');
+                textOnlyInput.value = filteredValue;
+                
+                // Automatically check slug existence after auto-filling
+                checkSlugExistence(filteredValue);
+            });
+</script>
 @endsection
