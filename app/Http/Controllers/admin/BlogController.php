@@ -15,7 +15,7 @@ class BlogController extends Controller
 
 
         public function blogs_show() {
-            $blogs = Blog::paginate(10);
+            $blogs = Blog::all();
             return view('admin.Blog.show', compact('blogs'));
         }
 
@@ -36,6 +36,8 @@ class BlogController extends Controller
                 'meta_title' => 'nullable|string|max:65',
                 'meta_description' => 'nullable|string|max:155',
                 'meta_keyword' => 'nullable|string|max:255',
+                'top' => 'nullable|integer',
+                'category' => 'nullable|string|max:255',
             ]);
 
             // Handle file upload for category_image
@@ -77,6 +79,8 @@ class BlogController extends Controller
             $blog->meta_title = $request->input('meta_title');
             $blog->meta_description = $request->input('meta_description');
             $blog->meta_keyword = $request->input('meta_keyword');
+            $blog->top = $request->input('top');
+            $blog->category = $request->input('category');
 
             // Process content from CKEditor
             $content = $request->input('content');
@@ -112,7 +116,7 @@ class BlogController extends Controller
             $blog->content = $dom->saveHTML();
             $blog->save();
 
-            return redirect()->back()->with('success', 'Blog created successfully.');
+            return redirect()->back()->withInput()->with('success', 'Blog created successfully.');
         }
 
 
@@ -133,6 +137,8 @@ class BlogController extends Controller
                 'meta_title' => 'nullable|string|max:65',
                 'meta_description' => 'nullable|string|max:155',
                 'meta_keyword' => 'nullable|string|max:255',
+                'top' => 'nullable|integer',
+                'category' => 'nullable|string|max:255',
             ]);
 
             // Find the blog by ID
@@ -182,6 +188,9 @@ class BlogController extends Controller
             $blog->meta_title = $request->input('meta_title');
             $blog->meta_description = $request->input('meta_description');
             $blog->meta_keyword = $request->input('meta_keyword');
+            $blog->top = $request->input('top');
+            $blog->category = $request->input('category', $blog->category);
+
 
             // Process content from CKEditor
             $content = $request->input('content');
@@ -199,7 +208,7 @@ class BlogController extends Controller
             $blog->save();
 
             // Redirect back with a success message
-            return redirect()->back()->with('success', 'Blog updated successfully.');
+            return redirect()->route('admin.blog.show')->with('success', 'Blog updated successfully.');
         }
 
 

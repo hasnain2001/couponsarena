@@ -36,7 +36,7 @@ header("X-Robots-Tag:index, follow");
 
 </head>
 <body>
-<x-navbar/>
+@include('components.navbar')
 <br>
 
 
@@ -60,6 +60,7 @@ header("X-Robots-Tag:index, follow");
     ? route('blog-details', ['slug' => Str::slug($blog->slug)])
     : '#';
     @endphp
+    
     <div class="col-md-12 blog-post">
 
         <div class="blog-image-wrapper">
@@ -76,7 +77,7 @@ header("X-Robots-Tag:index, follow");
 
     </div>
     @endforeach
-    {{ $blogs->links('vendor.pagination.custom') }}
+     {{ $blogs->links('vendor.pagination.custom') }}
 </div>
 </div>
 
@@ -87,27 +88,32 @@ header("X-Robots-Tag:index, follow");
 
 <ul class="list-group list-group-flush">
     @foreach ($chunks as $store)
-    @php
-        // Ensure 'lang' parameter is set properly (fallback to 'en' if needed)
-        $language = app()->getLocale() ?? 'en';
+ 
+      @php
+  $language = $store->language->code;
+  $storeSlug = Str::slug($store->slug);
+
+  // Conditionally generate the URL based on the language
+  $storeurl = $store->slug
+      ? ($language === 'en'
+          ? route('store_details', ['slug' => $storeSlug])  // English route without 'lang'
+          : route('store_details.withLang', ['lang' => $language, 'slug' => $storeSlug]))  // Other languages
+      : '#';
+@endphp
     
-        // Generate store URL or fallback to '#' if store slug is missing
-        $storeurl = $store->slug 
-            ? route('store_details', ['lang' => $language, 'slug' => $store->slug]) 
-            : '#';
-    @endphp
-    
-    <a href="{{ $storeurl }}" class="btn btn-dark btn-sm">
+
         <li class="list-group-item d-flex align-items-center justify-content-between">
+             <a href="{{ $storeurl }}" class="btn btn-light btn-sm">
             <div class="d-flex align-items-center">
-                <img src="{{ asset('uploads/stores/' . $store->store_image) }}" alt="{{ $store->name }}" class="rounded-circle" style="width: 60px; height: 60px;">
+            <img src="{{ asset('uploads/stores/' . $store->store_image) }}" alt="{{ $store->name }}" class="rounded-circle" style="width: 60px; height: 60px;">
                 <div class="store-info ml-3">
                     <span class="fw-bold frugal-heaven-text-name">{{ $store->name }}</span>
-                </div>
+                </div> 
             </div>
-            Visit Store
+             </a>
+            <a href="{{ $storeurl }}" class="btn btn-dark btn-sm">Visit Store</a>
         </li>
-    </a>
+  
     @endforeach
     
 
@@ -123,11 +129,12 @@ header("X-Robots-Tag:index, follow");
 
 </div>
 
+<br><br>
 <div class="container">
 
 </div>
 
-<x-footer/>
+@include('components.footer')
 
 <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
 </body>

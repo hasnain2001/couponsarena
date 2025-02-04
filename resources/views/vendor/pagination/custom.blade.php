@@ -8,21 +8,21 @@
     <style>
         .custom-pagination .page-link {
             color: #fff;
-            background-color: #701e7d; /* Purple */
-            border-color: #6f42c1;
+            background-color: #000000; /* Purple */
+            border-color: #1d1925;
             transition: all 0.3s ease-in-out;
             padding: 10px 15px;
             font-size: 16px;
         }
 
         .custom-pagination .page-link:hover {
-            background-color: #4b2a89; /* Darker Purple */
-            border-color: #4b2a89;
+            background-color: #000000; /* Darker Purple */
+            border-color: #18171b;
         }
 
         .custom-pagination .active .page-link {
-            color: #fff;
-            background-color: #5a189a; /* Highlighted Purple */
+            color: #000000;
+            background-color: #ffffff; /* Highlighted Purple */
             border-color: #5a189a;
         }
 

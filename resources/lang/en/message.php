@@ -2,7 +2,7 @@
 return [
     'home' => 'Home',
     'contact' => 'Contact Us',
-    'news' => 'News',
+    'news' => 'blogs',
     'category' => 'categories',
     'search' => 'Search Here ',
     'Trending Promo Codes To Save Everyday' =>'Latest Discount & Promo Codes',

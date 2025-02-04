@@ -24,7 +24,7 @@
 
       <style>
             .sidebar-dark-primary {
-            background-color: #0054a6;
+            background-color: #000000;
 
         }
 
@@ -406,7 +406,4 @@
         });
     </script>
 </body>
-
-<!-- Mirrored from adminlte.io/themes/v3/pages/tables/data.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 01 Feb 2024 08:09:01 GMT -->
-
 </html>

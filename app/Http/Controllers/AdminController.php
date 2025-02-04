@@ -26,11 +26,7 @@ class AdminController extends Controller
         return view('admin.dashboard',compact('stores','coupons','blogs','categories','networks','users','langs'));
     }
 
-    public function deletedStores()
-{
-    $deletedStores = DeleteStore::with('deletedBy')->get();
-    return view('admin.deleted.delete_stores', compact('deletedStores'));
-}
+
     public function index()
     {  
     $users =User::all();

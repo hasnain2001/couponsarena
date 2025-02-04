@@ -28,9 +28,12 @@ header("X-Robots-Tag:index, follow");
 <div class="container">
     <nav aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 0.25rem; padding: 10px;">
         <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item">
-                <a href="/" class="text-decoration-none text-primary" style="font-weight: 500;">Home</a>
-            </li>
+<li class="breadcrumb-item">
+<a href="/" class="text-decoration-none text-primary" style="font-weight: 500;">Home</a>
+</li>
+<li class="breadcrumb-item">
+  <a href="{{ url(app()->getLocale() . '/blog') }}" class="text-decoration-none text-primary" style="font-weight: 500;">blog</a>
+  </li>
             <li class="breadcrumb-item active" aria-current="page" style="font-weight: 600; color: #6c757d;">{{ $blog->title }}</li>
         </ol>
     </nav>
@@ -56,20 +59,21 @@ header("X-Robots-Tag:index, follow");
         <!-- Store Listings -->
         <div class="row gx-2 gy-2">
           @foreach ($chunks as $store)
+          @php
+          // Ensure 'lang' parameter is set properly (fallback to 'en' if needed)
+          $language = app()->getLocale() ?? 'en';
+      
+          // Generate store URL or fallback to '#' if store slug is missing
+          $storeurl = $store->slug 
+              ? route('store_details', ['lang' => $language, 'slug' => $store->slug]) 
+              : '#';
+      @endphp
             <div class="col-md-6 col-sm-4 col-6">
                  <!-- Store Image -->
                 <img src="{{ asset('uploads/stores/' . $store->store_image) }}" alt="{{ $store->name }}" class="mb-2 rounded-circle shadow" style="width: 100px; height: 100px; object-fit: cover;">
                 <!-- Store Name -->
-                <p class="text-capitalize">{{ $store->name }}</p>
-                @php
-                // Ensure 'lang' parameter is set properly (fallback to 'en' if needed)
-                $language = app()->getLocale() ?? 'en';
-            
-                // Generate store URL or fallback to '#' if store slug is missing
-                $storeurl = $store->slug 
-                    ? route('store_details', ['lang' => $language, 'slug' => $store->slug]) 
-                    : '#';
-            @endphp
+                <p class="text-capitalize text-dark">{{ $store->name }}</p>
+         
             <a href="{{ $storeurl }}" class="btn btn-dark btn-sm">
                     Visit Store
                 </a>

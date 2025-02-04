@@ -38,7 +38,7 @@
 
       <style>
             .sidebar-dark-primary {
-                background-color: #0054a6;
+                background-color: #000000;
 
         }
 

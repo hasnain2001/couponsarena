@@ -61,6 +61,30 @@
                                 <textarea id="editor" name="content"> <td>{!!$blog->content!!}</td></textarea>
                             </div>
 
+                        </div>
+
+                    </div>
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-body">
+                       
+                            <div class="form-group">
+                                <label for="category">Category <span class="text-danger">*</span></label>
+                                <select name="category" id="category" class="form-control">
+                                <option value="" disabled selected>{{ $blog->category }}</option>
+                                @foreach($categories as $category)
+                                <option value="{{ $category->slug }}">{{ $category->slug }}</option>
+                                @endforeach
+                                </select>
+                            
+                            
+                                </div>
+
+                            <div class="form-group">
+                                <label for="top">top</label><br>
+                                <input type="checkbox" name="top" id="top" {{ $blog->top > '0' ? 'checked' : '' }} value="1">&nbsp;<label for="authentication">Top Store</label>
+                            </div>
+                       
                                  <div class="form-group">
                                     <label for="name">Meta Title<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="meta_title" id="meta_title" >
@@ -85,7 +109,7 @@
 
                     <div class="col-12">
                         <button type="reset" class="btn btn-secondary text-white">Reset</button>
-                        <a href="{{ route('admin.show')}}" class="btn btn-danger">cancel</a>
+                        <a href="{{ route('admin.blog.show')}}" class="btn btn-danger">cancel</a>
                     </div>
                 </div>
             </form>

@@ -29,8 +29,11 @@
 <td><span class=" text-dark" data-bs-toggle="tooltip" title="{{ $store->created_at->setTimezone('Asia/Karachi')->format('l, F j, Y h:i A') }}">
 {{ $store->created_at->setTimezone('Asia/Karachi')->format('M d, Y h:i A') }}
 </span></td>
+<td><a href="{{ route('admin.delete-store-delete', $store->id) }}" onclick="return confirm('Are you sure you want to delete this!')" class="btn btn-danger btn-sm">Delete</a></td>
+                        {{-- <td>
+                            <a href="{{ route('admin.stores.restore', $store->id) }}" class="btn btn-success btn-sm">Restore</a>
 
-                        <td><button></button></td>
+                        </td> --}}
                     </tr>
                 @endforeach
             </tbody>

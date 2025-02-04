@@ -9,6 +9,9 @@ use App\Http\Middleware\RoleMiddleware;
 use App\Http\Middleware\EmployeeMiddleware;
 use Illuminate\Support\Facades\Route;
 Route::middleware([RoleMiddleware::class])->group(function () {
+    Route::prefix('employee')->name('employee.')->group(function () {
+        Route::get('/dashboard', [EmployeeController::class, 'dashboard'])->name('dashboard');
+        });
      // Employee Routes Begin   
       Route::controller(BlogController::class)->prefix('employee')->group(function () {
           Route::get('/Blog',  'blogs_show')->name('employee.blog.show');

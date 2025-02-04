@@ -14,7 +14,7 @@ class BlogController extends Controller
 
 
     public function blogs_show() {
-        $blogs = Blog::paginate(10);
+        $blogs = Blog::get();
         return view('employee.Blog.show', compact('blogs'));
     }
 
@@ -35,6 +35,8 @@ class BlogController extends Controller
             'meta_title' => 'nullable|string|max:65',
             'meta_description' => 'nullable|string|max:155',
             'meta_keyword' => 'nullable|string|max:255',
+            'top' => 'nullable|integer',
+            'category' => 'nullable|string|max:255',
         ]);
 
         // Handle file upload for category_image
@@ -76,6 +78,8 @@ class BlogController extends Controller
         $blog->meta_title = $request->input('meta_title');
         $blog->meta_description = $request->input('meta_description');
         $blog->meta_keyword = $request->input('meta_keyword');
+        $blog->top = $request->input('top');
+        $blog->category = $request->input('category');
 
         // Process content from CKEditor
         $content = $request->input('content');
@@ -132,6 +136,9 @@ foreach ($images as $img) {
             'meta_title' => 'nullable|string|max:65',
             'meta_description' => 'nullable|string|max:155',
             'meta_keyword' => 'nullable|string|max:255',
+            'top' => 'nullable|integer',
+            'category' => 'nullable|string|max:255',
+
         ]);
 
         // Find the blog by ID
@@ -181,6 +188,8 @@ foreach ($images as $img) {
         $blog->meta_title = $request->input('meta_title');
         $blog->meta_description = $request->input('meta_description');
         $blog->meta_keyword = $request->input('meta_keyword');
+        $blog->top = $request->input('top');
+        $blog->category = $request->input('category');
 
         // Process content from CKEditor
         $content = $request->input('content');

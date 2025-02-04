@@ -75,7 +75,7 @@ public function StoreDetails($name)
         $request->validate([
             'name' => 'required|string|max:255',
             'language_id' =>'required|integer',
-            'slug' => 'nullable|string|max:255|unique:stores,slug', // Slug is now nullable
+            'slug' => 'nullable|string|max:255|unique:stores,slug', 
             'top_store' => 'nullable|integer',
             'description' => 'nullable|string',
             'url' => 'nullable|url',
@@ -87,7 +87,7 @@ public function StoreDetails($name)
             'meta_description' => 'nullable|string',
             'authentication' => 'nullable|string',
             'network' => 'nullable|string',
-            'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // Validates image file
+            'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', 
         ]);
     
         // Generate a slug from the name if not provided
@@ -107,15 +107,15 @@ public function StoreDetails($name)
             if (file_exists($filePath)) {
                 // Optimize the image
                 // Use Imagick to create a new image instance
-                $image = ImageManager::imagick()->read($filePath);
+                // $image = ImageManager::imagick()->read($filePath);
 
-                // Resize the image to 300x200 pixels
-                $image->resize(300, 200);
+                // // Resize the image to 300x200 pixels
+                // $image->resize(300, 200);
 
-                // Optionally, resize only the height to 200 pixels
-                $image->resize(null, 200, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
+                // // Optionally, resize only the height to 200 pixels
+                // $image->resize(null, 200, function ($constraint) {
+                //     $constraint->aspectRatio();
+                // });
                 $optimizer = OptimizerChainFactory::create();
                 $optimizer->optimize($filePath);
             } else {
@@ -144,7 +144,7 @@ public function StoreDetails($name)
         ]);
     
         // Redirect back with a success message
-        return redirect()->back()->with('success', 'Store Created Successfully');
+        return redirect()->back()->withInput()->with('success', 'Store Created Successfully');
     }
     
 
@@ -261,15 +261,28 @@ public function StoreDetails($name)
     
         return redirect()->back()->with('error', 'Store not found.');
     }
-
     public function deleteSelected(Request $request)
     {
+        // Get the selected store IDs from the request
         $storeIds = $request->input('selected_stores');
-
+    
+        // Check if any store IDs were selected
         if ($storeIds) {
-            // Delete only the stores
+            // Fetch the stores to be deleted
+            $stores = Stores::whereIn('id', $storeIds)->get();
+    
+            // Loop through each store and log the deletion
+            foreach ($stores as $store) {
+                DeleteStore::create([
+                    'store_id' => $store->id,
+                    'store_name' => $store->name,
+                    'deleted_by' => Auth::id(),
+                ]);
+            }
+    
+            // Delete the selected stores
             Stores::whereIn('id', $storeIds)->delete();
-
+    
             return redirect()->back()->with('success', 'Selected stores deleted successfully');
         } else {
             return redirect()->back()->with('error', 'No stores selected for deletion');

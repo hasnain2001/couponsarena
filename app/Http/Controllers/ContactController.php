@@ -17,22 +17,22 @@ class ContactController extends Controller
         return view("contact");
     }
 
-    public function send(Request $request)
-    {
-        // Validate the form data
-        $data = $request->validate([
-            'email' => 'required|email',
-            'name' => 'required|min:3',
-            'message' => 'required|min:10',
-        ]);
+    // public function send(Request $request)
+    // {
+    //     // Validate the form data
+    //     $data = $request->validate([
+    //         'email' => 'required|email',
+    //         'name' => 'required|min:3',
+    //         'message' => 'required|min:10',
+    //     ]);
 
-        // Send email
-        try {
-            Mail::to ('hasnainalikhan@gmail.com')->send(new ContactMail($data));
-            return redirect()->back()->with('success', 'Email sent successfully!');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'An error occurred while sending the email.');
-        }
-    }
+    //     // Send email
+    //     try {
+    //         Mail::to ('hasnainalikhan@gmail.com')->send(new ContactMail($data));
+    //         return redirect()->back()->with('success', 'Email sent successfully!');
+    //     } catch (\Exception $e) {
+    //         return redirect()->back()->with('error', 'An error occurred while sending the email.');
+    //     }
+    // }
 
 }
