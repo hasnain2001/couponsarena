@@ -151,6 +151,10 @@
     </select>
     </div>
     <div class="form-group">
+        <label for="about">about Description</label>
+        <textarea name="about" id="about" class="form-control" cols="30" rows="5" style="resize: none;" >{{ $stores->about }}</textarea>
+        </div>
+    <div class="form-group">
     <label for="store_image">Store Image <span class="text-danger">*</span></label>
     <input type="file" class="form-control" name="store_image" id="store_image">
     @if($stores->store_image)
@@ -173,7 +177,15 @@
         <a href="{{ route('admin.stores') }}" class="btn btn-secondary">Cancel</a>
         </div>
     </div>
-  
+    <div class="form-group">
+        <label for="">Main Content</label>
+        <div id="container">
+        <textarea required id="editor" name="content" >
+            {{ $stores ->content }}
+        </textarea>
+        </div>
+        </div>
+
     </div>
     </form>
     </div>
@@ -203,22 +215,22 @@
         // Filter non-alphabetic characters in the 'name' input field and auto-fill 'slug'
         const inputOne = document.getElementById('name');
         const textOnlyInput = document.getElementById('slug');
-    
+
         inputOne.addEventListener('input', () => {
             const value = inputOne.value;
             // Filter out non-alphabetic characters and update slug automatically
             const filteredValue = value.replace(/[^A-Za-z\s]/g, '');
             textOnlyInput.value = filteredValue;
-            
+
             // Automatically check slug existence after auto-filling
             checkSlugExistence(filteredValue);
         });
-    
+
         $(document).ready(function() {
             // Check slug existence when the user types manually in the slug field
             $('#slug').on('keyup', function() {
                 var slug = $(this).val();
-                
+
                 // Check if the slug has any value (optional: avoid AJAX if empty)
                 if (slug) {
                     checkSlugExistence(slug);
@@ -227,7 +239,7 @@
                 }
             });
         });
-    
+
         // Function to check if the slug exists
         function checkSlugExistence(slug) {
             $.ajax({
@@ -247,5 +259,5 @@
             });
         }
     </script>
-    
+
     @endsection

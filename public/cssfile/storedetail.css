@@ -1,8 +1,5 @@
-.card-hover,
-.coupon-card {
-    flex-direction: column;
-    display: flex;
-}
+
+
 
 .container,
 .custom-font {
@@ -38,9 +35,6 @@
     margin: auto;
 }
 
-.coupon-card {
-    height: 100%;
-}
 
 
 .coupon-action {
@@ -167,11 +161,21 @@
 .stores-img {
     max-width: 80px;
     max-height: 80px;
-    object-fit: cover;
+    object-fit: fill;
 }
 
 /* Mobile-specific styling */
 @media (max-width: 768px) {
+    .get{
+        width: 100%;
+    }
+    .stores-img{
+        object-fit: fill;
+    }
+    .getcode{
+        width: 100%;
+        text-align: center;
+    }
     /* Stack items vertically in a column on mobile */
     .card-body {
         display: flex;
@@ -180,24 +184,14 @@
     }
 
     /* Ensure the image is centered above the text on mobile */
-    .coupon-card img.stores-img {
-        margin-bottom: 10px; /* Add spacing between image and content */
-    }
 
-    /* Flex-grow for text and buttons to align vertically */
-    .flex-grow-1 {
-        text-align: left; /* Text is aligned to the left */
-    }
+}
+.text-small {
+    font-size: 0.875rem; /* Smaller font size for mobile */
+}
 
-    /* Adjust button placement for mobile */
-    .getcode,
-    .get {
-        align-self: flex-start;
-        margin-top: 10px;
-    }
-
-    .coupon-card {
-        flex-direction: column; /* Ensure the entire card is displayed as a column */
-        justify-content: flex-start;
+@media (max-width: 768px) {
+    .coupon-card .card-body {
+        flex-direction: column;
     }
 }

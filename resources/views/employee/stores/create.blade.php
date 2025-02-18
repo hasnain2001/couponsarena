@@ -40,7 +40,7 @@
                     action="{{ route('employee.store.store') }}">
                     @csrf
                     <div class="row">
-                 
+
                         <div class="col-6">
                             <div class="card">
                                 <div class="card-body">
@@ -53,7 +53,7 @@
                                         <input type="text" class="form-control" name="slug" id="slug" required>
                                         <small id="slug-message"></small> <!-- Added this line -->
                                     </div>
-                                    
+
                                     <div class="form-group">
                                         <label for="description">Description</label>
                                         <textarea name="description" id="description" class="form-control" cols="30" rows="3" style="resize: none;"
@@ -92,7 +92,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                    
+
                                     <div class="form-group">
                                         <label for="name">Meta Title<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="title" id="name">
@@ -142,6 +142,11 @@
                                             @endforeach
                                         </select>
                                     </div>
+            <div class="form-group">
+            <label for="about">About store</label>
+            <textarea name="about" id="about" class="form-control" cols="30" rows="3" style="resize: none;"
+            required></textarea>
+            </div>
                                     <div class="form-group">
                                         <label for="store_image">Store Image <span class="text-danger">*</span></label>
                                         <input type="file" class="form-control" name="store_image" id="store_image"
@@ -159,6 +164,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="">Main Content</label>
+                            <div id="container">
+                            <textarea required id="editor" name="content" >
+                                {{ old('content') }}
+                            </textarea>
+                            </div>
+                            </div>
                     </div>
                 </form>
             </div>
@@ -190,22 +203,22 @@
             // Filter non-alphabetic characters in the 'name' input field and auto-fill 'slug'
             const inputOne = document.getElementById('name');
             const textOnlyInput = document.getElementById('slug');
-        
+
             inputOne.addEventListener('input', () => {
                 const value = inputOne.value;
                 // Filter out non-alphabetic characters and update slug automatically
                 const filteredValue = value.replace(/[^A-Za-z\s]/g, '');
                 textOnlyInput.value = filteredValue;
-                
+
                 // Automatically check slug existence after auto-filling
                 checkSlugExistence(filteredValue);
             });
-        
+
             $(document).ready(function() {
                 // Check slug existence when the user types manually in the slug field
                 $('#slug').on('keyup', function() {
                     var slug = $(this).val();
-                    
+
                     // Check if the slug has any value (optional: avoid AJAX if empty)
                     if (slug) {
                         checkSlugExistence(slug);
@@ -214,7 +227,7 @@
                     }
                 });
             });
-        
+
             // Function to check if the slug exists
             function checkSlugExistence(slug) {
                 $.ajax({
@@ -234,7 +247,7 @@
                 });
             }
         </script>
-        
-    
-   
+
+
+
 @endsection

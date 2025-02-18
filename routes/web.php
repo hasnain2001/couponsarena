@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\BlogController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
@@ -24,7 +25,9 @@ Route::middleware('auth')->group(function () {
 Route::middleware([RoleMiddleware::class])->group(function () {
 Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
 });
-
+Route::controller(BlogController::class)->prefix('admin')->group(function () {
+Route::post('/blog/create', 'checkSlug')->name('check.slug');
+});
 Route::controller(HomeController::class)->group(function () {
     Route::get('/coupons','coupons')->name('coupons');
 });

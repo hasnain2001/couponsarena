@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\Admin\BlogController;
-use App\Http\Controllers\Admin\LanguageController;
-use App\Http\Controllers\Admin\StoresController;
-use App\Http\Controllers\Admin\CouponsController;
-use App\Http\Controllers\Admin\NetworksController;
-use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\admin\BlogController;
+use App\Http\Controllers\admin\LanguageController;
+use App\Http\Controllers\admin\StoresController;
+use App\Http\Controllers\admin\CouponsController;
+use App\Http\Controllers\admin\NetworksController;
+use App\Http\Controllers\admin\CategoriesController;
 use App\Http\Controllers\admin\DeleteController;
 use App\Http\Controllers\AdminController;
 use App\Http\Middleware\RoleMiddleware;
@@ -18,9 +18,11 @@ Route::middleware([RoleMiddleware::class])->group(function () {
     Route::controller(AdminController::class)->name('admin.')->group(function () {
         Route::get('/admin/dashboard', 'dashboard')->name('dashboard');
         Route::get('/admin/users', 'index')->name('user.index');
-        Route::get('/user/edit/{id}', 'edit_user')->name('user.edit');
-        Route::post('/user/update/{id}', 'update_user')->name('user.update');
-        Route::delete('/users/{id}',  'destroy')->name('user.destroy');
+        Route::get('/admin/user/create', 'create_user')->name('user.create');
+        Route::post('/admin/user/store', 'store_user')->name('user.store');
+        Route::get('/admin/user/edit/{id}', 'edit_user')->name('user.edit');
+        Route::post('/admin/user/update/{id}', 'update_user')->name('user.update');
+        Route::delete('/admin/users/{id}',  'destroy')->name('user.destroy');
         });
         Route::controller(DeleteController::class)->name('admin.')->group(function () {
             Route::get('/admin/delete-store', 'deletedStores')->name('delete_store');

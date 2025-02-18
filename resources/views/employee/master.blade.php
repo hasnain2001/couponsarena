@@ -32,7 +32,7 @@
 
       <style>
             .sidebar-dark-primary {
-                background-color: #0054a6;
+                background-color: #000000;
 
         }
 
@@ -101,7 +101,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-
+    
                         <li class="nav-item">
                             <a href="{{ route('employee.dashboard') }}" class="nav-link active">
                                 <i class="nav-icon fas fa-th"></i>
@@ -110,11 +110,120 @@
                                 </p>
                             </a>
                         </li>
+                        
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <i class="nav-icon fas fa-ticket-alt"></i>
                                 <p>
-                                    Setup Manager
+                                    Coupons
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                            
+                               
+                                <li class="nav-item">
+                                    <a href="{{ route('employee.coupon') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Coupons</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('employee.coupon.create') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add New Coupons</p>
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-store-alt"></i>
+                                <p>
+                                    Stores
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                              
+                                <li class="nav-item">
+                                    <a href="{{ route('employee.stores') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Stores</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('employee.store.create') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add New Stores</p>
+                                    </a>
+                                </li>
+                                
+                              
+                            </ul>
+                        </li>
+        
+            
+    
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-blog"></i>
+                                <p>
+                                    Blog
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                             
+                               
+                            <li class="nav-item">
+                            <a href="{{ route('employee.blog.show') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Blog</p>
+                            </a>
+                            </li>
+                               
+                                <li class="nav-item">
+                                    <a href="{{ route('employee.blog.create') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add New Blog</p>
+                                    </a>
+                                </li>
+                            
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-network-wired"></i>
+                                <p>
+                                    Network
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                            
+                            <li class="nav-item">
+                                    <a href="{{ route('employee.network') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Network</p>
+                                    </a>
+                                    </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('employee.network.create') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add New Network</p>
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-list"></i>
+                                <p>
+                                    Categories
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
@@ -126,33 +235,17 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('employee.stores') }}" class="nav-link">
+                                    <a href="{{ route('employee.category.create') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Stores</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('employee.coupon') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Coupons</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('employee.network') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Network</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('employee.blog.show') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Blog</p>
+                                        <p>Add New Categories</p>
                                     </a>
                                 </li>
                                
+                               
                             </ul>
                         </li>
-
+                     
+    
                     </ul>
                 </nav>
 

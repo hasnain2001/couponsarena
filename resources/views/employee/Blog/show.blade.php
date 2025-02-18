@@ -60,6 +60,7 @@
                         </th>
                         <th scope="col">#</th>
                         <th scope="col">Title</th>
+                        <th scope="col">Category</th>
                         <th scope="col">Blog Image</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -72,6 +73,7 @@
                             </td>
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $blog->title }}</td>
+                            <td>{{ $blog->category ?:"null"  }}</td>
                             <td>
                                 @if ($blog->category_image)
                                     <img src="{{ asset($blog->category_image) }}" alt="Category Image" class="img-thumbnail" style="max-width: 80px;">
@@ -97,6 +99,7 @@
                         </th>
                         <th scope="col">#</th>
                         <th scope="col">Title</th>
+                        <th scope="col">Category</th>
                         <th scope="col">Blog Image</th>
                         <th scope="col">Action</th>
                     </tr>

@@ -47,7 +47,7 @@ header("X-Robots-Tag:index, follow");
 <li class="breadcrumb-item active" aria-current="page" style="font-weight: 600; color: #6c757d;">Stores</li>
         </ol>
     </nav>
-    <p class="h5 m-0">Total stores: <span class="fw-bold">{{ $stores->count() }}</span></p>
+    <p class="h5 m-0">Total stores: <span class="fw-bold">{{ $stores->total() }}</span></p>
 
     <div class="row card-list g-4">
         @forelse ($stores as $store)
@@ -90,6 +90,7 @@ header("X-Robots-Tag:index, follow");
     </div>
 {{-- 
     {{$stores->links('vendor.pagination.bootstrap-5')  }} --}}
+    {{ $stores->links('vendor.pagination.custom') }}
 </div>
 
 

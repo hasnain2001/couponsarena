@@ -16,7 +16,7 @@ public function search(Request $request) {
     $query = $request->input('query');
 
     // Fetch stores matching the query for autocomplete
-    $stores = Stores::where('name', 'like', "$query%")->pluck('name');
+    $stores = Stores::where('name', 'like', "%$query%")->pluck('name');
 
     // Check if there is a single store matching the query exactly
     $store = Stores::where('slug', $query)->first();
@@ -33,7 +33,7 @@ public function searchResults(Request $request) {
     $query = $request->input('query');
 
     // Fetch stores matching the query for autocomplete
-    $stores = Stores::where('name', 'like', "$query%")->get();
+    $stores = Stores::where('name', 'like', "%$query%")->get();
 
     // Check if there is a single store matching the query exactly
     $store = Stores::where('name', $query)->first();

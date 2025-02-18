@@ -11,6 +11,7 @@ use App\Models\Networks;
 use App\Models\Stores;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Password;
 
 class AdminController extends Controller
 {
@@ -33,6 +34,28 @@ class AdminController extends Controller
     return view('admin.user.index', compact('users',));
     }
     
+    public function create_user()
+    {
+        $users = User::all();
+        return view('admin.user.create',compact('users'));
+    }
+    public function store_user(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Password::defaults()],
+            'role' => 'required',
+        ]);
+
+        $user = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+            'role' => $request->input('role'),
+        ]);
+        return redirect()->back()->withInput()->with('success', 'User created successfully.');
+    }
 
    public function edit_user($id)
 {

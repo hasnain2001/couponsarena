@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Blog;
-use App\Models\Categories;
 use Illuminate\Http\Request;
 use App\Models\Stores;
 use App\Models\Coupons;
 use App\Models\Networks;
-
+use App\Models\Blog;
+use App\Models\Categories;
 
 class EmployeeController extends Controller
 {

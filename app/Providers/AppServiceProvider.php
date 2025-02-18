@@ -25,16 +25,16 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::addNamespace('errors', resource_path('views/errors'));
-    
+
         Blade::component('navbar', \App\View\Components\Navbar::class);
         Blade::component('footer', \App\View\Components\Footer::class);
 
-    
+
         // Share categories and languages across all views
         View::composer('*', function ($view) {
             $view->with('categories', Categories::all());
             $view->with('langs', Language::all());
-            $view->with('currentLang', Session::get('language', 'EN')); 
+            $view->with('currentLang', Session::get('language', 'EN'));
         });
 
         $locale = request()->segment(1);

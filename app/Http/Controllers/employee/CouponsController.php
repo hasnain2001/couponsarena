@@ -130,7 +130,7 @@ public function update(Request $request)
             'top_coupons' => $request->top_coupons,
         ]);
 
-        return redirect()->back()->with('success', 'Coupon Created Successfully');
+        return redirect()->back()->withInput()->with('success', 'Coupon Created Successfully');
     }
 
 

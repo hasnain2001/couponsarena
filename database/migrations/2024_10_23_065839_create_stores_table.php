@@ -14,12 +14,11 @@ return new class extends Migration
         Schema::create('stores', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('language_id'); 
-            $table->foreign('language_id')
-                  ->references('id')->on('language')
-                  ->onDelete('cascade');
+            $table->unsignedBigInteger('language_id');
+            $table->foreign('language_id')->references('id')->on('language')->onDelete('cascade');
             $table->string('slug')->unique();
             $table->longText('description')->nullable();
+            $table->longText('about')->nullable();
             $table->string('top_store')->default(0)->nullable();
             $table->string('url')->nullable();
             $table->string('destination_url');
@@ -28,6 +27,7 @@ return new class extends Migration
             $table->string('authentication')->nullable();
             $table->string('network')->nullable();
             $table->string('store_image')->nullable();
+            $table->text('about')->nullable();
             $table->softDeletes();
              $table->string('title')->nullable();
             $table->longText('meta_tag')->nullable();

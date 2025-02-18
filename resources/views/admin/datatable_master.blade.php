@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | DataTables</title>
+    <title>@yield('datatable-title') | DataTables</title>
 
    <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
 
@@ -190,6 +190,14 @@
                                     <p>User</p>
                                 </a>
                             </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('admin.user.create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Add New User</p>
+                                </a>
+                            </li>
+                            
                            
                         </ul>
                     </li>

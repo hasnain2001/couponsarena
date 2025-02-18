@@ -34,47 +34,43 @@
             </ul>
         </div>
     @endif
+    {{-- <select class="form-select" aria-label="Default select example" onchange="navigateToPage(this)">
+        <option selected>Select Deal/Code</option>
+        <option value="{{ route('employee.coupon.code') }}">Code</option>
+        <option value="{{ route('employee.coupon.create') }}">Deal</option>
+    </select> --}}
     <form name="CreateCoupon" id="CreateCoupon" method="POST" action="{{ route('employee.coupon.store') }}">
         @csrf
-        <select class="form-select" aria-label="Default select example" onchange="navigateToPage(this)">
-            <option selected>Select Deal/Code</option>
-            <option value="{{ route('employee.coupon.code') }}">Code</option>
-            <option value="{{ route('employee.coupon.create') }}">Deal</option>
-        </select>
-
-
-
         <div class="row">
             <div class="col-6">
                 <div class="card">
                     <div class="card-body">
                         <div class="form-group">
                             <label for="name">Coupon Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="name" id="name" required>
+                            <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}" required>
                         </div>
                         <div class="form-group">
                             <label for="description">Description <span class="text-danger">*</span></label>
-                            <textarea name="description" id="description" class="form-control" cols="20" rows="3" style="resize: none;" ></textarea>
-
+                            <textarea name="description" id="description" class="form-control" cols="20" rows="3" style="resize: none;">{{ old('description') }}</textarea>
                         </div>
-                       {{-- <div class="form-group">
-                                    <label for="code">Code</label>
-                                    <input type="text" class="form-control" name="code" id="code">
-                                </div> --}}
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="toggleCodeCheckbox" 
+        onchange="toggleCodeInput(this)" 
+        {{ old('code') ? 'checked' : '' }}>
+        <label class="form-check-label" for="toggleCodeCheckbox">Enable Code Input</label>
+        </div>
+        <div class="form-group" id="codeInputGroup" style="display: none;">
+        <label for="code">Code</label>
+        <input type="text" class="form-control" name="code" id="code" value="{{ old('code') }}">
+        </div>
                         <div class="form-group">
                             <label for="destination_url">Destination URL <span class="text-danger">*</span></label>
-                            <input type="url" class="form-control" name="destination_url" id="destination_url" required>
+                            <input type="url" class="form-control" name="destination_url" id="destination_url" value="{{ old('destination_url') }}" required>
                         </div>
-
-                     <div class="form-group">
-
-</div>
-
                         <div class="form-group">
                             <label for="ending_date">Ending Date <span class="text-danger">*</span></label>
-                            <input type="date" class="form-control" name="ending_date" id="ending_date" required>
+                            <input type="date" class="form-control" name="ending_date" id="ending_date" value="{{ old('ending_date') }}" required>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -83,56 +79,31 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="lang">Language <span class="text-danger">*</span></label>
-                        
                             <select name="language_id" id="language_id" class="form-control" required>
-                                <option value="" selected>--Select Langs--</option>
+                                <option disabled selected>--Select Langs--</option>
                                 @foreach ($langs as $lang)
-                                    <option value="{{ $lang->id }}">{{ $lang->name }}</option>
+                                    <option value="{{ $lang->id }}" {{ old('language_id') == $lang->id ? 'selected' : '' }}>{{ $lang->code }}</option>
                                 @endforeach
-                              </select>
-                              
-                            
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="top_coupons">Top Coupons Code <span class="text-danger">*</span></label><br>
-                            <input type="radio" name="top_coupons" id="top_0" value="0" onclick="updateTopCoupons(0)">
-                            <label for="top_0">0</label>
-
-                            <input type="radio" name="top_coupons" id="top_1" value="1" onclick="updateTopCoupons(1)">
-                            <label for="top_1">1</label>
-
-                            <input type="radio" name="top_coupons" id="top_2" value="2" onclick="updateTopCoupons(2)">
-                            <label for="top_2">2</label>
-
-                            <input type="radio" name="top_coupons" id="top_3" value="3" onclick="updateTopCoupons(3)">
-                            <label for="top_3">3</label>
-
-                            <input type="radio" name="top_coupons" id="top_4" value="4" onclick="updateTopCoupons(4)">
-                            <label for="top_4">4</label>
-
-                            <input type="radio" name="top_coupons" id="top_5" value="5" onclick="updateTopCoupons(5)">
-                            <label for="top_5">5</label>
+                            @for ($i = 0; $i <= 5; $i++)
+                                <input type="radio" name="top_coupons" id="top_{{ $i }}" value="{{ $i }}" {{ old('top_coupons') == $i ? 'checked' : '' }}>
+                                <label for="top_{{ $i }}">{{ $i }}</label>
+                            @endfor
                         </div>
                         <div class="form-group">
                             <label for="status">Status <span class="text-danger">*</span></label><br>
-                            <input type="radio" name="status" id="enable" value="enable" required>&nbsp;<label for="enable">Enable</label>
-                            <input type="radio" name="status" id="disable" value="disable" required>&nbsp;<label for="disable">Disable</label>
+                            <input type="radio" name="status" id="enable" value="enable" {{ old('status') == 'enable' ? 'checked' : '' }} required>&nbsp;<label for="enable">Enable</label>
+                            <input type="radio" name="status" id="disable" value="disable" {{ old('status') == 'disable' ? 'checked' : '' }} required>&nbsp;<label for="disable">Disable</label>
                         </div>
-                        {{-- <div class="form-group">
-                            <label for="authentication">Authentication</label><br>
-                            <input type="checkbox" name="authentication[]" id="never_expire" value="never_expire">&nbsp;<label for="never_expire">Never Expire</label><br>
-                            <input type="checkbox" name="authentication[]" id="featured" value="featured">&nbsp;<label for="featured">Featured</label><br>
-                            <input type="checkbox" name="authentication[]" id="free_shipping" value="free_shipping">&nbsp;<label for="free_shipping">Free Shipping</label><br>
-                            <input type="checkbox" name="authentication[]" id="coupon_code" value="coupon_code">&nbsp;<label for="coupon_code">Coupon Code</label><br>
-                            <input type="checkbox" name="authentication[]" id="top_deals" value="top_deals">&nbsp;<label for="top_deals">Top Deals</label><br>
-                            <input type="checkbox" name="authentication[]" id="valentine" value="valentine">&nbsp;<label for="valentine">Valentine</label>
-                        </div> --}}
                         <div class="form-group">
                             <label for="store">Store <span class="text-danger">*</span></label>
                             <select name="store" id="store" class="form-control" required>
-                                <option value="" disabled selected>--Select Store--</option>
+                                <option value="" disabled {{ old('store') ? '' : 'selected' }}>--Select Store--</option>
                                 @foreach($stores as $store)
-                                    <option value="{{ $store->slug }}">{{ $store->slug }}</option>
+                                    <option value="{{ $store->slug }}" {{ old('store') == $store->slug ? 'selected' : '' }}>{{ $store->slug }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -145,12 +116,21 @@
             </div>
         </div>
     </form>
-
+    
 </div>
 
     </section>
 </div>
 <script>
+        function toggleCodeInput(checkboxElement) {
+    const codeInputGroup = document.getElementById('codeInputGroup');
+
+    if (checkboxElement.checked) {
+    codeInputGroup.style.display = 'block'; // Show the input field
+    } else {
+    codeInputGroup.style.display = 'none'; // Hide the input field
+    }
+    }
     function navigateToPage(selectElement) {
         var url = selectElement.value;
         if (url) {

@@ -15,6 +15,21 @@
 </button>
 </div>
 @endif
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>User</h1>
+            </div>
+
+            <div class="col-sm-6 d-flex justify-content-center">
+
+                <a href="{{ route('admin.user.create') }}" class="btn btn-dark">Add New user</a>
+
+            </div>
+        </div>
+    </div>
+</section>
 <div class="container mt-4">
     <h2 class="mb-4">User List</h2>
 

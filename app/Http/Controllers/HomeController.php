@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
 public function coupons()
-{  
-$coupons = Coupons::orderBy('created_at', 'desc')->paginate(15);
+{
+$coupons = Coupons::orderBy('created_at', 'desc')->paginate(10);
 return view('coupons', compact('coupons'));
 
  }
@@ -42,11 +42,17 @@ return view('contact', compact('Coupons'));
 public function index(Request $request,$lang = null) {
 $languageCode = $lang ?? 'en';
 app()->setLocale($languageCode);
+     // Fetch the language, or default to English
+     $language = Language::where('code', $languageCode)->firstOr(function () {
+        abort(404, 'Language not found');
+    });
+$stores = Stores::select('name','store_image','slug')->where('language_id', $language->id)->orderBy('created_at','desc')->limit(24)->get();
+$topcouponcode = Coupons::select('id', 'name', 'language_id', 'created_at','name','ending_date','store','clicks','destination_url','authentication')->where('language_id', $language->id)->where('top_coupons','>', 0 )->whereNotNull('code')->orderBy('created_at','desc')->limit(6)->get();
+$Couponsdeals = Coupons::whereNull('code')->where('language_id', $language->id)->where('top_coupons', '>', 0)->orderBy('created_at','desc')->limit(6)->get();
 $blogs = Blog::limit(12)->get();
-$todayblogs = Blog::orderBy('created_at', 'desc')->paginate(12);
+// $todayblogs = Blog::orderBy('created_at', 'desc')->paginate(12);
 $topblogs = Blog::where('top', '>', 0)->orderBy('created_at', 'desc')->limit(10)->get();
-
-    return view('welcome', compact('blogs','todayblogs','topblogs'));
+    return view('welcome', compact('blogs','topblogs','stores','topcouponcode','Couponsdeals'));
 }
 
 
@@ -119,11 +125,15 @@ public function stores(Request $request, $lang = null)
 {
     $languageCode = $lang ?? 'en';
     app()->setLocale($languageCode);
-    if ($lang) {
-       $language = Language::where('code', $lang)->first();
 
+    if ($lang) {
+        $language = Language::where('code', $lang)->first();
         if ($language) {
-            $stores = Stores::where('language_id', $language->id)->paginate(100)->map(function($store) use ($language) {
+            // Paginate first, then transform the items
+            $stores = Stores::where('language_id', $language->id)
+                             ->orderBy('name', 'asc') // Sort alphabetically by store name
+                             ->paginate(100);
+            $stores->getCollection()->transform(function($store) use ($language) {
                 $store->url_with_language = url($language->code . '/store/' . $store->id);
                 return $store;
             });
@@ -131,20 +141,23 @@ public function stores(Request $request, $lang = null)
             abort(404, 'Language not found');
         }
     } else {
-        $stores = Stores::paginate(100)->map(function($store) {
+        // Paginate first, then transform the items
+        $stores = Stores::orderBy('created_at', 'desc') // Sort alphabetically by store name
+                         ->paginate(100);
+        $stores->getCollection()->transform(function($store) {
             $language = Language::find($store->language_id);
             $store->url_with_language = $language ? url($language->code . '/store/' . $store->id) : url('en/store/' . $store->id);
             return $store;
         });
     }
 
-    return view('stores', compact('stores', ));
+    return view('stores', compact('stores'));
 }
 
 
 
 
-public function StoreDetails($lang = 'en', $slug, Request $request) 
+public function StoreDetails($lang = 'en', $slug, Request $request)
 {
     // Set the app locale to the provided language or default to 'en'
     app()->setLocale($lang);
@@ -176,29 +189,29 @@ public function StoreDetails($lang = 'en', $slug, Request $request)
     // Sorting and fetching coupons
     $sort = $request->query('sort', 'all');
     if ($sort === 'codes') {
-        $coupons = Coupons::where('store', $store->name)
+        $coupons = Coupons::where('store', $store->slug)
                           ->whereNotNull('code')
                           ->orderByRaw('CAST(`order` AS SIGNED) ASC')
                           ->where('language_id', $store->language_id)
                           ->get();
     } elseif ($sort === 'deals') {
-        $coupons = Coupons::where('store', $store->name)
+        $coupons = Coupons::where('store', $store->slug)
                           ->whereNull('code')
                           ->orderByRaw('CAST(`order` AS SIGNED) ASC')
                           ->where('language_id', $store->language_id)
                           ->get();
     } else {
-        $coupons = Coupons::where('store', $store->name)
+        $coupons = Coupons::where('store', $store->slug)
                           ->orderByRaw('CAST(`order` AS SIGNED) ASC')
                           ->get();
     }
 
     // Count the number of codes and deals
-    $codeCount = Coupons::where('store', $store->name)
+    $codeCount = Coupons::where('store', $store->slug)
                         ->whereNotNull('code')
                         ->where('language_id', $store->language_id)
                         ->count();
-    $dealCount = Coupons::where('store', $store->name)
+    $dealCount = Coupons::where('store', $store->slug)
                         ->whereNull('code')
                         ->where('language_id', $store->language_id)
                         ->count();

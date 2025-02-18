@@ -204,6 +204,12 @@
                                         <p>User</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.user.create') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add New User</p>
+                                    </a>
+                                </li>
                                
                             </ul>
                         </li>

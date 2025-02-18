@@ -58,7 +58,27 @@
                                      <!-- Preview container -->
                         <div id="imagePreview" style="margin-top: 10px;"></div>
                                 </div>
-                                <textarea id="editor" name="content"> <td>{!!$blog->content!!}</td></textarea>
+                                <div class="form-group">
+                                    <label for="lang">Language <span class="text-danger">*</span></label>
+                                    <select name="language_id" id="lang" class="form-control" >
+                                    <option disabled selected>--Select Langs--</option>
+
+                                    <!-- Check if $stores->language exists before displaying the language name -->
+                                    <option value="" disabled selected>
+                                    {{ $stores->language ? $stores->language->code : '--Select Langs--' }}
+                                    </option>
+
+                                    @foreach ($langs as $lang)
+                                    <option value="{{ $lang->id }}">{{ $lang->code }}</option>
+                                    @endforeach
+                                    </select>
+
+                                    </div>
+                 <div class=" form-group">
+                    <label for="content"> Main Content</label>
+                                  <textarea id="editor" name="content"> <td>{!!$blog->content!!}</td></textarea>
+
+                 </div>
                             </div>
 
                         </div>
@@ -67,7 +87,7 @@
                     <div class="col-6">
                         <div class="card">
                             <div class="card-body">
-                       
+
                             <div class="form-group">
                                 <label for="category">Category <span class="text-danger">*</span></label>
                                 <select name="category" id="category" class="form-control">
@@ -76,26 +96,23 @@
                                 <option value="{{ $category->slug }}">{{ $category->slug }}</option>
                                 @endforeach
                                 </select>
-                            
-                            
+
+
                                 </div>
 
                             <div class="form-group">
                                 <label for="top">top</label><br>
                                 <input type="checkbox" name="top" id="top" {{ $blog->top > '0' ? 'checked' : '' }} value="1">&nbsp;<label for="authentication">Top Store</label>
                             </div>
-                       
+
                                  <div class="form-group">
                                     <label for="name">Meta Title<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="meta_title" id="meta_title" >
+                                    <input type="text" class="form-control" name="meta_title" id="meta_title" value="{{ $blog->meta_title }}" >
                                 </div>
-                                <div class="form-group">
-                                    <label for="meta_tag">Meta Tag <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="meta_tag" id="meta_tag">
-                                </div>
+
                                 <div class="form-group">
                                     <label for="meta_keyword">Meta Keyword <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="meta_keyword" id="meta_keyword">
+                                    <input type="text" class="form-control" name="meta_keyword" id="meta_keyword" value="{{ $blog->meta_keyword }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="meta_description">Meta Description</label>

@@ -18,7 +18,7 @@ use Illuminate\Support\Str;
 
 class StoresController extends Controller
 {
-    
+
     public function checkSlug(Request $request)
 {
     $slug = $request->slug;
@@ -51,17 +51,17 @@ public function StoreDetails($name)
         ->orderBy('created_at', 'desc')
         ->get();
 
-      
+
         return view('admin.stores.index', compact('stores',));
     }
-    
+
 
     public function create_store()
     {
         $categories = Categories::all();
         $networks = Networks::all();
         $langs = Language::get();
-        
+
         return view('admin.stores.create', compact('categories', 'networks','langs'));
     }
 
@@ -75,9 +75,10 @@ public function StoreDetails($name)
         $request->validate([
             'name' => 'required|string|max:255',
             'language_id' =>'required|integer',
-            'slug' => 'nullable|string|max:255|unique:stores,slug', 
+            'slug' => 'nullable|string|max:255|unique:stores,slug',
             'top_store' => 'nullable|integer',
             'description' => 'nullable|string',
+            'about' => 'nullable|text',
             'url' => 'nullable|url',
             'destination_url' => 'nullable|url',
             'category' => 'nullable|string',
@@ -87,22 +88,23 @@ public function StoreDetails($name)
             'meta_description' => 'nullable|string',
             'authentication' => 'nullable|string',
             'network' => 'nullable|string',
-            'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', 
+            'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'content' => 'nullable',
         ]);
-    
+
         // Generate a slug from the name if not provided
         $slug = $request->input('slug') ? $request->input('slug') : Str::slug($request->input('name'));
-    
+
         // Handle the file upload if a store image is provided
         $storeImage = null;
         if ($request->hasFile('store_image')) {
             $file = $request->file('store_image');
             $storeImage = md5($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
             $filePath = public_path('uploads/stores/') . $storeImage;
-    
+
             // Save the file to the specified location
             $file->move(public_path('uploads/stores/'), $storeImage);
-    
+
             // Ensure that the file has been saved before trying to read it
             if (file_exists($filePath)) {
                 // Optimize the image
@@ -122,7 +124,7 @@ public function StoreDetails($name)
                 return redirect()->back()->with('error', 'Image not found');
             }
         }
-    
+
         // Create a new store record
         Stores::create([
             'name' => $request->input('name'),
@@ -130,6 +132,7 @@ public function StoreDetails($name)
             'language_id' => $request->input('language_id'),
             'top_store' => $request->input('top_store'),
             'description' => $request->input('description'),
+            'about' => $request->input('about'),
             'url' => $request->input('url'),
             'destination_url' => $request->input('destination_url'),
             'category' => $request->input('category'),
@@ -141,12 +144,13 @@ public function StoreDetails($name)
             'authentication' => $request->input('authentication', 'No Auth'),
             'network' => $request->input('network'),
             'store_image' => $storeImage ?? 'No Store Image',
+            'content' => $request->input('content', 'no content'),
         ]);
-    
+
         // Redirect back with a success message
         return redirect()->back()->withInput()->with('success', 'Store Created Successfully');
     }
-    
+
 
     public function edit_store($id)
     {
@@ -162,24 +166,25 @@ public function StoreDetails($name)
         // Find the store by ID
         $store = Stores::find($id);
 
-        // Validate the request data
         $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => ['required','string','max:255',Rule::unique('stores')->ignore($store->id),],
-            'language_id' =>'nullable|integer',
+            'slug' => ['required', 'string', 'max:255', Rule::unique('stores')->ignore($store->id)],
+            'language_id' => 'nullable|integer',
             'top_store' => 'nullable|integer',
             'description' => 'nullable|string',
-            // 'url' => 'nullable|url',
-            // 'destination_url' => 'nullable|url',
+            'about' => 'nullable|string,', // Fixed: Replaced 'text' with 'string'
+            'url' => 'nullable|url',
+            'destination_url' => 'nullable|url',
             'category' => 'nullable|string',
             'title' => 'nullable|string',
             'meta_tag' => 'nullable|string',
             'meta_keyword' => 'nullable|string',
             'meta_description' => 'nullable|string',
-            // 'status' => 'required|in:active,inactive', // Example statuses
+            'status' => 'nullable|in:enable,disable', // Example statuses
             'authentication' => 'nullable|string',
             'network' => 'nullable|string',
             'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // Validates image file
+            'content' => 'nullable',
         ]);
 
 
@@ -195,31 +200,32 @@ public function StoreDetails($name)
             // Ensure that the file has been saved before trying to read it
             if (file_exists($filePath)) {
                 // Use Imagick to create a new image instance
-                // $image = ImageManager::imagick()->read($filePath);
+                $image = ImageManager::imagick()->read($filePath);
 
-                // // Resize the image to 300x200 pixels
-                // $image->resize(300, 200);
+                // Resize the image to 300x200 pixels
+                $image->resize(300, 200);
 
-                // // Optionally, resize only the height to 200 pixels
-                // $image->resize(null, 200, function ($constraint) {
-                //     $constraint->aspectRatio();
-                // });
+                // Optionally, resize only the height to 200 pixels
+                $image->resize(null, 200, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
 
                 // Optimize the image
                 $optimizer = OptimizerChainFactory::create();
                 $optimizer->optimize($filePath);
 
                 // // Save the resized and optimized image
-                // $image->save($filePath);
+                $image->save($filePath);
             }
         }
         // Update the store record
         $store->update([
             'name' => $request->input('name'),
             'slug' => $request->input('slug'),
-            'language_id' => $request->input('language_id'),
+            'language_id' => $request->input('language_id',$store->language_id),
             'top_store' => $request->input('top_store'),
             'description' => $request->input('description'),
+            'about' => $request->input('about'),
             'url' => $request->input('url'),
             'destination_url' => $request->input('destination_url'),
             'category' => $request->input('category', $store->category),
@@ -231,6 +237,7 @@ public function StoreDetails($name)
             'authentication' => $request->input('authentication', 'No Auth'),
             'network' => $request->input('network', $store->network),
             'store_image' => $storeImage, // Updated or existing image
+            'content' => $request->input('content', $store->content),
         ]);
 
         // Redirect back with a success message
@@ -240,37 +247,37 @@ public function StoreDetails($name)
     {
         // Find the store by ID
         $store = Stores::find($id);
-    
+
         if ($store) {
             // Log the store deletion attempt in the delete_store table
             DeleteStore::create([
                 'store_id' => $store->id,
                 'store_name' => $store->name,
                 'deleted_by' => Auth::id(),
-                
+
             ]);
-    
+
             // Delete associated coupons with the same store name
             Coupons::where('store', $store->name)->delete();
-    
+
             // Delete the store (soft delete if the SoftDeletes trait is used)
             $store->delete();
-    
+
             return redirect()->back()->with('success', 'Store and associated coupons marked for deletion.');
         }
-    
+
         return redirect()->back()->with('error', 'Store not found.');
     }
     public function deleteSelected(Request $request)
     {
         // Get the selected store IDs from the request
         $storeIds = $request->input('selected_stores');
-    
+
         // Check if any store IDs were selected
         if ($storeIds) {
             // Fetch the stores to be deleted
             $stores = Stores::whereIn('id', $storeIds)->get();
-    
+
             // Loop through each store and log the deletion
             foreach ($stores as $store) {
                 DeleteStore::create([
@@ -279,10 +286,10 @@ public function StoreDetails($name)
                     'deleted_by' => Auth::id(),
                 ]);
             }
-    
+
             // Delete the selected stores
             Stores::whereIn('id', $storeIds)->delete();
-    
+
             return redirect()->back()->with('success', 'Selected stores deleted successfully');
         } else {
             return redirect()->back()->with('error', 'No stores selected for deletion');

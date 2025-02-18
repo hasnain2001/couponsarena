@@ -13,11 +13,18 @@ class Blog extends Model
         'title',
         'slug',
         'category_image',
-        'content','meta_title',
+        'content',
+        'meta_title',
         'meta_description',
         'meta_keyword',
         'top',
         'category',
+        'language_id',
 
     ];
+
+    public function language()
+{
+    return $this->belongsTo(Language::class, 'language_id');
+}
 }

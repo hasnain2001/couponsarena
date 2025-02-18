@@ -10,10 +10,10 @@ header("X-Robots-Tag:index, follow");
     <link rel="shortcut icon" href="{{ asset('images/favicon.png')}}" type="image/x-icon">
     <!--<meta http-equiv="refresh" content="70">-->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="canonical" href="https://couponsarena.com">
+    <link rel="canonical" href="{{ url()->current() }}">
 
-    <meta name="description" content="Explore exclusive discounts and offers on top brands. Save money on your online shopping with CouponsArena.">
-    <meta name="keywords" content="deals, discounts, coupons, savings, affiliate marketing, promo codes, cashback, online shopping, special offers, vouchers, best prices, holiday sales, seasonal discounts, gift cards, price comparison, money-saving tips">
+    <meta name="description" content="@yield('description')">
+    <meta name="keywords" content="@yield('keywords')">
 
     <meta name="author" content="Uzair">
     <meta name="robots" content="index, follow">
@@ -60,6 +60,12 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date()); gtag('config', 'G-B9GQCLK2K1');
 </script>
 <meta name="mylead-verification" content="f7ea0dd41c6c08d393d95a3019348565">
+
+<style>
+  img{
+   object-fit: contain; 
+  }
+</style>
        
     </head>
     <body>

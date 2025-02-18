@@ -53,6 +53,16 @@
                             <label for="description">Description <span class="text-danger">*</span></label>
                             <textarea name="description" id="description" class="form-control" cols="20" rows="3" style="resize: none;">{{ old('description') }}</textarea>
                         </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="toggleCodeCheckbox" 
+                                onchange="toggleCodeInput(this)" 
+                                {{ old('code') ? 'checked' : '' }}>
+                            <label class="form-check-label" for="toggleCodeCheckbox">Enable Code Input</label>
+                        </div>
+                        <div class="form-group" id="codeInputGroup" style="display: none;">
+                            <label for="code">Code</label>
+                            <input type="text" class="form-control" name="code" id="code" value="{{ old('code') }}">
+                        </div>
                         <div class="form-group">
                             <label for="destination_url">Destination URL <span class="text-danger">*</span></label>
                             <input type="url" class="form-control" name="destination_url" id="destination_url" value="{{ old('destination_url') }}" required>
@@ -72,7 +82,7 @@
                             <select name="language_id" id="language_id" class="form-control" required>
                                 <option disabled selected>--Select Langs--</option>
                                 @foreach ($langs as $lang)
-                                    <option value="{{ $lang->id }}" {{ old('language_id') == $lang->id ? 'selected' : '' }}>{{ $lang->name }}</option>
+                                    <option value="{{ $lang->id }}" {{ old('language_id') == $lang->id ? 'selected' : '' }}>{{ $lang->code }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -112,6 +122,18 @@
     </section>
 </div>
 <script>
+    function toggleCodeInput(checkboxElement) {
+        const codeInputGroup = document.getElementById('codeInputGroup');
+        codeInputGroup.style.display = checkboxElement.checked ? 'block' : 'none';
+    }
+
+    // Ensure input is shown if there's an old value
+    window.onload = function() {
+        const checkbox = document.getElementById('toggleCodeCheckbox');
+        if (checkbox.checked) {
+            document.getElementById('codeInputGroup').style.display = 'block';
+        }
+    };
     function navigateToPage(selectElement) {
         var url = selectElement.value;
         if (url) {

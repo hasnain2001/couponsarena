@@ -12,6 +12,15 @@ use Illuminate\Support\Str;
 
 class BlogController extends Controller
 {
+    public function checkSlug(Request $request)
+    {
+        $slug = $request->slug;
+        $exists =   Blog::where('slug', $slug)->exists();
+
+        return response()->json([
+            'exists' => $exists
+        ]);
+    }
 
 
         public function blogs_show() {
@@ -21,6 +30,7 @@ class BlogController extends Controller
 
 
         public function create() {
+
             return view('admin.Blog.create');
         }
 
@@ -31,6 +41,7 @@ class BlogController extends Controller
             $validatedData = $request->validate([
                 'title' => 'required|string|max:255',
                 'slug' => 'required|string|max:255|unique:blogs,slug',
+                'language_id' =>'required|integer',
                 'content' => 'required|string',
                 'category_image' => 'required|image|mimes:jpeg,png,jpg,gif',
                 'meta_title' => 'nullable|string|max:65',
@@ -38,6 +49,7 @@ class BlogController extends Controller
                 'meta_keyword' => 'nullable|string|max:255',
                 'top' => 'nullable|integer',
                 'category' => 'nullable|string|max:255',
+                'language_id' =>'required|integer',
             ]);
 
             // Handle file upload for category_image
@@ -74,6 +86,7 @@ class BlogController extends Controller
             // Create new Blog instance
             $blog = new Blog();
             $blog->title = $request->input('title');
+            $blog->language_id = $request->input('language_id');
             $blog->slug = $request->input('slug');
             $blog->category_image = $imagePath;
             $blog->meta_title = $request->input('meta_title');
@@ -132,6 +145,7 @@ class BlogController extends Controller
             $validatedData = $request->validate([
                 'title' => 'required',
                 'slug' => 'required|string|max:255|unique:blogs,slug,' . $id,
+                'language_id' =>'nullable|integer',
                 'content' => 'required|string',
                 'category_image' => 'image|mimes:jpeg,png,jpg,gif',
                 'meta_title' => 'nullable|string|max:65',
@@ -184,6 +198,7 @@ class BlogController extends Controller
 
             // Update other blog fields
             $blog->title = $request->input('title');
+           $blog->language_id = $request->input('language_id',$blog->language_id);
             $blog->slug = $request->input('slug');
             $blog->meta_title = $request->input('meta_title');
             $blog->meta_description = $request->input('meta_description');

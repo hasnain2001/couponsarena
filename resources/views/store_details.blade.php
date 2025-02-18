@@ -35,12 +35,19 @@ header("X-Robots-Tag:index, follow");
 @endif
 
 <!-- Store Information and Coupons Section -->
-<div class="container">
+<div class="container-fluid">
     <!-- Breadcrumb Navigation -->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a href="/" class="text-dark text-decoration-none">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                @if ($store->category)
+                    <a href="{{ route('related_category', ['slug' => Str::slug($store->category)]) }}" class="text-dark text-decoration-none">{{ $store->category }}</a>
+                @else
+                    <span class="text-muted">Invalid Category</span>
+                @endif
             </li>
             <li class="breadcrumb-item active" aria-current="page">{{ $store->name }}</li>
         </ol>
@@ -48,82 +55,97 @@ header("X-Robots-Tag:index, follow");
     <hr>
 
     <div class="row">
+    <section class="store">
         <!-- Store Information Card -->
         <div class="col-12 card shadow-sm p-4 mb-4">
-            <div class="row">
-                <div class="col-md-1 text-left">
-                    @if ($store->store_image)
-                        <img src="{{ asset('uploads/stores/' . $store->store_image) }}" class="stores-img img-fluid img-thumbnail mb-3" alt="{{ $store->name }}">
-                    @endif
-                </div>
-                <div class="col-md-11">
-                    <div class="card-body">
-                        <h3 class="card-title">{{ $store->name }}</h3>
-                        <p class="card-text">{!! $store->description !!}</p>
-                    </div>
+            <div class="d-flex align-items-center">
+                @if ($store->store_image)
+                    <img src="{{ asset('uploads/stores/' . $store->store_image) }}" class="stores-img img-thumbnail me-3" alt="{{ $store->name }}">
+                @endif
+                <div>
+                    <h3 class="card-title mb-1">{{ $store->name }}</h3>
+                    <p class="card-text mb-0">{!! $store->description !!}</p>
                 </div>
             </div>
         </div>
+    </section>
 
-<!-- Coupons Section -->
-<div class="col-md-8">
-    <div class="row">
-        @foreach ($coupons as $coupon)
-            <div class="col-12 mb-4">
-                <div class="coupon-card card p-3 rounded shadow-sm">
-                    <div class="card-body d-flex flex-column flex-md-row align-items-start">
-                        <!-- Coupon Image -->
-                        <div class="mb-4 mb-md-0 me-md-4">
-                            @if ($store->store_image)
-                                <img class="stores-img shadow" src="{{ asset('uploads/stores/' . $store->store_image) }}" alt="Card Image">
-                            @endif
+    <!-- Coupons Section for mobile -->
+    <div class="col-md-8">
+        <div class="row">
+            @foreach ($coupons as $coupon)
+                <div class="col-12 mb-4">
+                    <div class="coupon-card card p-3 rounded shadow-sm">
+                        <div class="card-body d-flex flex-row align-items-center">
+                            <!-- Coupon Image (Left Side) -->
+                            <div class="me-3">
+                                @if ($store->store_image)
+                                    <img class="stores-img shadow" src="{{ asset('uploads/stores/' . $store->store_image) }}" alt="Card Image" style="">
+                                @endif
+                            </div>
+
+                            <!-- Coupon Information (Right Side) -->
+                            <div class="flex-grow-1">
+                                <div class="d-flex flex-column flex-md-row align-items-md-center gap-2 flex-wrap">
+                                    <h5 class="mb-0">{{ $coupon->name }}</h5>
+                                    <p class="mb-0 text-truncate" style="max-width: 250px;">{{ $coupon->description }}</p>
+                                </div>
+
+                                <!-- Coupon Code or Get Deal Button -->
+                                <div class="d-flex justify-content-end mb-2">
+                                    @if ($coupon->code)
+                                        <a href="{{ $coupon->destination_url }}" target="blank" class="getcode me-2" id="getCode{{ $coupon->id }}" onclick="toggleCouponCode('{{ $coupon->id }}')">Reveal Code</a>
+                                        <div class="coupon-card d-flex flex-column">
+                                            <span class="codeindex text-dark scratch" style="display: none;" id="codeIndex{{ $coupon->id }}">{{ $coupon->code }}</span>
+                                            <button class="btn btn-info text-white btn-sm copy-btn btn-hover d-none mt-2" id="copyBtn{{ $coupon->id }}" onclick="copyCouponCode('{{ $coupon->id }}')">Copy Code</button>
+                                            <p class="text-success copy-confirmation d-none mt-3" id="copyConfirmation{{ $coupon->id }}">Code copied!</p>
+                                        </div>
+                                    @else
+                                        <a href="{{ $coupon->destination_url }}" onclick="updateClickCount('{{ $coupon->id }}')" class="get" target="_blank">Get Deal</a>
+                                    @endif
+                                    <form method="post" action="{{ route('update.clicks') }}" id="clickForm">
+                                        @csrf
+                                        <input type="hidden" name="coupon_id" id="coupon_id">
+                                    </form>
+                                </div>
+                            </div>
                         </div>
 
-                        <!-- Coupon Information -->
-                        <div class="flex-grow-1 mb-3 mb-md-0">
-                            <h5 class="mb-2">{{ $coupon->name }}</h5>
-                            <p style="width: 400px;">{{ $coupon->description }}</p>
+                        <div class="d-flex justify-content-between mt-2">
+                            <span class="used">Used By: {{ $coupon->clicks }}</span>
                             <span class="date" style="color: {{ strtotime($coupon->ending_date) < strtotime(now()) ? '#951d1d' : '#909090' }};">
                                 Ends: {{ \Carbon\Carbon::parse($coupon->ending_date)->format('d-m-Y') }}
                             </span>
                         </div>
-
-                        <!-- Coupon Code or Get Deal Button -->
-                        <div class="mb-2 d-flex flex-column align-items-md-center">
-                            @if ($coupon->code)
-                                <a href="{{ $coupon->destination_url }}" target="blank" class="getcode" id="getCode{{ $coupon->id }}" onclick="toggleCouponCode('{{ $coupon->id }}')">Reveal Code</a>
-                                <div class="coupon-card d-flex flex-column">
-                                    <span class="codeindex text-dark scratch" style="display: none;" id="codeIndex{{ $coupon->id }}">{{ $coupon->code }}</span>
-                                    <button class="btn btn-info text-white btn-sm copy-btn btn-hover d-none mt-2" id="copyBtn{{ $coupon->id }}" onclick="copyCouponCode('{{ $coupon->id }}')">Copy Code</button>
-                                    <p class="text-success copy-confirmation d-none mt-3" id="copyConfirmation{{ $coupon->id }}">Code copied!</p>
-                                </div>
-                            @else
-                                <a href="{{ $coupon->destination_url }}" onclick="updateClickCount('{{ $coupon->id }}')" class="get" target="_blank">Get Deal</a>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="d-flex justify-content-start mt-2">
-                        <span class="used">Used By: {{ $coupon->clicks }}</span>
                     </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+            @if ($store->content)
+                <div class="content">{!! $store->content !!}</div>
+            @else
+                <span>no content</span>
+            @endif
+        </div>
     </div>
-</div>
 
         <!-- Sidebar with Store Information -->
         <div class="col-md-4">
             <hr>
             <!-- Filter Section -->
-            <div class="store-info-card card shadow-sm p-3 mb-5 bg-white rounded" style="max-width: 300px;">
+            <div class="store-info-card card shadow-sm p-3 mb-5 bg-white rounded" style="max-width: 100%;">
                 <h4 class="text-center mb-4">Filter By Voucher Codes</h4>
                 <div class="d-flex flex-column">
                     <div class="btn-group" role="group">
-                        <a href="{{ url()->current() }}" class="btn btn-primary mb-2">All</a>
-                        <a href="{{ url()->current() }}?sort=codes" class="btn btn-primary mb-2">Codes</a>
-                        <a href="{{ url()->current() }}?sort=deals" class="btn btn-primary mb-2">Online Sales</a>
+                        <a href="{{ url()->current() }}" class="btn btn-dark mb-2">All</a>
+                        <a href="{{ url()->current() }}?sort=codes" class="btn btn-dark mb-2">Codes</a>
+                        <a href="{{ url()->current() }}?sort=deals" class="btn btn-dark mb-2">Online Sales</a>
                     </div>
+                </div>
+            </div>
+            <h3 class="text-center mb-4">About {{ $store->name }}</h3>
+            <div class="card shadow-sm p-4 mb-4 bg-white rounded">
+                <div class="card-body">
+                    <p class="card-text">{{ $store->about }}</p>
                 </div>
             </div>
 
@@ -152,32 +174,33 @@ header("X-Robots-Tag:index, follow");
             </div>
 
             <!-- Related Stores Section -->
-            <div class="store-info-card card shadow-sm p-3 mb-5 bg-white rounded">
-                <h4 class="text-center mb-4">Related Stores</h4>
-                <div class="row row-cols-2 gy-3">
-                    @foreach ($relatedStores as $relatedStore)
+          <!-- Related Stores Section -->
+          <div class="store-info-card card shadow-sm p-3 mb-5 bg-white rounded">
+            <h4 class="text-center mb-4">Related Stores</h4>
+            <div class="row row-cols-2 gy-3"> <!-- Adjusted for responsive layout -->
+                @foreach ($relatedStores as $relatedStore)
                     @php
-                    $language = $store->language->code;
-                    $storeSlug = Str::slug($store->slug);
-                  
-                    // Conditionally generate the URL based on the language
-                    $storeurl = $store->slug
-                        ? ($language === 'en'
-                            ? route('store_details', ['slug' => $storeSlug])  // English route without 'lang'
-                            : route('store_details.withLang', ['lang' => $language, 'slug' => $storeSlug]))  // Other languages
-                        : '#';
-                  @endphp
-                
-   
-                <a href="{{ $storeurl }}" class="card-link text-decoration-none">
-                        <div class="col">
-                            <div class="related-store-box text-left">
-                                <a href="{{ $storeurl }}" class="store-link">{{ $relatedStore->name }}</a>
+                        $language = $relatedStore->language->code; // Fixed variable name from $store to $relatedStore
+                        $storeSlug = Str::slug($relatedStore->slug); // Fixed variable name from $store to $relatedStore
+
+                        // Conditionally generate the URL based on the language
+                        $storeurl = $relatedStore->slug
+                            ? ($language === 'en'
+                                ? route('store_details', ['slug' => $storeSlug])  // English route without 'lang'
+                                : route('store_details.withLang', ['lang' => $language, 'slug' => $storeSlug]))  // Other languages
+                            : '#';
+                    @endphp
+
+                    <div class="col"> <!-- Each store is wrapped in a column -->
+                        <a href="{{ $storeurl }}" class="card-link text-decoration-none d-block">
+                            <div class="related-store-box text-left border p-3 rounded">
+                                <span class="store-link">{{ $relatedStore->name }}</span>
                             </div>
-                        </div>
-                    @endforeach
-                </div>
+                        </a>
+                    </div>
+                @endforeach
             </div>
+        </div>
         </div>
     </div>
     <br><br>

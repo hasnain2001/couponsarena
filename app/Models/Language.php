@@ -10,17 +10,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Language extends Model
 {
     use HasFactory;
-    
-
     protected $table = 'language';
     protected $fillable = [
         'language_image',
         'name',
         'code',
-        
        ];
-    
-    
+
+
     /**
      * Get all of the stores for the Language
      *
@@ -29,6 +26,10 @@ class Language extends Model
     public function stores():HasMany
     {
         return $this->hasMany(Stores::class, 'language_id', 'id');
+    }
+    public function blogs():HasMany
+    {
+        return $this->hasMany(Blog::class, 'language_id', 'id');
     }
     /**
      * Get all of the coupons for the Language
