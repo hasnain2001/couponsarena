@@ -11,6 +11,8 @@ return [
     'Used By' => 'Używane przez',
     'Get Deal' => 'Zdobądź ofertę',
     'Get Code' => 'Zdobądź kod',
+    'brands' => 'marki',
+'trending-posts' => 'Popularne posty',
 
     // dla stopki /
     'Subscribe to our Newsletter' => 'Zapisz się do naszego newslettera',

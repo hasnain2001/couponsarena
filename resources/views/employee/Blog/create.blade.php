@@ -39,7 +39,7 @@
                         </div>
                         <div class="form-group">
                             <label for="slug">Slug /Url Blog</label>
-                            <input type="text" class="form-control" name="slug" id="title" required />
+                            <input type="text" class="form-control" name="slug" id="slug" required />
                         </div>
                         <div class="form-group">
                             <label for="category_image">Blog Image</label>
@@ -48,7 +48,27 @@
 
                         <!-- Preview container -->
                         <div id="imagePreview" style="margin-top: 10px;"></div>
-
+                        <div class="form-group">
+                            <label for="category_id">Category</label>
+                            <select class="form-control" name="category" id="category_id" required>
+                            <option value="">Select Category</option>
+                            @foreach ($categories as $category)
+                            <option value="{{ $category->slug }}" {{ old('category') == $category->slug ? 'selected' : '' }}>{{ $category->slug }}</option>
+                            @endforeach
+                            </select>
+                            </div>
+                        <div class="form-group">
+                            <label for="language_id">Language <span class="text-danger">*</span></label>
+                            <select name="language_id" id="language_id" class="form-control" required>
+                            <option value="" disabled {{ old('language_id') ? '' : 'selected' }}>--Select Language--</option>
+                            @foreach ($langs as $lang)
+                            <option value="{{ $lang->id }}"
+                            {{ old('language_id') == $lang->id ? 'selected' : '' }}>
+                            {{ $lang->code }}
+                            </option>
+                            @endforeach
+                            </select>
+                            </div>
                         <div class="form-group">
                             <label for="">Main Content</label>
 
@@ -105,6 +125,33 @@
         } else {
             document.getElementById('imagePreview').innerHTML = ''; // Clear preview if no file selected
         }
+    });
+       // Filter non-alphabetic characters in the 'name' input field and auto-fill 'slug'
+    const inputOne = document.getElementById('title');
+    const textOnlyInput = document.getElementById('slug');
+
+    inputOne.addEventListener('input', () => {
+        const value = inputOne.value;
+        // Filter out non-alphabetic characters and update slug automatically
+        const filteredValue = value.replace(/[^A-Za-z\s]/g, '');
+        textOnlyInput.value = filteredValue;
+
+        // Automatically check slug existence after auto-filling
+        checkSlugExistence(filteredValue);
+    });
+
+    $(document).ready(function() {
+        // Check slug existence when the user types manually in the slug field
+        $('#slug').on('keyup', function() {
+            var slug = $(this).val();
+
+            // Check if the slug has any value (optional: avoid AJAX if empty)
+            if (slug) {
+                checkSlugExistence(slug);
+            } else {
+                $('#slug-message').text('Please enter a slug').css('color', 'black');
+            }
+        });
     });
 </script>
         <!-- /.content-wrapper -->

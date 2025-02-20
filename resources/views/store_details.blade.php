@@ -8,7 +8,7 @@ header("X-Robots-Tag:index, follow");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   @if(isset($store) && is_object($store))
   <title>{!! $store->title !!}</title>
-  <link rel="canonical" href="https://couponsarena.com/store/{{ Str::slug($store->name) }}">
+  <link rel="canonical" href="{{ url()->current() }}">
   <meta name="description" content="{!! $store->meta_description !!}">
   <meta name="keywords" content="{!! $store->meta_keyword !!}">
   <meta name="author" content="Najeeb">
@@ -87,7 +87,7 @@ header("X-Robots-Tag:index, follow");
                             <!-- Coupon Information (Right Side) -->
                             <div class="flex-grow-1">
                                 <div class="d-flex flex-column flex-md-row align-items-md-center gap-2 flex-wrap">
-                                    <h5 class="mb-0">{{ $coupon->name }}</h5>
+                                    <span class="mb-0 " style="font-size:25px;">{{ $coupon->name }}</span>
                                     <p class="mb-0 text-truncate" style="max-width: 250px;">{{ $coupon->description }}</p>
                                 </div>
 

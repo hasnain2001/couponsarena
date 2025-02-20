@@ -11,6 +11,8 @@ return [
     'Used By' => 'Gebruikt door',
     'Get Deal' => 'Pak de deal',
     'Get Code' => 'Pak de code',
+    'brands' => 'merken',
+'trending-posts' => 'Trending berichten',
 
     // for footer
     'Subscribe to our Newsletter' => 'Abonneer je op onze nieuwsbrief',
@@ -31,5 +33,5 @@ return [
    'Website Name' => 'Nombre del sitio web',
    'Write your message' => 'Escribe tu mensaje',
    'Submit' => 'Enviar',
-       
+
 ];

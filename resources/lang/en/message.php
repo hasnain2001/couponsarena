@@ -11,6 +11,8 @@ return [
     'Used By' => 'Used By',
     'Get Deal' => 'Get Deal',
     'Get Code' => 'Get Code',
+    'brands' =>'brands',
+    'trending-posts' => 'Trending Posts',
 
     //for footer/
     'Subscribe to our Newsletter' => 'Subscribe to our Newsletter',
@@ -32,7 +34,7 @@ return [
     'Website Name' =>'Website Name',
     'Write your message' => 'Write your message',
     'Submit' => 'Submit',
-    
+
 
  //for cookies page /
     'cookies_title' => 'Cookies Policy',
@@ -50,7 +52,7 @@ return [
     'heading-5' => 'Personalisation Of Customers',
     'heading-6' => 'Statics And Analytics',
     'heading-7' => 'Sharing Of Third Party Cookies',
-   
+
 
 
 ];

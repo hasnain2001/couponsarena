@@ -11,6 +11,8 @@ return [
     'Used By' => 'Används av',
     'Get Deal' => 'Få Erbjudande',
     'Get Code' => 'Få Kod',
+    'brands' => 'varumärken',
+'trending-posts' => 'Trendande inlägg',
 
     // För sidfoten
     'Subscribe to our Newsletter' => 'Prenumerera på vårt Nyhetsbrev',

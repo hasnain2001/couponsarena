@@ -11,6 +11,8 @@ return [
     'Used By' => 'Použito',
     'Get Deal' => 'Získat nabídku',
     'Get Code' => 'Získat kód',
+    'brands' => 'značky',
+'trending-posts' => 'Trendové příspěvky',
 
     // pro zápatí /
     'Subscribe to our Newsletter' => 'Přihlaste se k odběru newsletteru',

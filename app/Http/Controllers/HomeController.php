@@ -49,9 +49,9 @@ app()->setLocale($languageCode);
 $stores = Stores::select('name','store_image','slug')->where('language_id', $language->id)->orderBy('created_at','desc')->limit(24)->get();
 $topcouponcode = Coupons::select('id', 'name', 'language_id', 'created_at','name','ending_date','store','clicks','destination_url','authentication')->where('language_id', $language->id)->where('top_coupons','>', 0 )->whereNotNull('code')->orderBy('created_at','desc')->limit(6)->get();
 $Couponsdeals = Coupons::whereNull('code')->where('language_id', $language->id)->where('top_coupons', '>', 0)->orderBy('created_at','desc')->limit(6)->get();
-$blogs = Blog::limit(12)->get();
+$blogs = Blog::where('language_id', $language->id)->limit(12)->get();
 // $todayblogs = Blog::orderBy('created_at', 'desc')->paginate(12);
-$topblogs = Blog::where('top', '>', 0)->orderBy('created_at', 'desc')->limit(10)->get();
+$topblogs = Blog::where('language_id', $language->id)->where('top', '>', 0)->orderBy('created_at', 'desc')->limit(10)->get();
     return view('welcome', compact('blogs','topblogs','stores','topcouponcode','Couponsdeals'));
 }
 
@@ -73,83 +73,71 @@ public function blog_home(Request $request, $lang = null)
 {
     $languageCode = $lang ?? 'en';
     app()->setLocale($languageCode);
-    // Paginate blogs as usual
-    $blogs = Blog::paginate(5);
-
-    // Check if a language code is provided
-    if ($lang) {
-        // Find the language by the code in the URL
-        $language = Language::where('code', $lang)->first();
-
-        if ($language) {
-            // Get stores filtered by language and paginate
-            $chunks = Stores::where('language_id', $language->id)
-                ->paginate(25)
-                ->map(function($store) use ($language) {
-                    // Append language code to the store's URL
-                    $store->url_with_language = url($language->code . '/blog/' . $store->id);
-                    return $store;
-                });
-        } else {
+         // Fetch the language, or default to English
+         $language = Language::where('code', $languageCode)->firstOr(function () {
             abort(404, 'Language not found');
-        }
-    } else {
-        // Default to English or a fallback if no language code is provided
-        $chunks = Stores::paginate(25)->map(function($store) {
-            $language = Language::find($store->language_id);
-            $store->url_with_language = $language ? url($language->code . '/blog/' . $store->id) : url('en/store/' . $store->id);
-            return $store;
         });
-    }
+    // Paginate blogs as usual
+    $blogs = Blog::where('language_id', $language->id)->paginate(5);
+    $chunks = Stores::select('name','store_image','slug')->where('language_id', $language->id)->orderBy('created_at','desc')->limit(24)->get();
+
 
     return view('blog', compact('blogs', 'chunks'));
 }
 
+public function blog_show($lang = 'en', $slug, Request $request)
+{
+    // Set the app locale to the provided language or default to 'en'
+    app()->setLocale($lang);
+
+    // Normalize the slug
+    $slug = Str::slug($slug);
+    $title = ucwords(str_replace('-', ' ', $slug));
+
+    // Fetch the store by slug and eager load the language relation
+    $blog = Blog::with('language')->where('slug', $title)->first();
+
+    if (!$blog) {
+        abort(404); // Store not found
+    }
+
+    // Check if the store has an associated language
+    if (!$blog->language) {
+        return response()->json(['error' => 'No language select for this store.'], 404);
+    }
+
+    // Redirect if the language code doesn't match the store's language
+    if ($lang !== $blog->language->code) {
+        return redirect()->route('blog-details.withLang', [ 'lang' => $blog->language->code,
+            'slug' => $slug
+        ]);
+    }
 
 
 
-public function blog_show($name) {
-$slug = Str::slug($name);
-$title = ucwords(str_replace('-', ' ', $slug));
-$blog = Blog::where('slug', $title)->first();
-if (!$blog) {
-return redirect('404');
+    // Fetch related stores based on the same category
+    $chunks = Stores::where('category', $blog->category)
+                                               ->where('language_id', $blog->language_id)
+                           ->get();
+
+    return view('blog_details', compact('blog', 'chunks',));
 }
-$chunks = Stores::where('category',$blog->category)->latest()->limit(20)->get();
 
-return view('blog_details', compact('blog', 'chunks'));
-}
+
 
 
 public function stores(Request $request, $lang = null)
 {
+
     $languageCode = $lang ?? 'en';
     app()->setLocale($languageCode);
-
-    if ($lang) {
-        $language = Language::where('code', $lang)->first();
-        if ($language) {
-            // Paginate first, then transform the items
-            $stores = Stores::where('language_id', $language->id)
-                             ->orderBy('name', 'asc') // Sort alphabetically by store name
-                             ->paginate(100);
-            $stores->getCollection()->transform(function($store) use ($language) {
-                $store->url_with_language = url($language->code . '/store/' . $store->id);
-                return $store;
-            });
-        } else {
+         // Fetch the language, or default to English
+         $language = Language::where('code', $languageCode)->firstOr(function () {
             abort(404, 'Language not found');
-        }
-    } else {
-        // Paginate first, then transform the items
-        $stores = Stores::orderBy('created_at', 'desc') // Sort alphabetically by store name
-                         ->paginate(100);
-        $stores->getCollection()->transform(function($store) {
-            $language = Language::find($store->language_id);
-            $store->url_with_language = $language ? url($language->code . '/store/' . $store->id) : url('en/store/' . $store->id);
-            return $store;
         });
-    }
+        $stores = Stores::where('language_id', $language->id)
+        ->orderBy('name', 'asc') // Sort alphabetically by store name
+        ->paginate(100);
 
     return view('stores', compact('stores'));
 }

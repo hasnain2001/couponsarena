@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 
 class CouponsController extends Controller
 {
- 
+
     public function coupon(Request $request) {
 
 
@@ -33,7 +33,7 @@ class CouponsController extends Controller
         }
 
 
-        $coupons = $productsQuery->orderBy('created_at', 'desc')
+        $coupons = $productsQuery
         ->orderBy('store')
         ->orderByRaw('CAST(`order` AS SIGNED) ASC')
         ->limit(1000)
@@ -143,7 +143,7 @@ public function update(Request $request)
     public function update_coupon(Request $request, $id) {
         // Find the coupon by its ID
         $coupons = Coupons::find($id);
-    
+
         // Define validation rules
         $request->validate([
             'name' => 'required|string|max:255',
@@ -157,7 +157,7 @@ public function update(Request $request)
             'store' => 'nullable|string|max:255', // Allow null, so it doesn't throw an error if not provided
             'top_coupons' => 'nullable|integer|min:0',
         ]);
-    
+
         // Update the coupon details, retain old values if not provided
         $coupons->update([
             'name' => $request->name,
@@ -171,18 +171,18 @@ public function update(Request $request)
             'store' => $request->input('store', $coupons->store), // Retain previous value if not provided
             'top_coupons' => $request->top_coupons,
         ]);
-    
+
         $store = Stores::where('slug', $coupons->store)->first();
 
         if ($store) {
             $url = route('employee.store_details', ['slug' => Str::slug($store->slug)]);
             return redirect($url)->with('success', 'Coupon Updated Successfully');
         }
-        
+
         return redirect()->back()->with('error', 'Store not found.');
-        
+
     }
-    
+
 
     public function delete_coupon($id) {
         Coupons::find($id)->delete();

@@ -37,6 +37,7 @@ class BlogController extends Controller
             'meta_keyword' => 'nullable|string|max:255',
             'top' => 'nullable|integer',
             'category' => 'nullable|string|max:255',
+            'langauge_id' => 'required|integer',
         ]);
 
         // Handle file upload for category_image
@@ -73,6 +74,7 @@ class BlogController extends Controller
         // Create new Blog instance
         $blog = new Blog();
         $blog->title = $request->input('title');
+        $blog->language_id = $request->input('language_id');
         $blog->slug = $request->input('slug');
         $blog->category_image = $imagePath;
         $blog->meta_title = $request->input('meta_title');
@@ -138,6 +140,7 @@ foreach ($images as $img) {
             'meta_keyword' => 'nullable|string|max:255',
             'top' => 'nullable|integer',
             'category' => 'nullable|string|max:255',
+            'language_id' => 'nullable|integer',
 
         ]);
 
@@ -185,6 +188,7 @@ foreach ($images as $img) {
         // Update other blog fields
         $blog->title = $request->input('title');
         $blog->slug = $request->input('slug');
+        $blog->language_id = $request->input('language_id');
         $blog->meta_title = $request->input('meta_title');
         $blog->meta_description = $request->input('meta_description');
         $blog->meta_keyword = $request->input('meta_keyword');

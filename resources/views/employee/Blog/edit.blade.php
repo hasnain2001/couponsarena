@@ -35,7 +35,7 @@
             <form name="UpdateCategory" id="UpdateCategory" method="POST" enctype="multipart/form-data" action="{{ route('employee.Blog.update', $blog->id) }}">
                 @csrf
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-10">
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group">
@@ -59,7 +59,34 @@
                         <div id="imagePreview" style="margin-top: 10px;"></div>
                                 </div>
                                 <textarea id="editor" name="content"> <td>{!!$blog->content!!}</td></textarea>
-                            </div>
+                                <div class="form-group">
+                                    <label for="category">Category <span class="text-danger">*</span></label>
+                                    <select name="category" id="category" class="form-control">
+                                    <option value="" disabled selected>{{ $blog->category }}</option>
+                                    @foreach($categories as $category)
+                                    <option value="{{ $category->slug }}">{{ $category->slug }}</option>
+                                    @endforeach
+                                    </select>
+
+
+                                    </div>
+                                <div class="form-group">
+                                    <label for="lang">Language <span class="text-danger">*</span></label>
+                                    <select name="language_id" id="lang" class="form-control" >
+                                    <option disabled selected>--Select Langs--</option>
+
+                                    <!-- Check if $stores->language exists before displaying the language name -->
+                                    <option value="" disabled selected>
+                                    {{ $blog->language ? $blog->language->code : '--Select Langs--' }}
+                                    </option>
+
+                                    @foreach ($langs as $lang)
+                                    <option value="{{ $lang->id }}">{{ $lang->code }}</option>
+                                    @endforeach
+                                    </select>
+
+                                    </div>
+
 
                                  <div class="form-group">
                                     <label for="name">Meta Title<span class="text-danger">*</span></label>
@@ -79,6 +106,7 @@
                                 </div>
                                                                 <button type="submit" class="btn btn-dark">Submit</button>
                             </div>
+                        </div>
                         </div>
                         </div>
                     </div>

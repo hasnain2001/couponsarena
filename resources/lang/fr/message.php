@@ -11,6 +11,8 @@ return[
  'Used By' => 'Utilisé par',
  'Get Deal' => 'Obtenez une offre',
  'Get Code' => 'Obtenir le code',
+ 'brands' => 'marques',
+'trending-posts' => 'Articles tendance',
 
  //for footer/
 'Subscribe to our Newsletter' => 'Abonnez-vous à notre newsletter',
@@ -34,5 +36,5 @@ return[
 'Submit' => 'Soumettre',
 ];
 
-  
+
 

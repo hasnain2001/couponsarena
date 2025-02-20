@@ -65,7 +65,7 @@
 
                                     <!-- Check if $stores->language exists before displaying the language name -->
                                     <option value="" disabled selected>
-                                    {{ $stores->language ? $stores->language->code : '--Select Langs--' }}
+                                    {{ $blog->language ? $blog->language->code : '--Select Langs--' }}
                                     </option>
 
                                     @foreach ($langs as $lang)

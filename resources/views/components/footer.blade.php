@@ -99,6 +99,7 @@
     }
     footer .footerimg {
         width: 120px;
+        height: 200px;
         padding-top: 20px; /* Reduce padding to decrease space on mobile */
     }
     footer .col-md-8 {
@@ -147,15 +148,20 @@
 
             <div class="col-md-8 offset-md-1 ">
                 <div class="footer-right">
-                    <div class="social-icons">
+                    <div class="">
                         <p class="subscribe mt-2">@lang('message.Subscribe to our Newsletter')</p>
-                        <form class="mt-2">
+                        <form class="mt-2" id="subscribeForm">
                             @csrf
                             <div class="input-group">
                                 <input type="text" name="email" class="form-control" placeholder="@lang('message.Enter Your Email')" required>
-                                <button type="submit" class="btn btn-dark text-white  ">@lang('message.Subscribe ')</button>
+                                <button type="submit" class="btn btn-dark text-white">@lang('message.Subscribe ')</button>
                             </div>
                         </form>
+                        <p id="thankYouMessage" style="display:none; color: rgb(255, 255, 255);">
+                            Thank you for subscribing to us!
+                            <button type="button" class="btn-close" aria-label="Close" onclick="document.getElementById('thankYouMessage').style.display='none';"></button>
+                        </p>
+
                     </div>
 
 <div class="footer-links">
@@ -174,5 +180,12 @@
 
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.getElementById('subscribeForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('thankYouMessage').style.display = 'block';
+        });
+    </script>
 </body>
 </html>

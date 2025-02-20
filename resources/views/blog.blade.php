@@ -41,7 +41,7 @@ header("X-Robots-Tag:index, follow");
 
 
 <div class="container">
-    
+
     <nav aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 0.25rem; padding: 10px;">
         <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item">
@@ -56,11 +56,19 @@ header("X-Robots-Tag:index, follow");
 <div class="row blog-posts">
     @foreach ($blogs as $blog)
     @php
-    $blogurl = $blog->slug
-    ? route('blog-details', ['slug' => Str::slug($blog->slug)])
-    : '#';
-    @endphp
-    
+    $language = $blog->language ? $blog->language->code : 'en'; // Default to 'en' if no language is set
+    $slug = Str::slug($blog->slug);
+
+    // Generate the URL based on whether the language is 'en' or not
+    if ($language === 'en') {
+        $blogurl = route('blog-details', ['slug' => $slug]);
+    } else {
+        $blogurl = route('blog-details.withLang', ['lang' => $language, 'slug' => $slug]);
+    }
+@endphp
+
+
+
     <div class="col-md-12 blog-post">
 
         <div class="blog-image-wrapper">
@@ -88,19 +96,12 @@ header("X-Robots-Tag:index, follow");
 
 <ul class="list-group list-group-flush">
     @foreach ($chunks as $store)
- 
-      @php
-  $language = $store->language->code;
-  $storeSlug = Str::slug($store->slug);
 
-  // Conditionally generate the URL based on the language
-  $storeurl = $store->slug
-      ? ($language === 'en'
-          ? route('store_details', ['slug' => $storeSlug])  // English route without 'lang'
-          : route('store_details.withLang', ['lang' => $language, 'slug' => $storeSlug]))  // Other languages
+    @php
+    $storeurl = $store->slug
+      ? route('store_details', ['slug' => Str::slug($store->slug)])
       : '#';
-@endphp
-    
+    @endphp
 
         <li class="list-group-item d-flex align-items-center justify-content-between">
              <a href="{{ $storeurl }}" class="btn btn-light btn-sm">
@@ -108,14 +109,14 @@ header("X-Robots-Tag:index, follow");
             <img src="{{ asset('uploads/stores/' . $store->store_image) }}" alt="{{ $store->name }}" class="rounded-circle" style="width: 60px; height: 60px;">
                 <div class="store-info ml-3">
                     <span class="fw-bold frugal-heaven-text-name">{{ $store->name }}</span>
-                </div> 
+                </div>
             </div>
              </a>
             <a href="{{ $storeurl }}" class="btn btn-dark btn-sm">Visit Store</a>
         </li>
-  
+
     @endforeach
-    
+
 
 </ul>
 

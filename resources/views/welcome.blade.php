@@ -80,7 +80,52 @@ coupon codes, discount codes, promo codes, deals, offers, vouchers, discounts, s
     right: -10px; /* Adjust as needed */
 }
 
+.custom-carousel-btn {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.5); /* Red with opacity */
+    border: none;
+    border-radius: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    top: 10%;
+    transform: translateY(-50%);
+}
 
+.custom-carousel-btn:hover {
+    background-color: rgba(116, 107, 107, 0.8); /* Darker red on hover */
+}
+
+
+
+.carousel-control-prev.custom-carousel-btn {
+    left: 20px;
+}
+
+.carousel-control-next.custom-carousel-btn {
+    right: 20px;
+}
+
+/* Customizing carousel indicators */
+.custom-indicators button {
+    width: 12px;
+    height: 12px;
+    border-radius: 40%;
+    background-color: #ccc;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.custom-indicators button.active {
+    background-color: red; /* Active indicator in red */
+}
+
+.custom-indicators button:hover {
+    background-color: darkred; /* Dark red on hover */
+}
  </style>
 
 <main class=" container-fluid">
@@ -136,10 +181,10 @@ coupon codes, discount codes, promo codes, deals, offers, vouchers, discounts, s
                 </div>
                 @endforeach
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#storeCarousel" data-bs-slide="prev">
+            <button class="carousel-control-prev custom-carousel-btn" type="button" data-bs-target="#storeCarousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#storeCarousel" data-bs-slide="next">
+            <button class="carousel-control-next custom-carousel-btn" type="button" data-bs-target="#storeCarousel" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
             </button>
         </div>
@@ -151,7 +196,7 @@ coupon codes, discount codes, promo codes, deals, offers, vouchers, discounts, s
     <div class="row">
         <!-- Recent Posts Section (Left Side) -->
         <div class="col-md-4">
-            <h2 class="text-dark mb-3">Trending Posts</h2>
+            <h2 class="text-dark mb-3">@lang('message.trending-posts')</h2>
             @foreach ($topblogs as $blog)
             @php
             $blogurl = $blog->slug
@@ -257,6 +302,7 @@ coupon codes, discount codes, promo codes, deals, offers, vouchers, discounts, s
                                     <input type="hidden" name="coupon_id" id="coupon_id">
                                 </form>
                             </div>
+                            <p class="used font-weight-bold mt-2" id="output_{{ $coupon->id }}">@lang('message.Used By'): {{ $coupon->clicks }}</p>
                         </div>
                     </div>
                 </div>

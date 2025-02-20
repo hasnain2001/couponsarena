@@ -28,12 +28,18 @@ Route::get('/{lang}/store/{slug}', [HomeController::class, 'StoreDetails'])->nam
 Route::get('/category/{slug}', [HomeController::class, 'viewcategory'])->name('related_category');
 Route::get('/categories', 'categories')->name('categories');
 Route::get('/{lang}/blog', 'blog_home')->name('blog');
-Route::get('/blog/{slug}', 'blog_show')->name('blog-details');
+
+
+
+Route::get('/blog/{slug}',function($slug) {return app(HomeController::class)->blog_show('en', $slug, request());})->name('blog-details');
+Route::get('/{lang}/blog/{slug}', 'blog_show')->name('blog-details,withLang');
 
 });
 });
 
-
+   // Route for search
+   Route::get('/search', [SearchController::class, 'search'])->name('search');
+   Route::get('/search_results', [SearchController::class, 'searchResults'])->name('search_results');
 
     Route::put('/updateCoupon/{id}', [CouponsController::class, 'update'])->name('updateCoupon');
     Route::post('/update-clicks', [CouponsController::class, 'updateClicks'])->name('update.clicks');

@@ -41,7 +41,6 @@ class BlogController extends Controller
             $validatedData = $request->validate([
                 'title' => 'required|string|max:255',
                 'slug' => 'required|string|max:255|unique:blogs,slug',
-                'language_id' =>'required|integer',
                 'content' => 'required|string',
                 'category_image' => 'required|image|mimes:jpeg,png,jpg,gif',
                 'meta_title' => 'nullable|string|max:65',
@@ -148,7 +147,7 @@ class BlogController extends Controller
                 'language_id' =>'nullable|integer',
                 'content' => 'required|string',
                 'category_image' => 'image|mimes:jpeg,png,jpg,gif',
-                'meta_title' => 'nullable|string|max:65',
+                'meta_title' => 'nullable|string|max:165',
                 'meta_description' => 'nullable|string|max:155',
                 'meta_keyword' => 'nullable|string|max:255',
                 'top' => 'nullable|integer',

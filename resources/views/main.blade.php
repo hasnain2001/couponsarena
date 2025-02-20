@@ -63,10 +63,10 @@ gtag('js', new Date()); gtag('config', 'G-B9GQCLK2K1');
 
 <style>
   img{
-   object-fit: contain; 
+   object-fit: contain;
   }
 </style>
-       
+
     </head>
     <body>
 

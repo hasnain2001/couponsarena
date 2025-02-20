@@ -11,6 +11,8 @@ return [
     'Used By' => 'Verwendet von',
     'Get Deal' => 'Angebot holen',
     'Get Code' => 'Code holen',
+    'brands' => 'Marken',
+'trending-posts' => 'Trendbeiträge',
 
     // for footer
     'Subscribe to our Newsletter' => 'Abonnieren Sie unseren Newsletter',

@@ -11,6 +11,8 @@ return [
     'Used By' => 'Usado por',
     'Get Deal' => 'Obtener oferta',
     'Get Code' => 'Obtener código',
+    'brands' => 'marcas',
+'trending-posts' => 'Publicaciones populares',
 
     // for footer
     'Subscribe to our Newsletter' => 'Suscríbete a nuestro boletín',
@@ -48,7 +50,7 @@ return [
        'heading-5' => 'Personalización de clientes',
        'heading-6' => 'Estadísticas y análisis',
        'heading-7' => 'Compartir cookies de terceros',
-       
+
 
 
 ];
