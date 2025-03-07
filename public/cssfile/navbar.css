@@ -51,7 +51,7 @@ padding-left: 0;
 
 
 .navbar-menu a:hover {
-    text-decoration: underline;
+    text-decoration: none;
     color: #f3f3f3;
     background-color: transparent;
 }
@@ -173,7 +173,7 @@ padding-left: 0;
 }
 
 .mobile-menu .menu-links a:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 /* Scrollable Categories on Mobile */

@@ -1,39 +1,29 @@
-<?php
-header("X-Robots-Tag:index, follow");
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  @if(isset($store) && is_object($store))
-  <title>{!! $store->title !!}</title>
-  <link rel="canonical" href="{{ url()->current() }}">
-  <meta name="description" content="{!! $store->meta_description !!}">
-  <meta name="keywords" content="{!! $store->meta_keyword !!}">
-  <meta name="author" content="Najeeb">
-  <meta name="robots" content="index, follow">
-  @else
-  <link rel="canonical" href="https://vouchmenot.com/stores">
-  @endif
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
-<link rel="stylesheet" href="{{asset('cssfile/storedetail.css')}}">
-</head>
-<body>
-<nav>
-    @include('components.navbar')
-</nav>
-
-<br>
-
-
-@if(session('success'))
-<div class="alert alert-light alert-dismissable">
-    <b>{{ session('success') }}</b>
-</div>
-@endif
-
+@extends('main')
+@section('title')
+{!! $store->title !!}
+@endsection
+@section('description')
+{!! $store->meta_description !!}
+@endsection
+@section('keywords')
+{!! $store->meta_keyword !!}
+@endsection
+<style>
+    .coupon-name{
+        font-size: 20px;
+    }
+    .store-name {
+        font-size: 20px;
+    }
+    .store-description {
+        font-size: 15px;
+    }
+    .coupon-images {
+    width: 90px;
+     height:70px;
+}
+</style>
+@section('main-content')
 <!-- Store Information and Coupons Section -->
 <div class="container-fluid">
     <!-- Breadcrumb Navigation -->
@@ -57,14 +47,14 @@ header("X-Robots-Tag:index, follow");
     <div class="row">
     <section class="store">
         <!-- Store Information Card -->
-        <div class="col-12 card shadow-sm p-4 mb-4">
+        <div class="col-12 card shadow-sm p-3 mb-1  h-auto">
             <div class="d-flex align-items-center">
                 @if ($store->store_image)
-                    <img src="{{ asset('uploads/stores/' . $store->store_image) }}" class="stores-img img-thumbnail me-3" alt="{{ $store->name }}">
+                    <img src="{{ asset('uploads/stores/' . $store->store_image) }}" class="store-img img-thumbnail me-3" alt="{{ $store->name }}">
                 @endif
                 <div>
-                    <h3 class="card-title mb-1">{{ $store->name }}</h3>
-                    <p class="card-text mb-0">{!! $store->description !!}</p>
+                    <h1 class="store-name mb-1">{{ $store->name }}</h1>
+                    <p class="store-description mb-0">{!! $store->description !!}</p>
                 </div>
             </div>
         </div>
@@ -75,33 +65,35 @@ header("X-Robots-Tag:index, follow");
         <div class="row">
             @foreach ($coupons as $coupon)
                 <div class="col-12 mb-4">
-                    <div class="coupon-card card p-3 rounded shadow-sm">
+                    <div class="coupon-card card p-2 rounded shadow-sm">
                         <div class="card-body d-flex flex-row align-items-center">
                             <!-- Coupon Image (Left Side) -->
                             <div class="me-3">
-                                @if ($store->store_image)
-                                    <img class="stores-img shadow" src="{{ asset('uploads/stores/' . $store->store_image) }}" alt="Card Image" style="">
-                                @endif
+                @if ($store->store_image)
+                    <img class=" coupon-images shadow" src="{{ asset('uploads/stores/' . $store->store_image) }}" alt="{{$store->store_image}}" >
+                @endif
                             </div>
 
                             <!-- Coupon Information (Right Side) -->
                             <div class="flex-grow-1">
                                 <div class="d-flex flex-column flex-md-row align-items-md-center gap-2 flex-wrap">
-                                    <span class="mb-0 " style="font-size:25px;">{{ $coupon->name }}</span>
-                                    <p class="mb-0 text-truncate" style="max-width: 250px;">{{ $coupon->description }}</p>
+                                  <span class="mb-0 coupon-name " >{{ $coupon->name }}</span>
+
+
                                 </div>
+                                <p class="mb-0 text-truncate" >{{ $coupon->description }}</p>
 
                                 <!-- Coupon Code or Get Deal Button -->
                                 <div class="d-flex justify-content-end mb-2">
                                     @if ($coupon->code)
-                                        <a href="{{ $coupon->destination_url }}" target="blank" class="getcode me-2" id="getCode{{ $coupon->id }}" onclick="toggleCouponCode('{{ $coupon->id }}')">Reveal Code</a>
+                                        <a href="{{ $coupon->destination_url }}" target="blank" rel="nofollow"  class="getcode me-2" id="getCode{{ $coupon->id }}" onclick="toggleCouponCode('{{ $coupon->id }}')">Reveal Code</a>
                                         <div class="coupon-card d-flex flex-column">
                                             <span class="codeindex text-dark scratch" style="display: none;" id="codeIndex{{ $coupon->id }}">{{ $coupon->code }}</span>
                                             <button class="btn btn-info text-white btn-sm copy-btn btn-hover d-none mt-2" id="copyBtn{{ $coupon->id }}" onclick="copyCouponCode('{{ $coupon->id }}')">Copy Code</button>
                                             <p class="text-success copy-confirmation d-none mt-3" id="copyConfirmation{{ $coupon->id }}">Code copied!</p>
                                         </div>
                                     @else
-                                        <a href="{{ $coupon->destination_url }}" onclick="updateClickCount('{{ $coupon->id }}')" class="get" target="_blank">Get Deal</a>
+                                        <a href="{{ $coupon->destination_url }}" onclick="updateClickCount('{{ $coupon->id }}')" class="get" rel="nofollow" target="_blank">Get Deal</a>
                                     @endif
                                     <form method="post" action="{{ route('update.clicks') }}" id="clickForm">
                                         @csrf
@@ -155,19 +147,19 @@ header("X-Robots-Tag:index, follow");
                 <div class="social-box1 footer-social">
                     <ul class="list-inline d-flex justify-content-center">
                         <li class="list-inline-item">
-                            <a class="btn btn-primary btn-sm rounded-circle" href="http://www.facebook.com/sharer.php?u=https://Couponsarena.com/{{ Str::slug($store->name) }}-us" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-primary btn-sm rounded-circle" href="http://www.facebook.com/sharer.php?u=https://couponsarena.com/{{ Str::slug($store->slug) }}-us" target="_blank"><i class="fab fa-facebook-f"></i></a>
                         </li>
                         <li class="list-inline-item">
-                            <a class="btn btn-info btn-sm rounded-circle" href="https://twitter.com/share?url=https://Couponsarena.com/{{ Str::slug($store->name) }}-us" target="_blank"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-info btn-sm rounded-circle" href="https://twitter.com/share?url=https://Couponsarena.com/{{ Str::slug($store->slug) }}-us" target="_blank"><i class="fab fa-twitter"></i></a>
                         </li>
                         <li class="list-inline-item">
-                            <a class="btn btn-danger btn-sm rounded-circle" href="https://pinterest.com/pin/create/button/?url=https://Couponsarena.com/{{ Str::slug($store->name) }}-us" target="_blank"><i class="fab fa-pinterest"></i></a>
+                            <a class="btn btn-danger btn-sm rounded-circle" href="https://pinterest.com/pin/create/button/?url=https://couponsarena.com/{{ Str::slug($store->slug) }}-us" target="_blank"><i class="fab fa-pinterest"></i></a>
                         </li>
                         <li class="list-inline-item">
-                            <a class="btn btn-danger btn-sm rounded-circle" href="https://www.instagram.com/?url=https://Couponsarena.com/{{ Str::slug($store->name) }}-us" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a class="btn btn-danger btn-sm rounded-circle" href="https://www.instagram.com/?url=https://couponsarena.com/{{ Str::slug($store->slug) }}-us" target="_blank"><i class="fab fa-instagram"></i></a>
                         </li>
                         <li class="list-inline-item">
-                            <a class="btn btn-success btn-sm rounded-circle" href="https://api.whatsapp.com/send?text=https://Couponsarena.com/{{ Str::slug($store->name) }}-us" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                            <a class="btn btn-success btn-sm rounded-circle" href="https://api.whatsapp.com/send?text=https://couponsarena.com/{{ Str::slug($store->slug) }}-us" target="_blank"><i class="fab fa-whatsapp"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -207,9 +199,6 @@ header("X-Robots-Tag:index, follow");
 </div>
 
 
-<footer>
-    @include('components.footer')
-</footer>
 
 <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script>
@@ -292,5 +281,4 @@ function countClicks(couponId) {
 }
 
 </script>
-</body>
-</html>
+@endsection

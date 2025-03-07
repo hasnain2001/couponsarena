@@ -1,69 +1,46 @@
-<?php
-header("X-Robots-Tag:index, follow");
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+@extends('main')
+@section('title','About Us - Best Deals and Discounts ')
+@section('description','Learn more about CouponsArena, your go-to source for the best deals and discounts. Discover our mission, values, and how we help you save more.')
+@section('keywords','deals, discounts, coupons, savings, affiliate marketing')
+<style>
+    body{
+    background-color:white;
+    }
 
-      <title>About Us - Best Deals and Discounts |CouponsArena</title>
-     <meta name="description" content="Find the best deals, discounts, and coupons on CouponsArena. Save money on your favorite products from top brands.">
+    main{
+    font-family: Nunito,Normal;
+    }
 
- <meta name="keywords" content="deals, discounts, coupons, savings, affiliate marketing">
-
-  <meta name="author" content="John Doe">
- <meta name="robots" content="index, follow">
-
-<link rel="canonical" href="https://CouponsArena.com/about">
-
-  <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
-     <link rel="icon" href="{{ asset('front/assets/images/logo-01.png') }}"  type="image/x-icon">
-
-
-  <style>
-  body{
-      background-color:white;
-  }
-
-main{
-     font-family: Nunito,Normal;
-}
-
- .footer{
-              background-color:red;
-        }
-        .custom-thumbnail {
+    .footer{
+    background-color:red;
+    }
+    .custom-thumbnail {
     border: 8px solid #bebebe; /* Increase the border size and change color if needed */
     border-radius: 5px; /* Optional: keeps the thumbnail's rounded corners */
-}
+    }
 
-        .breadcrumb {
-            background-color: #f8f9fa;
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
+    .breadcrumb {
+    background-color: #f8f9fa;
+    font-size: 1.1rem;
+    font-weight: 500;
+    }
 
-        .breadcrumb-item a:hover {
-            text-decoration: underline;
-            color: #0d6efd;
-        }
+    .breadcrumb-item a:hover {
+    text-decoration: underline;
+    color: #0d6efd;
+    }
 
-        .breadcrumb-item+.breadcrumb-item::before {
-            content: ">";
-            color: #6c757d;
-            padding: 0 0.5rem;
-        }
+    .breadcrumb-item+.breadcrumb-item::before {
+    content: ">";
+    color: #6c757d;
+    padding: 0 0.5rem;
+    }
 
-        .breadcrumb-item.active {
-            font-weight: bold;
-        }
-    </style>
-
-</head>
-<body>
-    @include('components.navbar')
-
+    .breadcrumb-item.active {
+    font-weight: bold;
+    }
+</style>
+@section('main-content')
 <div class="container">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-light shadow-sm p-3 rounded">
@@ -140,7 +117,4 @@ main{
     </div>
 </div>
 </div>
-@include('components.footer')
-
-</body>
-</html>
+@endsection

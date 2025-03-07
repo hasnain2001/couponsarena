@@ -1,76 +1,65 @@
-<?php
-header("X-Robots-Tag:index, follow");
-?>
+@extends('main')
+@section('title')
+{{ __('imprint.imprint') }}
+@endsection
+@section('description')
+Explore exclusive discounts and offers on top brands. Save money on your online shopping with CouponsArena.
+@endsection
+@section('keywords','deals, discounts, coupons, savings, affiliate marketing, promo codes, cashback, online shopping, special offers, vouchers, best prices, holiday sales, seasonal discounts, gift cards, price comparison, money-saving tips')
 
-<!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ __('imprint.imprint') }} | CouponsArena | Latest Discount Codes of 2024</title>
-    <meta http-equiv="refresh" content="70">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="canonical" href="https://couponsarena.com">
-    <meta name="description" content="Explore exclusive discounts and offers on top brands. Save money on your online shopping with CouponsArena.">
-    <meta name="keywords" content="deals, discounts, coupons, savings, affiliate marketing, promo codes, cashback, online shopping, special offers, vouchers, best prices, holiday sales, seasonal discounts, gift cards, price comparison, money-saving tips">
-    <meta name="author" content="Uzair">
-    <meta name="robots" content="index, follow">
-    <link rel="shortcut icon" href="{{ asset('images/favicon.png')}}" type="image/x-icon">
-    <style>
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
 
-        .breadcrumb {
-            margin-bottom: 20px;
-        }
+<style>
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
 
-        .breadcrumb a {
-            color: #007bff;
-            text-decoration: none;
-        }
+    .breadcrumb {
+        margin-bottom: 20px;
+    }
 
-        .breadcrumb a.active {
-            color: #333;
-            font-weight: bold;
-        }
+    .breadcrumb a {
+        color: #007bff;
+        text-decoration: none;
+    }
 
-        .text-main {
-            line-height: 1.6;
-        }
+    .breadcrumb a.active {
+        color: #333;
+        font-weight: bold;
+    }
 
-        .page-heading {
-            font-size: 2em;
-            margin-bottom: 10px;
-            color: #333;
-        }
+    .text-main {
+        line-height: 1.6;
+    }
 
-        .contact-info {
-            background-color: #fff;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
+    .page-heading {
+        font-size: 2em;
+        margin-bottom: 10px;
+        color: #000000;
+    }
 
-        .contact-info a {
-            color: #007bff;
-        }
+    .contact-info {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
 
-        .contact-info a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
+    .contact-info a {
+        color: #000000;
+        text-decoration: none;
+    }
 
-   @include('components.navbar')
-   <br><br>
+    .contact-info a:hover {
+        color: #000000;
+        text-decoration: underline;
+    }
+</style>
+@section('main-content')
     <div class="container">
         <nav aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 0.25rem; padding: 10px;">
             <ol class="breadcrumb mb-0">
@@ -81,17 +70,15 @@ header("X-Robots-Tag:index, follow");
             </ol>
         </nav>
 
-        <div class="text-main">
+        <div class="text-main text-dark">
             <h1 class="page-heading">{{ __('imprint.imprint') }}</h1>
             <h2>{{ __('imprint.contact_information') }}</h2>
             <div class="contact-info">
                 <p><strong>{{ __('imprint.owner') }}</strong></p>
+                <p><strong>Phone : +17473651163</strong></p>
                 <p><strong>{{ __('imprint.address') }}</strong></p>
-         
                 <p><strong>{{ __('imprint.email_us') }}</strong> <a href="mailto:{{ __('imprint.contact_email') }}">{{ __('imprint.contact_email') }}</a></p>
             </div>
         </div>
     </div>
-   @include('components.footer')
-</body>
-</html>
+@endsection

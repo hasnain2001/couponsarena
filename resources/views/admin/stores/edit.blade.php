@@ -58,7 +58,7 @@
     </div>
     <div class="form-group">
     <label for="description">Description</label>
-    <textarea name="description" id="description" class="form-control" cols="30" rows="5" style="resize: none;" >{{ $stores->description }}</textarea>
+    <textarea name="description" id="description" class="form-control" cols="30" rows="2" style="resize: none;" >{{ $stores->description }}</textarea>
     </div>
     {{-- <div class="form-group">
     <label for="url">URL <span class="text-danger">*</span></label>

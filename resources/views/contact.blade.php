@@ -1,29 +1,8 @@
-<?php
-header("X-Robots-Tag:index, follow");
-?><!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-      <title>Contact - Best Deals and Discounts |CouponsArena</title>
-     <meta name="description" content="Find the best deals, discounts, and coupons on CouponsArena. Save money on your favorite products from top brands.">
-
- <meta name="keywords" content="deals, discounts, coupons, savings, affiliate marketing">
-
-  <meta name="author" content="John Doe">
- <meta name="robots" content="index, follow">
-    <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
-<link rel="canonical" href="https://CouponsArena.com/about">
-    <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-
-
-
-
-</head>
-<body>
-@include('components.navbar')
+@extends('main')
+@section('title','Contact - Best Deals and Discounts')
+@section('description','Find the best deals, discounts, and coupons on CouponsArena. Save money on your favorite products from top brands.')
+@section('keywords','deals, discounts, coupons, savings, affiliate marketing')
+@section('main-content')
 <section class="contact-us py-5">
   <div class="container">
     <nav aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 0.25rem; padding: 10px;">
@@ -71,7 +50,7 @@ header("X-Robots-Tag:index, follow");
               <textarea class="form-control" id="message" name="message" rows="8" required></textarea>
             </div>
           </div>
-          <button type="submit" class="btn btn-dark btn-lg">@lang('message.Submit')</button>
+          <button type="submit" class="btn btn-dark ">@lang('message.Submit')</button>
         </form>
       </div>
       <div class="col-5 mt-4">
@@ -84,11 +63,4 @@ header("X-Robots-Tag:index, follow");
   </div>
 </section>
 
-
-<br>
-   <br>
-
-   @include('components.footer')
-
-</body>
-</html>
+@endsection

@@ -172,7 +172,7 @@ public function StoreDetails($name)
             'language_id' => 'nullable|integer',
             'top_store' => 'nullable|integer',
             'description' => 'nullable|string',
-            'about' => 'nullable|string,', // Fixed: Replaced 'text' with 'string'
+            'about' => 'nullable|string',
             'url' => 'nullable|url',
             'destination_url' => 'nullable|url',
             'category' => 'nullable|string',
@@ -238,6 +238,7 @@ public function StoreDetails($name)
             'network' => $request->input('network', $store->network),
             'store_image' => $storeImage, // Updated or existing image
             'content' => $request->input('content', $store->content),
+            'about' => $request->input('about',$store->about),
         ]);
 
         // Redirect back with a success message

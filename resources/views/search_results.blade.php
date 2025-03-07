@@ -1,92 +1,172 @@
-<!DOCTYPE html>
-<html lang="{{ app()->getlocale() }}">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>search</title>
- <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
-       <!-- Fonts -->
-       <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+@extends('main')
+@section('title', 'Search')
+@section('description','')
+@section('keywords','')
+@section('main-content')
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{asset('cssfile/styles.css')}}">
-        <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-     <style>
-           .get,.navbar-custom .btn,.navbar-custom .nav-link,.navbar-custom .navbar-brand{color:#fff}.navbar-custom{background-color:#f00505}.navbar-custom .btn-outline-danger{border-color:#fff;color:#fff}.navbar-custom .btn-outline-danger:hover{background-color:#fff;color:#dc3545}.get{background:linear-gradient(to right,#ff416c,#ff4b2b);border:2px solid #fff;border-radius:25px;padding:10px 20px;font-size:16px;cursor:pointer;transition:.3s;box-shadow:0 4px 5px rgba(0,0,0,.1)}.card-body{flex:1 0 auto}.anchor-search{font-family:Arial;color:#000;text-decoration:none}.anchor-search:hover{color:#000;text-decoration-color:#dc3545}.card{display:flex;flex-direction:column}.card-img-top{object-fit:cover;height:200px}.pointer{pointer-events:none}@media (max-width:767px){.card-img-top{height:auto;width:100%}}
-     </style>
-</head>
-<body class="body">
-@include('components.navbar')
+<style>
+    .card {
+        transition: all 0.3s ease;
+        border: none;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
 
-<div class="container">
-    <nav aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 0.25rem; padding: 10px;">
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover .card-img-top {
+        transform: scale(1.05);
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #333;
+        margin-top: 15px;
+        line-height: 1.4;
+        min-height: 48px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .anchor-search {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .breadcrumb {
+        border-radius: 10px;
+        margin-bottom: 30px;
+    }
+
+    .pagination {
+        margin-top: 40px;
+        justify-content: center;
+    }
+
+    .page-item.active .page-link {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .page-link {
+        color: #007bff;
+        transition: all 0.3s ease;
+    }
+
+    .page-link:hover {
+        color: #0056b3;
+        transform: translateX(3px);
+    }
+
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .animate-fade-in {
+        animation: fadeIn 0.5s ease-in;
+    }
+</style>
+
+<div class="container animate-fade-in">
+    <nav aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 10px; padding: 12px;">
         <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item">
-                <a href="/" class="text-decoration-none text-primary" style="font-weight: 500;">Home</a>
+                <a href="/" class="text-decoration-none text-primary">Home</a>
             </li>
-<li class="breadcrumb-item active" aria-current="page" style="font-weight: 600; color: #6c757d;">Search</li>
+            <li class="breadcrumb-item active" aria-current="page">Search Results</li>
         </ol>
     </nav>
-    <!-- Display Stores -->
-    <h3 class="pointer">Search Results</h3>
-    <div class="main_content">
-        <div class="container">
-            <div class="row mt-3">
-                @if ($stores->isEmpty())
-                    <div class="col-12">
-                        <h1>No stores found.</h1>
-                    </div>
-                @else
-                    @foreach ($stores as $store)
-                        <div class="col-6 col-lg-3 mb-4 d-flex">
-                            <div class="card shadow flex-fill">
-                          @php
-    $language = $store->language ? $store->language->code : 'en'; // Default to 'en' if language is null
-    $storeSlug = Str::slug($store->slug);
 
-    // Conditionally generate the URL based on the language
-    $storeurl = $store->slug
-        ? ($language === 'en'
-            ? route('store_details', ['slug' => $storeSlug])  // English route without 'lang'
-            : route('store_details.withLang', ['lang' => $language, 'slug' => $storeSlug]))  // Other languages
-        : '#';
-@endphp
-                                <a href="{{$storeurl }}" class="anchor-search">
-                                    <div class="card-body d-flex flex-column">
-                                        @if ($store->store_image)
-                                            <img src="{{ asset('uploads/stores/' . $store->store_image) }}" class="card-img-top" alt="">
-                                        @else
-                                            <img src="{{ asset('front/assets/images/no-image-found.jpg') }}" class="card-img-top" alt="">
-                                        @endif
-                                        <h5 class="card-title mt-3 mx-2">{{ $store->name ?? 'Title not found' }}</h5>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    @endforeach
-                @endif
+    <h3 class="mt-4 mb-3 text-primary" style="font-weight: 700; letter-spacing: -0.5px;">
+        Search Results
+        <small class="text-muted fs-5">({{ $stores->total() }} results)</small>
+    </h3>
+
+    <div class="row g-4">
+        @if ($stores->isEmpty())
+            <div class="col-12 text-center py-5">
+                <img src="{{ asset('front/assets/images/no-results.png') }}"
+                     alt="No results"
+                     style="max-width: 200px; opacity: 0.6;">
+                <h4 class="mt-3 text-muted">No stores found</h4>
+                <p class="text-secondary">Try adjusting your search criteria and try again</p>
             </div>
-        </div>
+        @else
+            @foreach ($stores as $store)
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="card h-100">
+                        @php
+                            $language = $store->language ? $store->language->code : 'en';
+                            $storeSlug = Str::slug($store->slug);
+                            $storeurl = $store->slug
+                                ? ($language === 'en'
+                                    ? route('store_details', ['slug' => $storeSlug])
+                                    : route('store_details.withLang', ['lang' => $language, 'slug' => $storeSlug]))
+                                : '#';
+                        @endphp
+                        <a href="{{ $storeurl }}" class="anchor-search h-100 d-block">
+                            <div class="position-relative">
+                                <img src="{{ $store->store_image ?
+                                            asset('uploads/stores/' . $store->store_image) :
+                                            asset('front/assets/images/no-image-found.jpg') }}"
+                                     class="card-img-top">
+                                <div class="position-absolute bottom-0 w-100 px-3 pb-3">
+                                    <h5 class="card-title mb-0">{{ $store->name }}</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            @endforeach
+        @endif
+    </div>
+
+    <div class="d-flex justify-content-center mt-5">
+        {{ $stores->links('vendor.pagination.custom') }}
     </div>
 </div>
 
-<br><br>
-@include('components.footer')
+
 <script>
-        document.addEventListener('copy', function(e) {
-    e.preventDefault();
-    alert('Copying is disabled on this page.');
-});
 
-document.addEventListener('contextmenu', function(e) {
-    if (e.target.tagName === 'IMG') {
+    // Add copy protection with nicer alerts
+    document.addEventListener('copy', function(e) {
         e.preventDefault();
-        alert('Saving images is disabled on this website.');
-    }
-});
+        Swal.fire({
+            icon: 'info',
+            title: 'Copying Disabled',
+            text: 'Copying content is not allowed on this page',
+            confirmButtonText: 'Okay'
+        });
+    });
 
-
+    document.addEventListener('contextmenu', function(e) {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'warning',
+                title: 'Right-click Disabled',
+                text: 'Saving images is not permitted',
+                confirmButtonText: 'Understood'
+            });
+        }
+    });
 </script>
-</body>
-</html>
+
+@endsection

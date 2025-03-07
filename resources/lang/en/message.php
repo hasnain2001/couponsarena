@@ -23,7 +23,7 @@ return [
     'Terms and Condition' => 'Terms and Condition',
     'Cookies Policy' => 'Cookies Policy',
     'Imprint' => 'Imprint',
-    'Copyright &copy; 2024 couponsarena.com - All rights reserved'=> 'Copyright &copy; 2024 couponsarena.com - All rights reserved',
+    'Copyright &copy; 2024 couponsarena.com - All rights reserved'=> 'Copyright &copy; ' . date('Y') . ' couponsarena.com - All rights reserved',
 
 
     //for contact page /

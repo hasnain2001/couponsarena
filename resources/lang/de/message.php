@@ -23,7 +23,7 @@ return [
     'Terms and Condition' => 'Geschäftsbedingungen',
     'Cookies Policy' => 'Cookie-Richtlinie',
     'Imprint' => 'Impressum',
-    'Copyright &copy; 2024 couponsarena.com - All rights reserved' => 'Urheberrecht &copy; 2024 couponsarena.com - Alle Rechte vorbehalten',
+    'Copyright &copy; 2024 couponsarena.com - All rights reserved' => 'Urheberrecht &copy; ' . date('Y') . ' couponsarena.com - Alle Rechte vorbehalten',
 
     // for contact page
     'contact-us ' => 'Kontaktieren Sie uns',

@@ -12,6 +12,14 @@
         .no-scroll {
             overflow: hidden;
         }
+
+    .loading-spinner {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+    }
     </style>
 </head>
 <body>
@@ -127,12 +135,23 @@
             </div>
         </div>
     </div>
+<!-- Loading Spinner -->
+<div class="loading-spinner" id="loadingSpinner">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
 
     <button onclick="topFunction()" id="myBtn" title="Go to top">
         <i class="fas fa-chevron-up"></i>
     </button>
 
     <script>
+            // Hide loading spinner when content is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('loadingSpinner').style.display = 'none';
+    });
+
         // Scroll to Top Button
         function topFunction() {
             document.body.scrollTop = 0;

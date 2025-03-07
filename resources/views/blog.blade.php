@@ -1,43 +1,16 @@
-
-<?php
-header("X-Robots-Tag:index, follow");
-?>
-<!doctype html>
-<html lang="en">
-<head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-<title>Blog- Best Deals and Discounts |CouponsArena</title>
-<meta name="description" content="Find the best deals, discounts, and coupons on CouponsArena. Save money on your favorite products from top brands.">
-
-<meta name="keywords" content="deals, discounts, coupons, savings, affiliate marketing">
-
-<meta name="author" content="John Doe">
-<meta name="robots" content="index, follow">
-
-<link rel="canonical" href="https://CouponsArena.com/blog">
-
-<link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
-<!-- Styles -->
-<link rel="stylesheet" href="{{asset('cssfile/styles.css')}}">
-        <link rel="stylesheet" href="{{asset('cssfile/blog.css')}}">
-
-<link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+@extends('main')
+@section('title', 'The Real Deal by ' . config('app.name') . ': Daily Savings, Buying Guides & Expert Reviews')
+@section('description','Get savings tips, smart shopping advice and deals from ' . config('app.name') . 's blog, The Real Deal. Read consumer news, product reviews and gift guides for all occasions.')
 
 <style>
-.sidebar{background-color:#f8f9fa}.frugal-heaven-text{color:#676a6df5}.list-group-item{border:none;padding:15px 10px;transition:background-color .3s}.list-group-item:hover{background-color:#e9ecef}.btn-dark{background-color:#343a40;border:none}.btn-dark:hover{background-color:#495057}.rounded-circle{border:1px solid #343a40}
-.frugal-heaven-text-name{color:#495057 }
-</style>
+    .sidebar{background-color:#f8f9fa}.frugal-heaven-text{color:#676a6df5}.list-group-item{border:none;padding:15px 10px;transition:background-color .3s}.list-group-item:hover{background-color:#e9ecef}.btn-dark{background-color:#343a40;border:none}.btn-dark:hover{background-color:#495057}.rounded-circle{border:1px solid #343a40}
+    .frugal-heaven-text-name{color:#495057 }
+    </style>
 
-</head>
-<body>
-@include('components.navbar')
-<br>
+@section('main-content')
+
+
+
 
 
 <div class="container">
@@ -130,13 +103,6 @@ header("X-Robots-Tag:index, follow");
 
 </div>
 
-<br><br>
-<div class="container">
+@endsection
 
-</div>
 
-@include('components.footer')
-
-<script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
-</body>
-</html>

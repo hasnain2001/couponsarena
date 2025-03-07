@@ -1,36 +1,10 @@
-<?php
-header("X-Robots-Tag:index, follow");
-?>
-<!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Categories  - Best Deals and Discounts |CouponsArena</title>
-     <meta name="description" content="Find the best deals, discounts, and coupons on CouponsArena. Save money on your favorite products from top brands.">
-
- <meta name="keywords" content="deals, discounts, coupons, savings, affiliate marketing">
-
-  <meta name="author" content="John Doe">
- <meta name="robots" content="index, follow">
-
-<link rel="canonical" href="https://CouponsArena.com/categories">
-<!-- Fonts -->
-
-     <link rel="shortcut icon" href="{{ asset('images/favicon.png')}}" type="image/x-icon">
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-
-        <!-- Styles -->
+@extends('main')
+@section('title','Categories- Best Deals and Discounts ')
+@section('description','Find the best deals, discounts, and coupons on CouponsArena. Save money on your favorite products from top brands.')
+@section('keywords','deals, discounts, coupons, savings, affiliate marketing')
+@section('main-content')
 
                 <link rel="stylesheet" href="{{asset('cssfile/categories.css')}}">
-
-</style>
-
-
-</head>
-<body class="body">
-@include('components.navbar')
 
 
      <div class="main_content">
@@ -84,7 +58,4 @@ header("X-Robots-Tag:index, follow");
       </div>
 
 
-<x-footer/>
-
-</body>
-</html>
+@endsection

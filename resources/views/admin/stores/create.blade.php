@@ -146,7 +146,7 @@
         </select>
         </div>
         <div class="form-group">
-            <label for="about">AboutDescription</label>
+            <label for="about">About Description</label>
             <textarea name="about" id="about" class="form-control" cols="30" rows="3"
             style="resize: none;" required>{{ old('about') }}</textarea>
             </div>

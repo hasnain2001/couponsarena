@@ -1,54 +1,38 @@
-<?php
-header("X-Robots-Tag:index, follow");
-?>
-<!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+@extends('main')
+@section('title')
+@lang('Privacy.bread-crumb') - Best Deals and Discounts | CouponsArena
+@endsection
+@section('description')
+Find the best deals, discounts, and coupons on CouponsArena. Save money on your favorite products from top brands.
+@endsection
+@section('keywords','deals, discounts, coupons, savings, affiliate marketing')
+    <style>
+           .privacy .fas {
+            color: rgb(0, 140, 255);
+            }
 
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>@lang('Privacy.bread-crumb') - Best Deals and Discounts | CouponsArena</title>
-<meta name="description" content="Find the best deals, discounts, and coupons on CouponsArena. Save money on your favorite products from top brands.">
-<meta name="keywords" content="deals, discounts, coupons, savings, affiliate marketing">
-<meta name="author" content="John Doe">
-<meta name="robots" content="index, follow">
+            .container {
+            font-family: Arial, sans-serif;
+            margin-top: 20px;
+            }
 
-<link rel="canonical" href="@yield('canonical', url()->current())">
-<link rel="stylesheet" href="{{ asset('cssfile/styles.css') }}">
-<link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
-<link rel="icon" href="{{ asset('front/assets/images/logo-01.png') }}" type="image/x-icon">
+            .list-group-item i {
+            margin-right: 10px;
+            }
 
+            .h2 {
+            margin-top: 30px;
+            }
 
+            .key-points {
+            margin-top: 20px;
+            }
+    </style>
+    @section('main-content')
 
-<style>
-.fas {
-color: rgb(0, 140, 255);
-}
-
-.container {
-font-family: Arial, sans-serif;
-margin-top: 20px;
-}
-
-.list-group-item i {
-margin-right: 10px;
-}
-
-.h2 {
-margin-top: 30px;
-}
-
-.key-points {
-margin-top: 20px;
-}
-</style>
-</head>
-
-<body>
-@include('components.navbar')
 
 <div class="container">
-<nav aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 0.25rem; padding: 10px;">
+<nav class=" breadcrumb" aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 0.25rem; padding: 10px;">
 <ol class="breadcrumb mb-0">
 <li class="breadcrumb-item">
 <a href="{{ url(app()->getLocale() . '/') }}" class="text-decoration-none text-primary" style="font-weight: 500;">@lang('message.home')</a>
@@ -56,7 +40,7 @@ margin-top: 20px;
 <li class="breadcrumb-item active" aria-current="page" style="font-weight: 600; color: #6c757d;">@lang('Privacy.bread-crumb')</li>
 </ol>
 </nav>
-<div class="container bg-light ">
+<div class="container text-dark ">
     <div class="text-center">
         {{-- <div class="image-container">
             <img src="{{asset('images/contact.png')}}" alt="Image" class=" pri img-fluid shadow border-info" />
@@ -65,7 +49,7 @@ margin-top: 20px;
 
       <h1 class="mt-3 mb-4">@lang('Privacy.heading-1')</h1>
     </div>
-  
+
     <div class="row">
       <div class="col-md-12 mx-auto mb-4">
         <p>
@@ -74,121 +58,117 @@ margin-top: 20px;
         <span class="text-center fw-bold">@lang('Privacy.span-1')</span>
       </div>
     </div>
-  
+
+<section class=" privacy">
     <div class="row">
-      <div class="col-md-18 mx-auto">
-        <h2>@lang('Privacy.heading-2')</h2>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <span class="me-3">
-                <i class="fas fa-user-circle text-primary fs-4"></i>@lang('Privacy.span-2')
-              </span>
-              <span class="badge bg-primary rounded-pill">@lang('Privacy.p-2')</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <span class="me-3">
-                <i class="fas fa-shield-alt text-primary fs-4"></i> @lang('Privacy.span-3')
-              </span>
-              <span class="badge bg-primary rounded-pill">@lang('Privacy.p-3')</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <span class="me-3">
-                <i class="fas fa-link text-primary fs-4"></i> @lang('Privacy.span-4')
-              </span>
-              <span class="badge bg-primary rounded-pill">@lang('Privacy.p-4')</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <span class="me-3">
-                <i class="fas fa-cog text-primary fs-4"></i> @lang('Privacy.span-5')
-              </span>
-              <p class="ms-auto mb-0">@lang('Privacy.p-5')</p>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <span class="me-3">
-                <i class="fas fa-user-friends text-primary fs-4"></i> @lang('Privacy.span-6')
-              </span>
-              <p class="ms-auto mb-0">@lang('Privacy.p-6')</p>
-            </li>
-         
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <span class="me-3">
-                    <i class="fas fa-shield-alt text-primary fs-4"></i>@lang('Privacy.span-7')
-                  </span>
-  <p class="ms-auto mb-0">@lang('Privacy.p-7')</p>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <span class="me-3">
-                    <i class="fas fa-balance-scale text-primary fs-4"></i>@lang('Privacy.span-8')
-                  </span>
-<p class="ms-auto mb-0">@lang('Privacy.p-8')</p>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <span class="me-3">
-                    <i class="fas fa-sign-out-alt text-primary fs-4"></i> @lang('Privacy.span-9')
-                  </span>
-                  <p class="ms-auto mb-0">@lang('Privacy.p-9')</p>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <span class="me-3">
-                    <i class="fas fa-user-edit text-primary fs-4"></i> @lang('Privacy.span-10')
-                  </span>
-                  <p class="ms-auto mb-0">@lang('Privacy.p-10')</p>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <span class="me-3">
-                    <i class="fas fa-cookie-bite text-primary fs-4"></i>@lang('Privacy.span-11')
-                  </span>
-                  <p class="ms-auto mb-0">@lang('Privacy.p-11')</p>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <span class="me-3">
-                    <i class="fas fa-ban text-primary fs-4"></i> @lang('Privacy.span-12')
-                  </span>
-                  <p class="ms-auto mb-0">@lang('Privacy.p-12')</p>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <span class="me-3">
-                    <i class="fas fa-map-marker-alt text-primary fs-4"></i>@lang('Privacy.span-13')
-                  </span>
-                  <p class="ms-auto mb-0">@lang('Privacy.p-13')</p>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <span class="me-3">
-                    <i class="fas fa-sync-alt text-primary fs-4"></i>@lang('Privacy.span-14')
-                  </span>
-                  <p class="ms-auto mb-0">@lang('Privacy.p-14')</p>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <span class="me-3">
-                    <i class="fas fa-envelope text-primary fs-4"></i>@lang('Privacy.span-15')
-                  </span>
-                  <p class="ms-auto mb-0">@lang('Privacy.p-15') <a href="mailto: contact@CouponsArena.com"> contact@CouponsArena.com</a>.</p>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <span class="me-3">
-                    <i class="fas fa-file-alt text-primary fs-4"></i> @lang('Privacy.span-16')
-                  </span>
-                  <p class="ms-auto mb-0">@lang('Privacy.p-16')</p>
-                </li>
-          
-              
-            </ul>
-          
+        <div class="col-md-18 mx-auto">
+          <h2>@lang('Privacy.heading-2')</h2>
+          <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="me-3">
+                  <i class="fas fa-user-circle text-primary fs-4"></i>@lang('Privacy.span-2')
+                </span>
+                <span class="badge bg-primary rounded-pill">@lang('Privacy.p-2')</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="me-3">
+                  <i class="fas fa-shield-alt text-primary fs-4"></i> @lang('Privacy.span-3')
+                </span>
+                <span class="badge bg-primary rounded-pill">@lang('Privacy.p-3')</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="me-3">
+                  <i class="fas fa-link text-primary fs-4"></i> @lang('Privacy.span-4')
+                </span>
+                <span class="badge bg-primary rounded-pill">@lang('Privacy.p-4')</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="me-3">
+                  <i class="fas fa-cog text-primary fs-4"></i> @lang('Privacy.span-5')
+                </span>
+                <p class="ms-auto mb-0">@lang('Privacy.p-5')</p>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="me-3">
+                  <i class="fas fa-user-friends text-primary fs-4"></i> @lang('Privacy.span-6')
+                </span>
+                <p class="ms-auto mb-0">@lang('Privacy.p-6')</p>
+              </li>
+
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="me-3">
+                      <i class="fas fa-shield-alt text-primary fs-4"></i>@lang('Privacy.span-7')
+                    </span>
+                  <p class="ms-auto mb-0">@lang('Privacy.p-7')</p>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="me-3">
+                      <i class="fas fa-balance-scale text-primary fs-4"></i>@lang('Privacy.span-8')
+                    </span>
+                   <p class="ms-auto mb-0">@lang('Privacy.p-8')</p>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="me-3">
+                      <i class="fas fa-sign-out-alt text-primary fs-4"></i> @lang('Privacy.span-9')
+                    </span>
+                    <p class="ms-auto mb-0">@lang('Privacy.p-9')</p>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="me-3">
+                      <i class="fas fa-user-edit text-primary fs-4"></i> @lang('Privacy.span-10')
+                    </span>
+                    <p class="ms-auto mb-0">@lang('Privacy.p-10')</p>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="me-3">
+                      <i class="fas fa-cookie-bite text-primary fs-4"></i>@lang('Privacy.span-11')
+                    </span>
+                    <p class="ms-auto mb-0">@lang('Privacy.p-11')</p>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="me-3">
+                      <i class="fas fa-ban text-primary fs-4"></i> @lang('Privacy.span-12')
+                    </span>
+                    <p class="ms-auto mb-0">@lang('Privacy.p-12')</p>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="me-3">
+                      <i class="fas fa-map-marker-alt text-primary fs-4"></i>@lang('Privacy.span-13')
+                    </span>
+                    <p class="ms-auto mb-0">@lang('Privacy.p-13')</p>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="me-3">
+                      <i class="fas fa-sync-alt text-primary fs-4"></i>@lang('Privacy.span-14')
+                    </span>
+                    <p class="ms-auto mb-0">@lang('Privacy.p-14')</p>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="me-3">
+                      <i class="fas fa-envelope text-primary fs-4"></i>@lang('Privacy.span-15')
+                    </span>
+                    <p class="ms-auto mb-0">@lang('Privacy.p-15') <a href="mailto: contact@CouponsArena.com"> contact@CouponsArena.com</a>.</p>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="me-3">
+                      <i class="fas fa-file-alt text-primary fs-4"></i> @lang('Privacy.span-16')
+                    </span>
+                    <p class="ms-auto mb-0">@lang('Privacy.p-16')</p>
+                  </li>
+
+
+              </ul>
+
+        </div>
       </div>
-    </div>
-  
-   
-  
-   
+</section>
+
+
+
+
   </div>
-  
+
 
 </div>
 </div>
-<br><br>
-@include('components.footer')
-
-
-</body>
-
-</html>
+@endsection

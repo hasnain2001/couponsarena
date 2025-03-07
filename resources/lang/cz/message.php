@@ -23,7 +23,7 @@ return [
     'Terms and Condition' => 'Podmínky použití',
     'Cookies Policy' => 'Zásady používání cookies',
     'Imprint' => 'Impresum',
-    'Copyright &copy; 2024 couponsarena.com - All rights reserved' => 'Copyright &copy; 2024 couponsarena.com - Všechna práva vyhrazena',
+    'Copyright &copy; 2024 couponsarena.com - All rights reserved' => 'Copyright &copy; ' . date('Y') . ' couponsarena.com - Všechna práva vyhrazena',
 
     // pro kontaktní stránku /
     'contact-us ' => 'Kontaktujte nás',

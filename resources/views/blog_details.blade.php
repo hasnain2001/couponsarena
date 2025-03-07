@@ -1,29 +1,21 @@
-<?php
-header("X-Robots-Tag:index, follow");
-?><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-   <!-- Your custom meta tags go here -->
-   <title>{!! $blog->meta_title !!}</title>
-    <link rel="canonical" href="{{ url()->current() }}">
-        <meta name="description" content="{!! $blog->meta_description !!}">
-
- <meta name="keywords" content="{!! $blog->meta_keyword !!}">
- <meta http-equiv="Content-Type" content="">
- <meta name="robots" content="index, follow">
- <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
- <!----Custom Css ------>
- <link rel="stylesheet" href="{{ asset('cssfile/blog-detail.css') }}">
+@extends('main')
+@section('title',)
+{{ $blog->meta_title }}
+@endsection
+@section('description')
+{{ $blog->meta_description}}
+@endsection
+@section('keywords')
+{{ $blog->meta_keyword }}
+@endsection
+@section('main-content')
  <style>
   .blog-title {
     font-size: 30px;
     font-weight: 400;
     color: #333;
     margin-bottom: 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
   /* Ensure the image fits perfectly inside the circular div */
 .store-image {
@@ -48,9 +40,8 @@ header("X-Robots-Tag:index, follow");
     }
 }
  </style>
- </head>
-<body class="body">
-@include('components.navbar')
+
+
 <div class="container">
     <nav aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 0.25rem; padding: 10px;">
         <ol class="breadcrumb mb-0">
@@ -106,11 +97,11 @@ header("X-Robots-Tag:index, follow");
 <!-- Store Name -->
                 <p class="text-capitalize text-dark">{{ $store->name }}</p>
                       </a>
-         
+
             <a href="{{ $storeurl }}" class="btn btn-dark btn-sm">
                     Visit Store
                 </a>
-       
+
 
             </div>
           @endforeach
@@ -119,10 +110,4 @@ header("X-Robots-Tag:index, follow");
     </div>
   </div>
 </div>
-
-@include('components.footer')
-
-
-
-</body>
-</html>
+@endsection

@@ -2,18 +2,18 @@
 
     padding: 5%;
     }
-    .coupon-card {
+    .coupon-card-home {
     transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out, border 0.5s ease-in-out;
     }
-    
-    .coupon-card:hover {
+
+    .coupon-card-home:hover {
     transform: scale(1.05);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Larger shadow with a darker color */
     border: 2px solid #151618;
     }
-    
-    
-    
+
+
+
     .coupon-image {
     width: 100%;
     height: 150px;
@@ -22,7 +22,7 @@
     background-color: #f9f9f9;
     border-bottom: 1px solid #ddd;
     }
-    
+
     .no-image-placeholder {
     height: 150px;
     display: flex;
@@ -30,13 +30,13 @@
     align-items: center;
     background-color: #f8f9fa;
     }
-    
+
     .coupon-body {
     text-align: left;
     padding-left: 12px;
     padding-right: 12px;
     }
-    
+
     .btn {
     background-color: #060607;
     color: white;
@@ -45,7 +45,7 @@
     background-color: #252f38;
     color: rgb(255, 255, 255);
     }
-    
+
     .modal-content {
     background: #f7f7f7;
     }
@@ -63,51 +63,51 @@
     background-color: #dbdbdb;
     border-radius:5%;
     }
-    
+
     .card-body-store {
     height: 100%; /* Ensure the store name takes full height */
     padding: 15px;
     }
     .top-store-name {
-    white-space: nowrap; 
-    overflow: hidden; 
-    text-overflow:ellipsis; 
-    max-width: 100%; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    max-width: 100%;
     }
     @media (max-width: 768px) {
     .top-store-name {
-    white-space: normal; 
+    white-space: normal;
     }
     }
-    
+
         .carousel {
        margin-left: 2.5%;
        margin-top: 1%;
         width: 95%;
             z-index: 0;
         }
-    
+
         .slider-image {
             width: 100%;
             height: 350px;
         }
-    
+
         .carousel-item {
             transition: transform 0.5s ease-in-out;
         }
-    
+
         .carousel-control-prev-icon,
         .carousel-control-next-icon {
             filter: invert(100%);
             width: 40px;
             height: 40px;
         }
-    
+
         .carousel-inner {
             border-radius: 10px;
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
         }
-    
+
         .custom-carousel-indicators button {
             background-color: #fff;
             border-radius: 50%;
@@ -115,7 +115,7 @@
             height: 12px;
             margin: 4px;
         }
-    
+
         .custom-carousel-indicators .active {
             background-color: #ff6347; /* Change this color for an attractive look */
         }
@@ -124,13 +124,13 @@
     height: 300px; /* Slightly smaller for medium-sized screens */
     }
     }
-    
+
     @media only screen and (max-width: 768px) {
     .slider-image {
     height: 250px; /* Adjust for tablets */
     }
     }
-    
+
     @media only screen and (max-width: 576px) {
     .slider-image {
     height: 200px; /* Adjust for smaller mobile devices */

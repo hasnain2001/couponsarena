@@ -158,9 +158,9 @@
 }
 
 /* General styles for the coupon image */
-.stores-img {
-    max-width: 80px;
-    max-height: 80px;
+.store-img {
+    width:150px ;
+    height: 80px;
     object-fit: fill;
 }
 
@@ -169,7 +169,7 @@
     .get{
         width: 100%;
     }
-    .stores-img{
+    .store-img{
         object-fit: fill;
     }
     .getcode{

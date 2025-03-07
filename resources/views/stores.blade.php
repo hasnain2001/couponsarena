@@ -1,42 +1,12 @@
-<?php
-header("X-Robots-Tag:index, follow");
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stores - Best Deals and Discounts |CouponsArena</title>
-     <meta name="keywords" content="deals, discounts, coupons, savings, affiliate marketing">
 
-       <meta name="author" content="John Doe">
- <meta name="robots" content="index, follow">
-
-    <!-- Styles -->
-     <meta name="description" content="Find the best deals, discounts, and coupons on CouponsArena. Save money on your favorite products from top brands.">
-<link rel="canonical" href="https://CouponsArena.com/stores">
-
-<link rel="shortcut icon" href="{{ asset('images/favicon.png')}}" type="image/x-icon">
-
-           <style>
-.my-pagination{flex-wrap:wrap}.my-pagination .page-item{margin:5px}.my-pagination .page-link{border:1px solid #ddd;border-radius:50%;padding:10px 15px;color:#007bff;transition:background-color .3s,color .3s}.my-pagination .page-link:hover{background-color:red;color:#fff;text-decoration:none}.my-pagination .page-item.active .page-link{background-color:#007bff;border-color:#007bff;color:#fff}@media (max-width:768px){.my-pagination .page-link{padding:8px 12px;font-size:14px}}@media (max-width:576px){.my-pagination .page-link{padding:6px 10px;font-size:12px}}.card-list{display:flex;flex-wrap:wrap;justify-content:center}.card-link{display:block;color:inherit;text-decoration:none}.card{transition:transform .2s}.card:hover{transform:translateY(-5px)}.stores-img{width:150px;height:150px;object-fit:fill;border-radius:5%}.card-title{font-size:18px;color:#333;margin-top:15px;text-align:center}@media (max-width:768px){.card-list .col-sm-12{margin-bottom:20px}.card-title{font-size:16px}}
-</style>
-</head>
-<body class="body">
-    <!--navbar -->
-@include('components.navbar')
-    <!--navbar -->
-
-    {{-- <ul class="pagination justify-content-center my-pagination">
-        @foreach(range('A', 'Z') as $letter)
-            <li class="page-item">
-                <a class="page-link" href="{{ route('stores', ['letter' => $letter]) }}">{{ $letter }}</a>
-            </li>
-        @endforeach
-    </ul> --}}
-
-
-
+@extends('main')
+@section('title', 'Top Stores - Best Deals, Discounts, and Coupons')
+@section('description', 'Find the best deals, discounts, and coupons on CouponsArena. Save money on your favorite products from top brands.')
+@section('keywords', 'stores, deals, discounts, coupons, offers, promo codes, vouchers, savings, shopping, brands, products, online, in-store', 'best deals, discounts, coupons, offers, promo codes, vouchers, savings, shopping, brands, products, online, in-store','deals, discounts, coupons, savings, affiliate marketing, shopping, brands, products, online, in-store')
+<style>
+    .my-pagination{flex-wrap:wrap}.my-pagination .page-item{margin:5px}.my-pagination .page-link{border:1px solid #ddd;border-radius:50%;padding:10px 15px;color:#007bff;transition:background-color .3s,color .3s}.my-pagination .page-link:hover{background-color:red;color:#fff;text-decoration:none}.my-pagination .page-item.active .page-link{background-color:#007bff;border-color:#007bff;color:#fff}@media (max-width:768px){.my-pagination .page-link{padding:8px 12px;font-size:14px}}@media (max-width:576px){.my-pagination .page-link{padding:6px 10px;font-size:12px}}.card-list{display:flex;flex-wrap:wrap;justify-content:center}.card-link{display:block;color:inherit;text-decoration:none}.card{transition:transform .2s}.card:hover{transform:translateY(-5px)}.stores-img{width:150px;height:150px;object-fit:fill;border-radius:5%}.card-title{font-size:18px;color:#333;margin-top:15px;text-align:center}@media (max-width:768px){.card-list .col-sm-12{margin-bottom:20px}.card-title{font-size:16px}}
+    </style>
+@section('main-content')
 <div class="container">
 
     <nav aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 0.25rem; padding: 10px;">
@@ -88,14 +58,8 @@ header("X-Robots-Tag:index, follow");
             </div>
         @endforelse
     </div>
-{{--
-    {{$stores->links('vendor.pagination.bootstrap-5')  }} --}}
+
     {{ $stores->links('vendor.pagination.custom') }}
 </div>
 
-
-<br>
-@include('components.footer')
-
-</body>
-</html>
+@endsection

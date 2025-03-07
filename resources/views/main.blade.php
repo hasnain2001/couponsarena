@@ -6,7 +6,7 @@ header("X-Robots-Tag:index, follow");
     <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CouponsArena @yield('title') | Latest Discount Codes of 2024</title>
+    <title> @yield('title')| {{config("app.name")}}</title>
     <link rel="shortcut icon" href="{{ asset('images/favicon.png')}}" type="image/x-icon">
     <!--<meta http-equiv="refresh" content="70">-->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -16,13 +16,20 @@ header("X-Robots-Tag:index, follow");
     <meta name="keywords" content="@yield('keywords')">
 
     <meta name="author" content="Uzair">
+    <link rel="stylesheet" href="@yield('style')">
+    <link rel="stylesheet" href="{{asset('cssfile/storedetail.css')}}">
     <meta name="robots" content="index, follow">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('bootstrap-5.0.2-dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap-5.0.2-dist/css/bootstrap.min.css') }}" >
     <link rel="stylesheet" href="{{asset('cssfile/home.css')}}">
+    <!-- Styles -->
+<link rel="stylesheet" href="{{asset('cssfile/styles.css')}}">
+<link rel="stylesheet" href="{{asset('cssfile/blog.css')}}">
+<link rel="stylesheet" href="{{ asset('cssfile/related-category.css') }}">
+
     <!-- Google tag (gtag.js) -->
     <meta name="verify-admitad" content="f0d873ca8d" />
     <meta name="63711d15cd5e7aa" content="31f76a5fad0bded704d8c077fe66a830" />

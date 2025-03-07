@@ -23,7 +23,7 @@ return [
     'Terms and Condition' => 'Villkor och Bestämmelser',
     'Cookies Policy' => 'Cookiepolicy',
     'Imprint' => 'Impressum',
-    'Copyright &copy; 2024 couponsarena.com - All rights reserved' => 'Copyright &copy; 2024 couponsarena.com - Alla rättigheter förbehållna',
+    'Copyright &copy; 2024 couponsarena.com - All rights reserved' => 'Copyright &copy; ' . date('Y') . ' couponsarena.com - Alla rättigheter förbehållna',
 
     // För kontaktsidan
     'contact-us ' => 'Kontakta oss',

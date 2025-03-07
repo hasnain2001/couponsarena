@@ -26,18 +26,15 @@ Route::get('/{lang}/stores', 'stores')->name('store.show');
 Route::get('store/{slug}', function($slug) {return app(HomeController::class)->StoreDetails('en', $slug, request());})->name('store_details');
 Route::get('/{lang}/store/{slug}', [HomeController::class, 'StoreDetails'])->name('store_details.withLang');
 Route::get('/category/{slug}', [HomeController::class, 'viewcategory'])->name('related_category');
-Route::get('/categories', 'categories')->name('categories');
+
 Route::get('/{lang}/blog', 'blog_home')->name('blog');
-
-
-
 Route::get('/blog/{slug}',function($slug) {return app(HomeController::class)->blog_show('en', $slug, request());})->name('blog-details');
-Route::get('/{lang}/blog/{slug}', 'blog_show')->name('blog-details,withLang');
-
+Route::get('/{lang}/blog/{slug}', 'blog_show')->name('blog-details.withLang');
 });
 });
 
    // Route for search
+   Route::get('/category', [HomeController::class,'categories'])->name('categories');
    Route::get('/search', [SearchController::class, 'search'])->name('search');
    Route::get('/search_results', [SearchController::class, 'searchResults'])->name('search_results');
 

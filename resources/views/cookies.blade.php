@@ -1,14 +1,13 @@
-<!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@lang('cookies/message.cookies_title') | CouponsArena</title>
-    <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
-</head>
-<body>
-@include('components.navbar')
+@extends('main')
+@section('title')
+@lang('cookies/message.cookies_title')
+@endsection
+@section('description')
+Find the best deals, discounts, and coupons on CouponsArena. Save money on your favorite products from top brands.
+@endsection
+@section('keywords','deals, discounts, coupons, savings, affiliate marketing')
+@section('main-content')
+
 
 <div class="container my-5">
     <nav aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 0.25rem; padding: 10px;">
@@ -45,11 +44,4 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<br>
-@include('components.footer')
-</body>
-</html>
+@endsection
