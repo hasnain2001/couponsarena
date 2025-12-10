@@ -1,117 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Not Found</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+@extends('main')
+@section('title','Page Not Found - 404 Error')
+@section('description','The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.')
+@section('main-content')
+<div class="error-page-wrapper">
+    <div class="container">
+        <div class="error-content text-center py-8">
+            <!-- Animated 404 Graphic -->
+            <div class="error-graphic mb-5">
+                <div class="error-number">
+                    <span class="number-4">4</span>
+                    <div class="floating-planet">
+                        <div class="planet"></div>
+                    </div>
+                    <span class="number-4">4</span>
+                </div>
+            </div>
 
-    <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
-  
-    <style>
-  .conatain{
+            <!-- Error Message -->
+            <div class="error-message mb-5">
+                <h1 class="error-title">Oops! Page Not Found</h1>
+                <p class="error-description lead">
+                    The page you are looking for might have been removed, had its name changed, 
+                    or is temporarily unavailable.
+                </p>
+            </div>
 
-padding: 5%;
-}
-.coupon-card {
-transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out, border 0.5s ease-in-out;
-}
+            <!-- Action Buttons -->
+            <div class="error-actions mb-6">
+                <div class="row g-3 justify-content-center">
+                    <div class="col-auto">
+                        <button onclick="history.back()" class="btn btn-primary btn-lg">
+                            <i class="fas fa-arrow-left me-2"></i>Go Back
+                        </button>
+                    </div>
+                    <div class="col-auto">
+                        <a href="/" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-home me-2"></i>Home Page
+                        </a>
+                    </div>
+                    <div class="col-auto">
+                        <a href="/contact" class="btn btn-outline-dark btn-lg">
+                            <i class="fas fa-envelope me-2"></i>Contact Support
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-.coupon-card:hover {
-transform: scale(1.05);
-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Larger shadow with a darker color */
-border: 2px solid #0054a6;
-}
+            <!-- Quick Links -->
+            <div class="quick-links mt-6">
+                <h5 class="mb-4">You might be looking for:</h5>
+                <div class="row g-3 justify-content-center">
+                    <div class="col-md-3 col-6">
+                        <a href="{{ route('store.show', ['lang' => app()->getLocale()]) }}" class="quick-link-card">
+                            <i class="fas fa-store fa-2x mb-3"></i>
+                            <span>Popular Stores</span>
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <a href="{{ route('blog', ['lang' => app()->getLocale()]) }}" class="quick-link-card">
+                            <i class="fas fa-blog fa-2x mb-3"></i>
+                            <span>Blog Posts</span>
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <a href="{{ route('categories') }}" class="quick-link-card">
+                            <i class="fas fa-tags fa-2x mb-3"></i>
+                            <span>Categories</span>
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <a href="{{ route('coupons', ['lang' => app()->getLocale()]) }}" class="quick-link-card">
+                            <i class="fas fa-percent fa-2x mb-3"></i>
+                            <span>Hot Deals</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Search Bar -->
+            <div class="error-search mt-6">
+                <h6 class="mb-3">Or search for what you need:</h6>
+                <div class="search-container mx-auto" style="max-width: 500px;">
 
+                    <form id="searchForm" action="{{ route('storesearch') }}" method="GET" class="d-flex" role="search">
+                        <input type="text" name="query" id="searchInput" class="form-control form-control-lg me-2" 
+                               placeholder="@lang('message.search')">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
 
-.coupon-image {
-width: 100%;
-height: 150px;
-object-fit: contain;
-padding: 10px;
-background-color: #f9f9f9;
-border-bottom: 1px solid #ddd;
-}
-
-.no-image-placeholder {
-height: 150px;
-display: flex;
-justify-content: center;
-align-items: center;
-background-color: #f8f9fa;
-}
-
-.coupon-body {
-text-align: left;
-padding-left: 12px;
-padding-right: 12px;
-}
-.button{
-  background-color: #0054a6;
-color: white;
-}
-.btn{
-background-color: #0054a6;
-color: white;
-}
-.btn:hover{
- background-color: #237cd4;
- color: black;
-}
-
-.modal-content {
-background: #f7f7f7;
-}
-.title{
- color: #0054a6;
-}
-.top-store-name{
- color: #1e1e1f;
- font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
- font-size: 14px;
- padding: 5px 5px 5px 0;
-}
-.card-body-store{
- color: #1e1e1f;
- background-color: #dbdbdb;
- border-radius:5%;
-}
-
-.card-body-store {
-height: 100%; /* Ensure the store name takes full height */
-padding: 15px;
-}
-.top-store-name {
-white-space: nowrap; 
-overflow: hidden; 
-text-overflow:ellipsis; 
-max-width: 100%; 
-}
-@media (max-width: 768px) {
-.top-store-name {
-   white-space: normal; 
-}
-}
-    </style>
-</head>
-<body>
-   <x-navbar/>
-    <br>
-    <div class="container py-6">
-    <div class="error-container">
-        <h1>404</h1>
-        <h2>Oops! The page you're looking for isn't here.</h2>
-        <p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
-        <a href="javascript:void(0);" class=" btn btn-dark " onclick="history.back();">Go to Previous Page</a>
-
-    </div> </div> 
-<br><br>
-
-
-    <footer>
-        @include('components.footer')
-    </footer>
-    <script src="{{ asset('js/home.js') }}"></script>
-</body>
-</html>
+@push('styles')
+<link rel="stylesheet" href="{{ asset('cssfile/404.css') }}">
+@endpush

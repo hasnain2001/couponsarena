@@ -1,28 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <style>
-    body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    background-image: url('{{ asset('images/38f2093dcd.png') }}');
-    filter: blur(10px);
-    -webkit-filter: blur(0);
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-
+@extends('layouts.master')
+@section('title')
+    Register
+@endsection
+@push('styles')
+<style>
+        body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        background-image: url('{{ asset('images/38f2093dcd.png') }}');
+        filter: blur(10px);
+        -webkit-filter: blur(0);
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
         /* Dark overlay for better text visibility */
@@ -83,11 +76,10 @@
                 right: 10px;
             }
         }
-    </style>
-</head>
-<body>
-
-    <div class="overlay"></div>
+</style>
+@endpush
+@section('main-content')
+<div class="overlay"></div>
 
     <div class="container d-flex justify-content-center align-items-center">
         <div class="form-container">
@@ -129,10 +121,10 @@
                             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                         </div>
 
-                    
-                    
 
-                    
+
+
+
 
                         <!-- Submit Button -->
                         <div class="d-grid gap-2">
@@ -149,6 +141,9 @@
         </div>
     </div>
 
+
+@endsection
+@push('scripts')
     <script>
         function togglePassword(id) {
             const input = document.getElementById(id);
@@ -163,5 +158,4 @@
             }
         }
     </script>
-</body>
-</html>
+@endpush

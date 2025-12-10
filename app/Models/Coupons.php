@@ -24,15 +24,19 @@ class Coupons extends Model
         'ending_date',
         'status',
         'authentication',
-        'store',
+        'store_id',
 
     ];
     protected $casts = [
         'ending_date' => 'datetime',
     ];
 
-    public function language()
-{
-    return $this->belongsTo(Language::class, 'language_id');
-}
+        public function language()
+    {
+        return $this->belongsTo(Language::class, 'language_id');
+    }
+            public function stores()
+    {
+        return $this->belongsTo(Stores::class, 'store_id');
+    }
 }

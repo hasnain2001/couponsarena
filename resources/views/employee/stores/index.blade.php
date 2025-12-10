@@ -1,4 +1,4 @@
-    @extends('employee.datatable_master')
+    @extends('employee.layouts.datatable_master')
     @section('datatable-title')
        employe  Stores
     @endsection
@@ -74,12 +74,12 @@
                 <i class="fas fa-check-circle text-success"></i>
             @endif
                             </td>
-                            
+
                             {{-- <td>{{ $store->language->code ??'No language' }}</td> --}}
 
 
-                                
-                        
+
+
                                             <td>
         <span class="  text-dark" data-bs-toggle="tooltip" title="{{ $store->created_at->setTimezone('Asia/Karachi')->format('l, F j, Y h:i A') }}">
             {{ $store->created_at->setTimezone('Asia/Karachi')->format('M d, Y h:i A') }}

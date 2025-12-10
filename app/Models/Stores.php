@@ -11,13 +11,14 @@ class Stores extends Model
     // use SoftDeletes;
     protected $fillable = [
         'language_id',
+        'network_id',
+        'category_id',
         'name',
         'slug',
         'top_store',
         'description',
-        'url',
+        'affliliate_url',
         'destination_url',
-        'category',
         'top_store',
         'title',
         'meta_tag',
@@ -25,22 +26,26 @@ class Stores extends Model
         'meta_description',
         'status',
         'authentication',
-        'network',
         'store_image',
         'content',
         'about',
     ];
 
-// Store Model
-public function category()
-{
-    return $this->belongsTo(Categories::class);
-}
+    public function categories()
+    {
+        return $this->belongsTo(Categories::class, 'category_id');
+    }
 
-public function language()
-{
-    return $this->belongsTo(Language::class, 'language_id');
-}
-
-
+    public function language()
+    {
+        return $this->belongsTo(Language::class, 'language_id');
+    }
+    public function coupons()
+    {
+        return $this->hasMany(Coupons::class);
+    }
+    public function networks()
+    {
+        return $this->belongsTo(Networks::class, 'network_id');
+    }
 }

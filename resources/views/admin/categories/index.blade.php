@@ -1,175 +1,266 @@
-@extends('admin.datatable_master')
+@extends('admin.layouts.datatable_master')
 @section('datatable-title')
-    Categories
+    Categories Management
 @endsection
 @section('datatable-content')
-    <div class="content-wrapper">
+<style>
+    .card-primary.card-outline {
+        border-top: 3px solid #007bff;
+    }
+    .table thead th {
+        vertical-align: middle;
+    }
+    .badge {
+        font-size: 0.85em;
+        font-weight: 500;
+        padding: 5px 10px;
+    }
+    .btn-group-sm > .btn {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.765625rem;
+    }
+    .dataTables_wrapper .dataTables_filter {
+        float: none;
+        text-align: right;
+    }
+    .img-thumbnail {
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    .img-thumbnail:hover {
+        transform: scale(1.05);
+    }
+    .table-hover tbody tr:hover {
+        background-color: rgba(0, 123, 255, 0.05);
+    }
+</style>
+<div class="content-wrapper">
 
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Categories</h1>
-                    </div>
-                    <div class="col-sm-6 d-flex justify-content-end">
-                        <a href="{{ route('admin.category.create') }}" class="btn btn-primary">Add New</a>
-
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="text-primary"><i class="fas fa-tags mr-2"></i>Categories</h1>
+                </div>
+                <div class="col-sm-6 d-flex justify-content-end">
+                    <div class="btn-group">
+                        <a href="{{ route('admin.category.create') }}" class="btn btn-primary">
+                            <i class="fas fa-plus-circle mr-1"></i> Add New
+                        </a>
+                        <button type="button" class="btn btn-danger" id="deleteSelectedBtn">
+                            <i class="fas fa-trash-alt mr-1"></i> Delete Selected
+                        </button>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="content">
-            <div class="container-fluid">
-                @if(session('success'))
-                    <div class="alert alert-success alert-dismissable">
-                        <i class="fa fa-ban"></i>
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <b>{{ session('success') }}</b>
-                    </div>
-                @endif
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
+    <section class="content">
+        <div class="container-fluid">
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show">
+                    <i class="icon fas fa-check-circle mr-2"></i>
+                    {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
 
-                            <div class="card-body">
-
-                              <form id="bulk-delete-form" action="{{ route('admin.category.deleteSelected') }}" method="POST">
-    @csrf
-    <div class="table-responsive">
-        <table id="SearchTable" class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th><input type="checkbox" id="select-all"></th>
-                    <th scope="col">#</th>
-                    <th>Category Name</th>
-                    <th>Category Image</th>
-
-                    <th>Status</th>
-                    <th>Added</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($categories as $category)
-                    <tr>
-                        <td><input type="checkbox" name="selected_categories[]" value="{{ $category->id }}"></td>
-                        <th scope="row">{{ $loop->iteration }}</th>
-                        <td>{{ $category->title }}</td>
-                        <td><img class=" img-thumbnail" src="{{ asset('uploads/categories/' . $category->category_image) }}" style="width:80px;"></td>
-                            {{-- <td>
-                                @if ($category->authentication == "No Auth")
-                                    <i class="fa fa-fw fa-times-circle"></i>
-                                @else
-                                    <i class="fa fa-fw fa-check-circle"></i>
-                                @endif
-                            </td> --}}
-                        <td>
-                            @if ($category->status == "disable")
-                                <i class="fa fa-fw fa-times-circle text-danger"></i>
-                            @else
-                                <i class="fa fa-fw fa-check-circle text-success"></i>
-                            @endif
-                        </td>
-                        <td>{{ $category->created_at }}</td>
-                        <td>
-                            <a href="{{ route('admin.category.edit', $category->id) }}" class="btn btn-info btn-sm">Edit</a>
-                            <a href="{{ route('admin.category.delete', $category->id) }}" onclick="return confirm('Are you sure you want to delete this!')" class="btn btn-danger btn-sm">Delete</a>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th><input type="checkbox" id="select-all-footer"></th>
-                    <th scope="col">#</th>
-                    <th>Category Name</th>
-                    <th>Category Image</th>
-                    {{-- <th>Top Category</th> --}}
-                    <th>Status</th>
-                    <th>Added</th>
-                    <th>Action</th>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete the selected categories?')">Delete Selected</button>
-</form>
-
-
-
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">All Categories</h3>
+                            <div class="card-tools">
+                                <div class="input-group input-group-sm">
+                                    {{-- <input type="text" class="form-control" placeholder="Search..." id="searchInput">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div> --}}
+                                </div>
                             </div>
-
                         </div>
+
+                        <div class="card-body">
+                            <form id="bulk-delete-form" action="{{ route('admin.category.deleteSelected') }}" method="POST">
+                                @csrf
+                                <div class="table-responsive">
+                                    <table id="SearchTable" class="table table-bordered table-striped table-hover">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th width="5%">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="select-all">
+                                                        <label class="custom-control-label" for="select-all"></label>
+                                                    </div>
+                                                </th>
+                                                <th width="5%">#</th>
+                                                <th width="25%">Category Name</th>
+                                                <th width="15%">Image</th>
+                                                <th width="10%">Status</th>
+                                                <th width="15%">Created At</th>
+                                                <th width="25%">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($categories as $category)
+                                                <tr>
+                                                    <td>
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input select-checkbox"
+                                                                   id="category-{{ $category->id }}" name="selected_categories[]"
+                                                                   value="{{ $category->id }}">
+                                                            <label class="custom-control-label" for="category-{{ $category->id }}"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>
+                                                        <strong>{{ $category->title }}</strong>
+                                                        <div class="text-muted small">{{ $category->slug }}</div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <img class="img-thumbnail"
+                                                             src="{{ asset('uploads/categories/' . $category->category_image) }}"
+                                                             style="max-height: 50px; max-width: 80px;"
+                                                             data-toggle="tooltip"
+                                                             title="Click to enlarge"
+                                                             onclick="showImageModal('{{ asset('uploads/categories/' . $category->category_image) }}')">
+                                                    </td>
+                                                    <td class="text-center">
+                                                        @if ($category->status == "disable")
+                                                            <span class="badge badge-danger">Disabled</span>
+                                                        @else
+                                                            <span class="badge badge-success">Enabled</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $category->created_at->format('M d, Y h:i A') }}</td>
+                                                    <td class="text-center">
+                                                        <div class="btn-group btn-group-sm">
+                                                            <a href="{{ route('admin.category.edit', $category->id) }}"
+                                                               class="btn btn-info"
+                                                               data-toggle="tooltip"
+                                                               title="Edit">
+                                                                <i class="fas fa-edit"></i>
+                                                            </a>
+                                                            <a href="{{ route('admin.category.delete', $category->id) }}"
+                                                               class="btn btn-danger"
+                                                               data-toggle="tooltip"
+                                                               title="Delete"
+                                                               onclick="return confirm('Are you sure you want to delete this category?')">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </a>
+                                                            <a href="{{ route('related_category', ['slug' => Str::slug($category->slug)]) }}"
+                                                                target="_blank"
+                                                               class="btn btn-secondary"
+                                                               data-toggle="tooltip"
+                                                               title="View Details">
+                                                                <i class="fas fa-eye"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                        </div>
+
+
                     </div>
-
                 </div>
-
             </div>
+        </div>
+    </section>
+</div>
 
-        </section>
-
+<!-- Image Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img id="modalImage" src="" class="img-fluid">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
-@endsection
-@section('scripts')
+</div>
 <script>
-    // JavaScript to handle the select all functionality
-    document.getElementById('select-all').addEventListener('click', function(event) {
-        let checkboxes = document.querySelectorAll('input[name="selected_categories[]"]');
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = event.target.checked;
+    $(document).ready(function() {
+        // Initialize tooltips
+        $('[data-toggle="tooltip"]').tooltip();
+
+        // Select all functionality
+        $('#select-all').change(function() {
+            $('.select-checkbox').prop('checked', $(this).prop('checked'));
+            toggleDeleteButton();
         });
-    });
 
-    document.getElementById('select-all-footer').addEventListener('click', function(event) {
-        let checkboxes = document.querySelectorAll('input[name="selected_categories[]"]');
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = event.target.checked;
+        // Individual checkbox change
+        $('.select-checkbox').change(function() {
+            if ($('.select-checkbox:checked').length == $('.select-checkbox').length) {
+                $('#select-all').prop('checked', true);
+            } else {
+                $('#select-all').prop('checked', false);
+            }
+            toggleDeleteButton();
         });
-    });
-</script>
-    <script>
-        $(document).ready(function() {
-            // Select All checkboxes
-            $('#selectAll').click(function() {
-                $('.selectCheckbox').prop('checked', this.checked);
-            });
 
-            // Delete Selected
-            $('#deleteSelected').click(function() {
-                var selectedIds = [];
-                $('.selectCheckbox:checked').each(function() {
-                    selectedIds.push($(this).val());
-                });
-
-                if (selectedIds.length > 0) {
-                    if (confirm('Are you sure you want to delete the selected categories?')) {
-                        $.ajax({
-                            url: '{{ route("admin.category.deleteSelected") }}',
-                            type: 'POST',
-                            data: {
-                                _token: '{{ csrf_token() }}',
-                                ids: selectedIds
-                            },
-                            success: function(response) {
-                                // Handle success response, e.g., show a success message
-                                alert('Selected categories deleted successfully.');
-                                // Optionally, you can reload the page to reflect the changes
-                                location.reload();
-                            },
-                            error: function(xhr, status, error) {
-                                // Handle error response
-                                console.error(error);
-                                // Optionally, show an error message
-                                alert('Error deleting selected categories.');
-                            }
-                        });
-                    }
-                } else {
-                    alert('Please select at least one category to delete.');
+        // Delete selected button
+        $('#deleteSelectedBtn').click(function() {
+            if ($('.select-checkbox:checked').length > 0) {
+                if (confirm('Are you sure you want to delete the selected categories?')) {
+                    $('#bulk-delete-form').submit();
                 }
-            });
+            } else {
+                alert('Please select at least one category to delete.');
+            }
         });
-    </script>
+
+        // Toggle delete button based on selections
+        function toggleDeleteButton() {
+            if ($('.select-checkbox:checked').length > 0) {
+                $('#deleteSelectedBtn').prop('disabled', false);
+            } else {
+                $('#deleteSelectedBtn').prop('disabled', true);
+            }
+        }
+
+        // Initialize DataTable
+        $('#categoriesTable').DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": false,
+            "autoWidth": false,
+            "responsive": true,
+            "dom": '<"top"f>rt<"bottom"lip><"clear">',
+            "language": {
+                "search": "_INPUT_",
+                "searchPlaceholder": "Search categories...",
+                "emptyTable": "No categories found",
+                "zeroRecords": "No matching categories found"
+            }
+        });
+
+        // Search functionality
+        $('#searchInput').keyup(function() {
+            $('#categoriesTable').DataTable().search($(this).val()).draw();
+        });
+    });
+
+    // Show image in modal
+    function showImageModal(imageSrc) {
+        $('#modalImage').attr('src', imageSrc);
+        $('#imageModal').modal('show');
+    }
+</script>
 @endsection
 

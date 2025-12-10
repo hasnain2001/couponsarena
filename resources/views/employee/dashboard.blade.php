@@ -1,12 +1,12 @@
-@extends('employee.master') 
+@extends('employee.layouts.master')
 
 @section('title')
-   Employee Dashboard 
+   Employee Dashboard
 @endsection
 
 @section('main-content')
     <div class="content-wrapper">
-      
+
 
         <!-- Main Content -->
         <div class="container-fluid py-4">
@@ -79,8 +79,8 @@
                     </div>
                 </div>
             </div>
-            
-            
+
+
 
             <!-- Charts Section -->
             <div class="row mt-4">

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
 use Intervention\Image\ImageManager;
@@ -14,16 +14,19 @@ use Illuminate\Support\Str;
 
 class CategoriesController extends Controller
 {
-    public function category() {
+    public function category()
+    {
         $categories = Categories::all();
         return view('admin.categories.index', compact('categories'));
     }
 
-    public function create_category() {
+    public function create_category()
+    {
         return view('admin.categories.create');
     }
 
-    public function store_category(Request $request) {
+    public function store_category(Request $request)
+    {
         // Validation
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
@@ -39,9 +42,6 @@ class CategoriesController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
-
-    // $slug = Str::slug($request->slug ?? $categories->title);
         if ($request->hasFile('category_image')) {
             $file = $request->file('category_image');
             $CategoryImage = md5($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
@@ -49,19 +49,12 @@ class CategoriesController extends Controller
             $file->move('./uploads/categories', $CategoryImage);
 
             if (file_exists($filePath)) {
-                // Use Intervention Image to create a new image instance
 
                 // $image = ImageManager::imagick()->read($filePath);
-
-                // // Resize the image to 300x200 pixels
                 // $image->resize(300, 200, function ($constraint) {
                 //     $constraint->aspectRatio();
                 // });
-
-                // // Save the resized image
                 // $image->save($filePath);
-
-                // Optimize the image
                 $optimizer = OptimizerChainFactory::create();
                 $optimizer->optimize($filePath);
             }
@@ -80,17 +73,14 @@ class CategoriesController extends Controller
 
         return redirect()->back()->with('success', 'Category Created Successfully');
     }
-
-
-    public function edit_category($id) {
+    public function edit_category($id)
+    {
         $category = Categories::find($id);
 
         return view('admin.categories.edit', compact('category'));
     }
-
-
-
-    public function update_category(Request $request, $id) {
+    public function update_category(Request $request, $id)
+    {
         $categories = Categories::find($id);
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
@@ -105,12 +95,10 @@ class CategoriesController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-//  // Auto-generate slug only if no slug is provided in the request
-// $slug = $request->has('slug') && !empty($request->slug)
-// ? Str::slug($request->slug)
-// : $categories->slug;
-
-
+            //  // Auto-generate slug only if no slug is provided in the request
+            // $slug = $request->has('slug') && !empty($request->slug)
+            // ? Str::slug($request->slug)
+            // : $categories->slug;
         $CategoryImage = $categories->category_image;
         if (request()->File('category_image'))
         {
@@ -137,7 +125,6 @@ class CategoriesController extends Controller
                 $optimizer->optimize($filePath);
             }
         }
-
         $categories->update([
             'title' => $request->title,
             'slug' => $request->slug,
@@ -152,24 +139,21 @@ class CategoriesController extends Controller
         return redirect()->back()->with('success', 'Category Updated Successfully');
     }
 
-    public function delete_category($id) {
+    public function delete_category($id)
+    {
         Categories::find($id)->delete();
         return redirect()->back()->with('success', 'Category Deleted Successfully');
     }
 
+    public function deleteSelected(Request $request)
+    {
+        $categoryIds = $request->input('selected_categories');
 
-public function deleteSelected(Request $request)
-{
-    $categoryIds = $request->input('selected_categories');
-
-    if ($categoryIds) {
-        Categories::whereIn('id', $categoryIds)->delete();
-        return redirect()->back()->with('success', 'Selected categories deleted successfully');
-    } else {
-        return redirect()->back()->with('error', 'No categories selected for deletion');
+        if ($categoryIds) {
+            Categories::whereIn('id', $categoryIds)->delete();
+            return redirect()->back()->with('success', 'Selected categories deleted successfully');
+        } else {
+            return redirect()->back()->with('error', 'No categories selected for deletion');
+        }
     }
-}
-
-
-
 }

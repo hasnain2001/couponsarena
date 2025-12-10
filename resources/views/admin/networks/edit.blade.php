@@ -1,4 +1,4 @@
-@extends('admin.master')
+@extends('admin.layouts.master')
 @section('title')
     Update
 @endsection
@@ -48,7 +48,7 @@
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary">Save</button>
-                        <a href="{{ route('admin.network') }}" class="btn btn-secondary">Cancel</a>
+                        <a href="{{ route('admin.network.index') }}" class="btn btn-secondary">Cancel</a>
                     </div>
                 </div>
             </form>

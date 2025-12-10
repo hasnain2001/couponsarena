@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -13,103 +13,96 @@ use Illuminate\Validation\Validator;
 
 class CouponsController extends Controller
 {
- 
-    public function coupon(Request $request) {
 
+    public function index(Request $request)
+    {
+        // Count total coupons (for dashboard or stats)
+        $coupon_count = Coupons::count();
 
+        // Handle AJAX request
         if ($request->ajax()) {
-            $coupons = Coupons::get();
-            return response()->json($coupons);
+
+            $storeId = $request->input('store_id');
+
+            $couponsQuery = Coupons::query();
+
+            if (!empty($storeId)) {
+                $couponsQuery->where('store_id', $storeId);
+            }
+
+            $coupons = $couponsQuery
+                ->orderBy('created_at', 'desc')
+                ->orderBy('store_id', 'asc')
+                ->orderByRaw('CAST(`order` AS SIGNED) ASC')
+                ->limit(100)
+                ->get();
+
+            return response()->json([
+                'coupons' => $coupons,
+                'coupon_count' => $coupon_count
+            ]);
         }
 
-        // Get distinct store names only
-        $couponstore = Coupons::select('store')->distinct()->get();
-        $selectedCoupon = $request->input('store');
+        // For normal page load
+        $couponstore = Coupons::select('store_id')->distinct()->get();
+        $selectedCoupon = $request->input('store_id');
 
-        // Initialize query
         $productsQuery = Coupons::query();
 
-        // Filter by selected store if any
-        if ($selectedCoupon) {
-            $productsQuery->where('store', $selectedCoupon);
+        if (!empty($selectedCoupon)) {
+            $productsQuery->where('store_id', $selectedCoupon);
         }
 
+        $coupons = $productsQuery
+            ->orderBy('created_at', 'desc')
+            ->orderBy('store_id', 'asc')
+            ->orderByRaw('CAST(`order` AS SIGNED) ASC')
+            ->limit(100)
+            ->get();
 
-        $coupons = $productsQuery->orderBy('created_at', 'desc')
-        ->orderBy('store')
-        ->orderByRaw('CAST(`order` AS SIGNED) ASC')
-        ->limit(1000)
-        ->get();
-        return view('admin.coupons.index', compact('coupons','couponstore','selectedCoupon'));
-
+        return view('admin.coupons.index', compact(
+            'coupons',
+            'couponstore',
+            'selectedCoupon',
+            'coupon_count'
+        ));
     }
 
-public function openCoupon($couponId)
-{
-    $coupon = Coupons::find($couponId);
-    if ($coupon) {
-        // Increment click count
-        $coupon->clicks++;
-        $coupon->save();
-
-        // Assuming you have a route named 'store.detail' that shows the store detail page
-        return redirect()->route('store.detail', ['id' => $coupon->store_id]);
-    }
-    // Handle case where coupon is not found
-    return redirect()->back()->with('error', 'Coupon not found.');
-}
-
-public function updateClicks(Request $request)
-{
-    $couponId = $request->input('coupon_id');
-    $coupon = Coupons::find($couponId);
-    if ($coupon) {
-        $coupon->clicks++;
-        $coupon->save();
-        return redirect()->back()->with('success', 'Coupon Click added');
-    }
-    return response()->json(['success' => false, 'message' => 'Coupon not found.']);
-}
 
 
-public function update(Request $request)
-{
-    try {
-        $orderData = $request->order;
+    public function update_clicks(Request $request)
+    {
+        try {
+            $orderData = $request->order;
 
-        // Loop through the order data and update the order column for each coupon
-        foreach ($orderData as $order) {
-            $coupon = Coupons::find($order['id']);
-            $coupon->order = $order['position'];
-            $coupon->save();
+            // Loop through the order data and update the order column for each coupon
+            foreach ($orderData as $order) {
+                $coupon = Coupons::find($order['id']);
+                $coupon->order = $order['position'];
+                $coupon->save();
+            }
+
+            return response()->json(['status' => 'success', 'message' => 'Update Successfully.']);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
         }
-
-        return response()->json(['status' => 'success', 'message' => 'Update Successfully.']);
-    } catch (\Exception $e) {
-        return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
     }
-}
-    public function create_coupon() {
-        $stores = Stores::all();
+    public function create()
+    {
+        $stores = Stores::orderBy('created_at', 'desc')->get();
         $langs = Language::all();
         return view('admin.coupons.create', compact('stores','langs'));
     }
-    public function create_coupon_code() {
-        $stores = Stores::all();
-        $langs = Language::all();
-        return view('admin.coupons.createcode', compact('stores','langs'));
-    }
-
-    public function store_coupon(Request $request) {
+    public function store(Request $request)
+    {
         $request->validate([
             'name' => 'required|string|max:255',
             'language_id' => 'nullable|integer',
             'description' => 'nullable|string|max:1000',
             'code' => 'nullable|string|max:100',
-            'destination_url' => 'nullable|url',
             'ending_date' => 'nullable|date|after_or_equal:today',
             'authentication' => 'nullable|string',
-             'store' => 'nullable|string|max:255',
+             'store_id' => 'required|integer',
             'top_coupons' => 'nullable|integer|min:0',
         ]);
 
@@ -119,84 +112,74 @@ public function update(Request $request)
             'language_id' => $request->input('language_id'),
             'description' => $request->description,
             'code' => $request->code,
-            'destination_url' => $request->destination_url,
             'ending_date' => $request->ending_date,
             'status' => $request->status,
-         'authentication' => $request->authentication ?? 'feature',
-            'store' => $request->store ,
+            'authentication' => $request->authentication ?? 'feature',
+            'store_id' => $request->store_id,
             'top_coupons' => $request->top_coupons,
         ]);
 
-        return redirect()->back()->withInput()->with('success', 'Coupon Created Successfully');
+        return redirect()->back()->withInput()->with(['success' => 'Coupon created Successfully!', 'show_modal' => true]);
     }
-
-
-    public function edit_coupon($id) {
+    public function edit($id)
+    {
         $coupons = Coupons::find($id);
-        $stores = Stores::all();
-        return view('admin.coupons.edit', compact('coupons', 'stores'));
+        $stores = Stores::orderBy('created_at', 'desc')->get();
+        $langs = Language::all();
+        return view('admin.coupons.edit', compact('coupons', 'stores', 'langs'));
     }
-
-    public function update_coupon(Request $request, $id) {
-        // Find the coupon by its ID
+    public function update(Request $request, $id)
+    {
         $coupons = Coupons::find($id);
-    
-        // Define validation rules
         $request->validate([
             'name' => 'required|string|max:255',
-            'language_id' => 'nullable|integer', // Allow null, so it doesn't throw an error if not provided
+            'language_id' => 'nullable|integer',
             'description' => 'nullable|string|max:1000',
             'code' => 'nullable|string|max:100',
-            'destination_url' => 'nullable',
             'ending_date' => 'nullable|date|after_or_equal:today',
             'authentication' => 'nullable|array',
             'authentication.*' => 'string',
-            'store' => 'nullable|string|max:255', // Allow null, so it doesn't throw an error if not provided
+            'store' => 'nullable|string|max:255',
             'top_coupons' => 'nullable|integer|min:0',
         ]);
-    
-        // Update the coupon details, retain old values if not provided
+
+
         $coupons->update([
             'name' => $request->name,
-            'language_id' => $request->input('language_id', $coupons->language_id), // Retain previous value if not provided
+            'language_id' => $request->input('language_id', $coupons->language_id),
             'description' => $request->description,
             'code' => $request->code,
-            'destination_url' => $request->destination_url,
             'ending_date' => $request->ending_date,
             'status' => $request->status,
             'authentication' => isset($request->authentication) ? json_encode($request->authentication) : "No Auth",
-            'store' => $request->input('store', $coupons->store), // Retain previous value if not provided
+            'store' => $request->input('store', $coupons->store),
             'top_coupons' => $request->top_coupons,
         ]);
-    
+
         $store = Stores::where('slug', $coupons->store)->first();
 
         if ($store) {
             $url = route('admin.store_details', ['slug' => Str::slug($store->slug)]);
             return redirect($url)->with('success', 'Coupon Updated Successfully');
         }
-        
-        return redirect()->back()->with('error', 'Store not found.');
-        
-    }
-    
 
-    public function delete_coupon($id) {
+        return redirect()->back()->with('error', 'Store not found.');
+
+    }
+    public function delete($id)
+    {
         Coupons::find($id)->delete();
         return redirect()->back()->with('success', 'Coupon Deleted Successfully');
     }
+    public function deleteSelected(Request $request)
+    {
+        $couponIds = $request->input('selected_coupons');
 
-public function deleteSelected(Request $request)
-{
-    $couponIds = $request->input('selected_coupons');
-
-    if ($couponIds) {
-        Coupons::whereIn('id', $couponIds)->delete();
-        return redirect()->back()->with('success', 'Selected coupons deleted successfully');
-    } else {
-        return redirect()->back()->with('error', 'No coupons selected for deletion');
+        if ($couponIds) {
+            Coupons::whereIn('id', $couponIds)->delete();
+            return redirect()->back()->with('success', 'Selected coupons deleted successfully');
+        } else {
+            return redirect()->back()->with('error', 'No coupons selected for deletion');
+        }
     }
-}
-
-
 }

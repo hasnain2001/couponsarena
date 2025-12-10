@@ -1,0 +1,311 @@
+/* Admin Panel Styles */
+:root {
+    --primary-color: #4361ee;
+    --secondary-color: #3f37c9;
+    --accent-color: #4cc9f0;
+    --sidebar-bg: #1a1a2e;
+    --sidebar-hover: #16213e;
+    --sidebar-active: #4361ee;
+    --content-bg: #f8f9fa;
+    --card-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+}
+/* Additional DataTable Styles */
+
+/* Table row hover effect */
+.table-hover tbody tr:hover {
+    background-color: rgba(67, 97, 238, 0.05) !important;
+    transition: background-color 0.2s ease;
+}
+
+/* Sortable cursor */
+.cursor-move {
+    cursor: move;
+}
+
+/* Badge styles */
+.badge-status {
+    padding: 0.35em 0.65em;
+    font-size: 0.75em;
+    font-weight: 600;
+    border-radius: 0.25rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.badge-status.active {
+    background-color: #d1e7dd;
+    color: #0a3622;
+    border: 1px solid #a3cfbb;
+}
+
+.badge-status.inactive {
+    background-color: #f8d7da;
+    color: #58151c;
+    border: 1px solid #f1aeb5;
+}
+
+/* Button group spacing */
+.btn-group .btn {
+    margin-right: 0.25rem;
+}
+
+.btn-group .btn:last-child {
+    margin-right: 0;
+}
+
+/* Card enhancements */
+.card {
+    border: none;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: white;
+    border-bottom: 1px solid #e3e6f0;
+    padding: 1rem 1.25rem;
+}
+
+.card-footer {
+    background-color: white;
+    border-top: 1px solid #e3e6f0;
+    padding: 1rem 1.25rem;
+}
+
+/* Form select styling */
+.form-select-lg {
+    font-size: 1rem;
+    padding: 0.75rem 2rem 0.75rem 1rem;
+}
+
+/* Store filter gradient */
+.store-filter {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    color: white;
+}
+
+/* Bulk actions panel */
+.bulk-actions {
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+}
+
+/* Smaller text for timestamps */
+.smaller {
+    font-size: 0.75rem;
+}
+
+/* DataTables pagination active state */
+.page-item.active .page-link {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.page-link {
+    color: var(--primary-color);
+}
+
+.page-link:hover {
+    color: var(--secondary-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1rem;
+    }
+
+    .store-filter {
+        padding: 1rem;
+    }
+
+    .btn-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .btn-group .btn {
+        margin-right: 0;
+    }
+}
+/* Body */
+.admin-body {
+    background-color: var(--content-bg);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+/* logo */
+.admin-logo {
+    height: 40px;
+    width: 100%;
+    margin-right: 10px;
+}
+/* Navigation */
+.admin-navbar {
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.admin-navbar .navbar-brand {
+    font-size: 1.5rem;
+    color: var(--primary-color) !important;
+}
+
+/* Sidebar */
+.admin-sidebar {
+    background: linear-gradient(180deg, var(--sidebar-bg) 0%, #0f3460 100%);
+    position: relative;
+    min-height: calc(100vh - 56px);
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-nav .nav-item {
+    margin-bottom: 0.25rem;
+}
+
+.sidebar-link {
+    border-radius: 0.375rem;
+    padding: 0.75rem 1rem !important;
+    margin: 0.25rem 0.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar-link:hover {
+    background-color: var(--sidebar-hover);
+    transform: translateX(5px);
+}
+
+.sidebar-link.active {
+    background-color: var(--sidebar-active);
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-link.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background-color: #fff;
+}
+
+.sidebar-link i:first-child {
+    width: 20px;
+    text-align: center;
+}
+
+/* Main Content */
+.content-wrapper {
+    padding: 1.5rem 0;
+    min-height: calc(100vh - 56px);
+}
+
+/* Cards */
+.card {
+    border: none;
+    box-shadow: var(--card-shadow);
+    border-radius: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.card-header {
+    background-color: white;
+    border-bottom: 1px solid #e3e6f0;
+    font-weight: 600;
+}
+
+/* Stats Cards */
+.stat-card {
+    border-left: 4px solid var(--primary-color) !important;
+}
+
+.stat-card .card-body {
+    padding: 1.25rem;
+}
+
+.stat-card i {
+    font-size: 2rem;
+    opacity: 0.8;
+}
+
+/* Tables */
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    font-weight: 600;
+    border-top: none;
+    background-color: #f8f9fc;
+}
+
+/* Buttons */
+.btn-admin {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.375rem;
+    transition: all 0.3s ease;
+}
+
+.btn-admin:hover {
+    background-color: var(--secondary-color);
+    color: white;
+    transform: translateY(-1px);
+}
+
+/* Footer */
+.admin-footer {
+    background-color: white;
+    border-top: 1px solid #e3e6f0;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    background-color: transparent;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.breadcrumb-item.active {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* Form Controls */
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+}
+
+/* Badges */
+.badge-admin {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .admin-sidebar {
+        min-height: auto;
+        position: static;
+    }
+
+    .content-wrapper {
+        padding: 1rem 0;
+    }
+}

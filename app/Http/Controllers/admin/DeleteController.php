@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ class DeleteController extends Controller
     {
         $deletedStores = DeleteStore::with('deletedBy')->orderBy('created_at','desc')->get();
         return view('admin.deleted.delete_stores', compact('deletedStores'));
-    
+
     }
     public function restoreStore($id)
     {
@@ -26,6 +26,6 @@ class DeleteController extends Controller
         $store->forceDelete();
         return redirect()->back()->with('success', 'Store deleted permanently!');
     }
-    
- 
+
+
 }

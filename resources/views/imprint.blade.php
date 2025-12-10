@@ -6,8 +6,7 @@
 Explore exclusive discounts and offers on top brands. Save money on your online shopping with CouponsArena.
 @endsection
 @section('keywords','deals, discounts, coupons, savings, affiliate marketing, promo codes, cashback, online shopping, special offers, vouchers, best prices, holiday sales, seasonal discounts, gift cards, price comparison, money-saving tips')
-
-
+@section('style')
 <style>
     .container {
         max-width: 800px;
@@ -59,8 +58,9 @@ Explore exclusive discounts and offers on top brands. Save money on your online 
         text-decoration: underline;
     }
 </style>
+@endsection
 @section('main-content')
-    <div class="container">
+    <div class="container text-capitalize">
         <nav aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 0.25rem; padding: 10px;">
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item">
@@ -77,7 +77,7 @@ Explore exclusive discounts and offers on top brands. Save money on your online 
                 <p><strong>{{ __('imprint.owner') }}</strong></p>
                 <p><strong>Phone : +17473651163</strong></p>
                 <p><strong>{{ __('imprint.address') }}</strong></p>
-                <p><strong>{{ __('imprint.email_us') }}</strong> <a href="mailto:{{ __('imprint.contact_email') }}">{{ __('imprint.contact_email') }}</a></p>
+                <p><strong>@lang('message.contact')</strong> <a href="mailto:{{ __('imprint.contact_email') }}">{{ __('imprint.contact_email') }}</a></p>
             </div>
         </div>
     </div>

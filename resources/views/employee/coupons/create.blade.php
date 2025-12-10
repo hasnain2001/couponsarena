@@ -54,8 +54,8 @@
                             <textarea name="description" id="description" class="form-control" cols="20" rows="3" style="resize: none;">{{ old('description') }}</textarea>
                         </div>
     <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="toggleCodeCheckbox" 
-        onchange="toggleCodeInput(this)" 
+        <input type="checkbox" class="form-check-input" id="toggleCodeCheckbox"
+        onchange="toggleCodeInput(this)"
         {{ old('code') ? 'checked' : '' }}>
         <label class="form-check-label" for="toggleCodeCheckbox">Enable Code Input</label>
         </div>
@@ -116,7 +116,7 @@
             </div>
         </div>
     </form>
-    
+
 </div>
 
     </section>

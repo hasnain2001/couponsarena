@@ -311,5 +311,15 @@ padding-left: 0;
     transform: scale(0.9);
 }
 
+.no-scroll {
+    overflow: hidden;
+}
 
+.loading-spinner {
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+z-index: 9999;
+}
 

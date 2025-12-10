@@ -1,4 +1,4 @@
-@extends('admin.master')
+@extends('admin.layouts.master')
 @section('title')
     Create | Coupons
 @endsection
@@ -58,10 +58,10 @@
                                     <label for="code">Code</label>
                                     <input type="text" class="form-control" name="code" id="code" required>
                                 </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="destination_url">Destination URL <span class="text-danger">*</span></label>
                             <input type="url" class="form-control" name="destination_url" id="destination_url" required>
-                        </div>
+                        </div> --}}
 
                      <div class="form-group">
 

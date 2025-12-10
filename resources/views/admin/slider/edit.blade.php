@@ -1,4 +1,4 @@
-@extends('admin.master')
+@extends('admin.layouts.master')
 @section('title')
     Update
 @endsection
@@ -48,7 +48,7 @@
                                     <label for="category">Category <span class="text-danger">*</span></label>
                                     <select name="category" id="category" class="form-control">
                                         <option value="" disabled selected>{{ $stores->category }}</option>
-                                        @foreach($categories as $category) 
+                                        @foreach($categories as $category)
                                             <option value="{{ $category->title }}">{{ $category->title }}</option>
                                         @endforeach
                                     </select>
@@ -84,7 +84,7 @@
                                     <label for="network">Network <span class="text-danger">*</span></label>
                                     <select name="network" id="network" class="form-control">
                                         <option value="" disabled selected>{{ $stores->network }}</option>
-                                        @foreach($networks as $network) 
+                                        @foreach($networks as $network)
                                             <option value="{{ $network->title }}">{{ $network->title }}</option>
                                         @endforeach
                                     </select>

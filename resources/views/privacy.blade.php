@@ -6,28 +6,7 @@
 Find the best deals, discounts, and coupons on CouponsArena. Save money on your favorite products from top brands.
 @endsection
 @section('keywords','deals, discounts, coupons, savings, affiliate marketing')
-    <style>
-           .privacy .fas {
-            color: rgb(0, 140, 255);
-            }
 
-            .container {
-            font-family: Arial, sans-serif;
-            margin-top: 20px;
-            }
-
-            .list-group-item i {
-            margin-right: 10px;
-            }
-
-            .h2 {
-            margin-top: 30px;
-            }
-
-            .key-points {
-            margin-top: 20px;
-            }
-    </style>
     @section('main-content')
 
 
@@ -53,13 +32,13 @@ Find the best deals, discounts, and coupons on CouponsArena. Save money on your 
     <div class="row">
       <div class="col-md-12 mx-auto mb-4">
         <p>
- @lang('Privacy.p-1')
+            @lang('Privacy.p-1')
         </p>
         <span class="text-center fw-bold">@lang('Privacy.span-1')</span>
       </div>
     </div>
 
-<section class=" privacy">
+<section class=" privacy py-3">
     <div class="row">
         <div class="col-md-18 mx-auto">
           <h2>@lang('Privacy.heading-2')</h2>
@@ -163,12 +142,33 @@ Find the best deals, discounts, and coupons on CouponsArena. Save money on your 
       </div>
 </section>
 
-
-
-
   </div>
 
 
 </div>
 </div>
 @endsection
+@push('styles')
+  <style>
+    .privacy .fas {
+    color: rgb(0, 140, 255);
+    }
+
+    .container {
+    font-family: Arial, sans-serif;
+    margin-top: 20px;
+    }
+
+    .list-group-item i {
+    margin-right: 10px;
+    }
+
+    .h2 {
+    margin-top: 30px;
+    }
+
+    .key-points {
+    margin-top: 20px;
+    }
+  </style>
+@endpush

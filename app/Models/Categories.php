@@ -21,9 +21,9 @@ class Categories extends Model
     ];
 
         // Category Model
-public function stores()
-{
-    return $this->hasMany(Stores::class); // Assuming a category has many stores
-}
+    public function stores()
+    {
+        return $this->hasMany(Stores::class); 
+    }
 
 }

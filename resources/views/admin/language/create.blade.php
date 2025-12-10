@@ -1,4 +1,4 @@
-@extends('admin.master')
+@extends('admin.layouts.master')
 @section('title')
     Create
 @endsection
@@ -47,14 +47,14 @@
                                     <label for="code">language code /fr/es/de/ <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="code" id="code" required>
                                 </div>
-                             
+
                             </div>
                         </div>
                     </div>
-                 
+
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary">Save</button>
-                       
+
                         <a href="{{ route('admin.lang') }}" class="btn btn-secondary">Cancel</a>
                         <button type="reset" class="btn btn-dark">Reset</button>
                     </div>

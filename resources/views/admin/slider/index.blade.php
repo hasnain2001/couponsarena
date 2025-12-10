@@ -1,4 +1,4 @@
-@extends('admin.datatable_master')
+@extends('admin.layouts.datatable_master')
 @section('datatable-title')
     Stores
 @endsection

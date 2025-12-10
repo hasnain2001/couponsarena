@@ -1,4 +1,4 @@
-@extends('admin.master')
+@extends('admin.layouts.master')
 @section('title')
     Update
 @endsection
@@ -32,7 +32,7 @@
                 </ul>
             </div>
             @endif
-            <form name="UpdateCategory" id="UpdateCategory" method="POST" enctype="multipart/form-data" action="{{ route('admin.Blog.update', $blog->id) }}">
+            <form name="UpdateCategory" id="UpdateCategory" method="POST" enctype="multipart/form-data" action="{{ route('admin.blog.update', $blog->id) }}">
                 @csrf
                 <div class="row">
                     <div class="col-6">
@@ -126,7 +126,7 @@
 
                     <div class="col-12">
                         <button type="reset" class="btn btn-secondary text-white">Reset</button>
-                        <a href="{{ route('admin.blog.show')}}" class="btn btn-danger">cancel</a>
+                        <a href="{{ route('admin.blog.index')}}" class="btn btn-danger">cancel</a>
                     </div>
                 </div>
             </form>

@@ -12,6 +12,7 @@ return [
     'Get Deal' => 'Get Deal',
     'Get Code' => 'Get Code',
     'brands' =>'brands',
+    'coupons' =>'coupons',
     'trending-posts' => 'Trending Posts',
 
     //for footer/

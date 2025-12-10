@@ -18,13 +18,17 @@ class Blog extends Model
         'meta_description',
         'meta_keyword',
         'top',
-        'category',
+        'category_id',
         'language_id',
 
     ];
 
-    public function language()
-{
-    return $this->belongsTo(Language::class, 'language_id');
-}
+        public function language()
+    {
+        return $this->belongsTo(Language::class, 'language_id');
+    }
+    public function category()
+    {
+        return $this->belongsTo(Categories::class, 'category_id');
+    }
 }

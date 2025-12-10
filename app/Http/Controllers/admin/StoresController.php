@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
 use Intervention\Image\ImageManager;
@@ -20,41 +20,37 @@ class StoresController extends Controller
 {
 
     public function checkSlug(Request $request)
-{
-    $slug = $request->slug;
-    $exists = Stores::where('slug', $slug)->exists();
+    {
+        $slug = $request->slug;
+        $exists = Stores::where('slug', $slug)->exists();
 
-    return response()->json([
-        'exists' => $exists
-    ]);
-}
-public function StoreDetails($name)
+        return response()->json([
+            'exists' => $exists
+        ]);
+    }
+    public function StoreDetails($name)
     {
         $slug = Str::slug($name);
         $title = ucwords(str_replace('-', ' ', $slug));
-        $store = Stores::where('slug', $title)->first();
+        $store = Stores::with('networks', 'language', 'categories')->where('slug', $title)->first();
         if (!$store) {
             return redirect('404');
         }
-        $coupons = Coupons::where('store', $title)->orderByRaw('CAST(`order` AS SIGNED) ASC')->get();
+        $coupons = Coupons::where('store_id', $store->id)->orderByRaw('CAST(`order` AS SIGNED) ASC')->get();
+        $stores = Stores::orderByDesc('created_at')->get();
+        $langs = Language::all();
         $relatedStores = Stores::where('category', $store->category)->where('id', '!=', $store->id)->get();
 
-        return view('admin.stores.store-detail', compact('store', 'coupons', 'relatedStores'));
+        return view('admin.stores.store-detail', compact('store', 'coupons', 'relatedStores', 'stores', 'langs'));
     }
 
-
-
-    // In your StoreController
     public function store()
     {
-        $stores = Stores::with('language')->select('id', 'name', 'slug', 'status', 'created_at', 'updated_at', 'store_image', 'network', 'category')
+        $stores = Stores::with('language')->select('id', 'name', 'slug', 'status', 'created_at', 'updated_at', 'store_image', 'network_id', 'category_id')
         ->orderBy('created_at', 'desc')
         ->get();
-
-
         return view('admin.stores.index', compact('stores',));
     }
-
 
     public function create_store()
     {
@@ -64,94 +60,62 @@ public function StoreDetails($name)
 
         return view('admin.stores.create', compact('categories', 'networks','langs'));
     }
-
-
-
-
-
     public function store_store(Request $request)
     {
-        // Validate the incoming request data
-        $request->validate([
+        // Validate input
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'language_id' =>'required|integer',
+            'language_id' => 'required|integer',
             'slug' => 'nullable|string|max:255|unique:stores,slug',
             'top_store' => 'nullable|integer',
             'description' => 'nullable|string',
-            'about' => 'nullable|text',
-            'url' => 'nullable|url',
-            'destination_url' => 'nullable|url',
-            'category' => 'nullable|string',
+            'about' => 'nullable|string',
+            'affliliate_url' => 'required',
+            'destination_url' => 'required|url',
+            'category_id' => 'required|integer',
             'title' => 'nullable|string',
-            'meta_tag' => 'nullable|string',
             'meta_keyword' => 'nullable|string',
             'meta_description' => 'nullable|string',
             'authentication' => 'nullable|string',
-            'network' => 'nullable|string',
-            'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'network_id' => 'required|integer',
+            'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
             'content' => 'nullable',
         ]);
-
-        // Generate a slug from the name if not provided
-        $slug = $request->input('slug') ? $request->input('slug') : Str::slug($request->input('name'));
-
-        // Handle the file upload if a store image is provided
-        $storeImage = null;
+        $slug = $validated['slug'] ?? Str::slug($validated['name']);
+        $storeImage = 'No Store Image';
         if ($request->hasFile('store_image')) {
-            $file = $request->file('store_image');
-            $storeImage = md5($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
-            $filePath = public_path('uploads/stores/') . $storeImage;
-
-            // Save the file to the specified location
-            $file->move(public_path('uploads/stores/'), $storeImage);
-
-            // Ensure that the file has been saved before trying to read it
-            if (file_exists($filePath)) {
-                // Optimize the image
-                // Use Imagick to create a new image instance
-                // $image = ImageManager::imagick()->read($filePath);
-
-                // // Resize the image to 300x200 pixels
-                // $image->resize(300, 200);
-
-                // // Optionally, resize only the height to 200 pixels
-                // $image->resize(null, 200, function ($constraint) {
-                //     $constraint->aspectRatio();
-                // });
-                $optimizer = OptimizerChainFactory::create();
-                $optimizer->optimize($filePath);
-            } else {
-                return redirect()->back()->with('error', 'Image not found');
-            }
+            $image = $request->file('store_image');
+            $storeImage = $slug . '-' . time() . '.' . $image->getClientOriginalExtension();
+            $path = public_path('uploads/stores/' . $storeImage);
+            $image->move(public_path('uploads/stores/'), $storeImage);
+            $optimizer = OptimizerChainFactory::create();
+            $optimizer->optimize($path);
         }
 
-        // Create a new store record
-        Stores::create([
-            'name' => $request->input('name'),
-            'slug' => $slug, // Use the generated or provided slug
-            'language_id' => $request->input('language_id'),
-            'top_store' => $request->input('top_store'),
-            'description' => $request->input('description'),
-            'about' => $request->input('about'),
-            'url' => $request->input('url'),
-            'destination_url' => $request->input('destination_url'),
-            'category' => $request->input('category'),
-            'title' => $request->input('title'),
-            'meta_tag' => $request->input('meta_tag'),
-            'meta_keyword' => $request->input('meta_keyword'),
-            'meta_description' => $request->input('meta_description'),
-            'status' => $request->input('status'),
-            'authentication' => $request->input('authentication', 'No Auth'),
-            'network' => $request->input('network'),
-            'store_image' => $storeImage ?? 'No Store Image',
-            'content' => $request->input('content', 'no content'),
+        // Create store
+        $stores = Stores::create([
+            'name' => $validated['name'],
+            'slug' => $slug,
+            'language_id' => $validated['language_id'],
+            'top_store' => $validated['top_store'] ?? null,
+            'description' => $validated['description'] ?? null,
+            'about' => $validated['about'] ?? null,
+            'affliliate_url' => $validated['affliliate_url'] ?? null,
+            'destination_url' => $validated['destination_url'] ?? null,
+            'category_id' => $validated['category_id'],
+            'title' => $validated['title'] ?? null,
+            'meta_keyword' => $validated['meta_keyword'] ?? null,
+            'meta_description' => $validated['meta_description'] ?? null,
+            'status' => $request->input('status', 1),
+            'authentication' => $validated['authentication'] ?? 'No Auth',
+            'network_id' => $validated['network_id'],
+            'store_image' => $storeImage,
+            'content' => $validated['content'] ?? 'no content',
+            'user_id' => Auth::id(),
         ]);
 
-        // Redirect back with a success message
-        return redirect()->back()->withInput()->with('success', 'Store Created Successfully');
+        return redirect()->route('admin.store_details',['slug' => Str::slug($stores->slug)] )->with('success', 'Store Created Successfully');
     }
-
-
     public function edit_store($id)
     {
         $stores = Stores::find($id);
@@ -160,12 +124,9 @@ public function StoreDetails($name)
         $langs = Language::get();
         return view('admin.stores.edit', compact('stores', 'categories', 'networks','langs'));
     }
-
     public function update_store(Request $request, $id)
     {
-        // Find the store by ID
-        $store = Stores::find($id);
-
+        $store = Stores::findOrFail($id);
         $request->validate([
             'name' => 'required|string|max:255',
             'slug' => ['required', 'string', 'max:255', Rule::unique('stores')->ignore($store->id)],
@@ -173,76 +134,65 @@ public function StoreDetails($name)
             'top_store' => 'nullable|integer',
             'description' => 'nullable|string',
             'about' => 'nullable|string',
-            'url' => 'nullable|url',
+            'affiliate_url' => 'nullable|url',
             'destination_url' => 'nullable|url',
-            'category' => 'nullable|string',
+            'category_id' => 'nullable|integer',
             'title' => 'nullable|string',
-            'meta_tag' => 'nullable|string',
             'meta_keyword' => 'nullable|string',
             'meta_description' => 'nullable|string',
-            'status' => 'nullable|in:enable,disable', // Example statuses
+            'status' => 'nullable|in:enable,disable',
             'authentication' => 'nullable|string',
-            'network' => 'nullable|string',
-            'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // Validates image file
-            'content' => 'nullable',
+            'network_id' => 'nullable|integer',
+            'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
+            'content' => 'nullable'
         ]);
-
-
+        $slug = $request->slug;
         $storeImage = $store->store_image;
         if ($request->hasFile('store_image')) {
             $file = $request->file('store_image');
-            $storeImage = md5($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
-            $filePath = public_path('uploads/stores/') . $storeImage;
+            $extension = $file->getClientOriginalExtension();
+            $newImageName = $slug . "." . $extension;
+            $newImagePath = public_path('uploads/stores/' . $newImageName);
 
-            // Save the file to the specified location
-            $file->move(public_path('uploads/stores/'), $storeImage);
-
-            // Ensure that the file has been saved before trying to read it
-            if (file_exists($filePath)) {
-                // Use Imagick to create a new image instance
-                $image = ImageManager::imagick()->read($filePath);
-
-                // Resize the image to 300x200 pixels
-                $image->resize(300, 200);
-
-                // Optionally, resize only the height to 200 pixels
-                $image->resize(null, 200, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-
-                // Optimize the image
-                $optimizer = OptimizerChainFactory::create();
-                $optimizer->optimize($filePath);
-
-                // // Save the resized and optimized image
-                $image->save($filePath);
+            if ($storeImage && $storeImage !== $newImageName) {
+                $oldPath = public_path('uploads/stores/' . $storeImage);
+                if (file_exists($oldPath)) {
+                    unlink($oldPath);
+                }
             }
+            $file->move(public_path('uploads/stores/'), $newImageName);
+            if (file_exists($newImagePath)) {
+                $optimizer = OptimizerChainFactory::create();
+                $optimizer->optimize($newImagePath);
+            }
+
+            $storeImage = $newImageName;
         }
-        // Update the store record
+
         $store->update([
-            'name' => $request->input('name'),
-            'slug' => $request->input('slug'),
-            'language_id' => $request->input('language_id',$store->language_id),
-            'top_store' => $request->input('top_store'),
-            'description' => $request->input('description'),
-            'about' => $request->input('about'),
-            'url' => $request->input('url'),
-            'destination_url' => $request->input('destination_url'),
-            'category' => $request->input('category', $store->category),
-            'title' => $request->input('title'),
-            'meta_tag' => $request->input('meta_tag'),
-            'meta_keyword' => $request->input('meta_keyword'),
-            'meta_description' => $request->input('meta_description'),
-            'status' => $request->input('status'),
-            'authentication' => $request->input('authentication', 'No Auth'),
-            'network' => $request->input('network', $store->network),
-            'store_image' => $storeImage, // Updated or existing image
-            'content' => $request->input('content', $store->content),
-            'about' => $request->input('about',$store->about),
+            'name' => $request->name,
+            'slug' => $slug, // <-- USE CUSTOM INPUT EXACTLY
+            'language_id' => $request->language_id ?? $store->language_id,
+            'top_store' => $request->top_store,
+            'description' => $request->description,
+            'about' => $request->about ?? $store->about,
+            'affiliate_url' => $request->affiliate_url,
+            'destination_url' => $request->destination_url,
+            'category_id' => $request->category_id ?? $store->category_id,
+            'title' => $request->title,
+            'meta_keyword' => $request->meta_keyword,
+            'meta_description' => $request->meta_description,
+            'status' => $request->status,
+            'authentication' => $request->authentication ?? 'No Auth',
+            'network_id' => $request->network_id ?? $store->network_id,
+            'store_image' => $storeImage,
+            'content' => $request->content ?? $store->content,
+            'updated_id' => Auth::id(),
         ]);
 
-        // Redirect back with a success message
-        return redirect()->route('admin.stores')->with('success', 'Store Updated Successfully');
+        return redirect()
+            ->route('admin.store_details', ['slug' => Str::slug($store->slug)])
+            ->with('success', 'Store Updated Successfully');
     }
     public function delete_store($id)
     {

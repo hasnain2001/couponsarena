@@ -2,44 +2,9 @@
 @section('title','About Us - Best Deals and Discounts ')
 @section('description','Learn more about CouponsArena, your go-to source for the best deals and discounts. Discover our mission, values, and how we help you save more.')
 @section('keywords','deals, discounts, coupons, savings, affiliate marketing')
-<style>
-    body{
-    background-color:white;
-    }
+@section('style')
 
-    main{
-    font-family: Nunito,Normal;
-    }
-
-    .footer{
-    background-color:red;
-    }
-    .custom-thumbnail {
-    border: 8px solid #bebebe; /* Increase the border size and change color if needed */
-    border-radius: 5px; /* Optional: keeps the thumbnail's rounded corners */
-    }
-
-    .breadcrumb {
-    background-color: #f8f9fa;
-    font-size: 1.1rem;
-    font-weight: 500;
-    }
-
-    .breadcrumb-item a:hover {
-    text-decoration: underline;
-    color: #0d6efd;
-    }
-
-    .breadcrumb-item+.breadcrumb-item::before {
-    content: ">";
-    color: #6c757d;
-    padding: 0 0.5rem;
-    }
-
-    .breadcrumb-item.active {
-    font-weight: bold;
-    }
-</style>
+@endsection
 @section('main-content')
 <div class="container">
     <nav aria-label="breadcrumb">

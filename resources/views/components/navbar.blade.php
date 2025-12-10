@@ -1,28 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="{{asset('bootstrap-5.0.2-dist/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('cssfile/navbar.css')}}">
 
-    <style>
-        .no-scroll {
-            overflow: hidden;
-        }
-
-    .loading-spinner {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 9999;
-    }
-    </style>
-</head>
-<body>
     <!-- Navbar -->
     <header class="header-container  text-capitalize">
         <div class="navbar-brand d-sm-block d-none">
@@ -59,7 +35,7 @@
             <a href="{{ route('contact', ['locale' => app()->getLocale()]) }}">@lang('message.contact')</a>
             <a href="{{ route('blog', ['lang' => app()->getLocale()]) }}">@lang('message.news')</a>
             <a href="{{ route('store.show', ['lang' => app()->getLocale()]) }}">@lang('message.brands')</a>
-
+            <a href="{{ route('coupons', ['lang' => app()->getLocale()]) }}">@lang('message.coupons')</a>
             <div class="search-container">
                 <form id="searchForm" action="{{ route('storesearch') }}" method="GET" class="d-flex" role="search">
                     <input type="search" name="query" id="searchInput" placeholder="@lang('message.search')">
@@ -126,6 +102,7 @@
             <a href="{{ route('contact', ['locale' => app()->getLocale()]) }}">@lang('message.contact')</a>
             <a href="{{ route('blog', ['lang' => app()->getLocale()]) }}">@lang('message.news')</a>
             <a href="{{ route('store.show', ['lang' => app()->getLocale()]) }}">@lang('message.brands')</a>
+            <a href="{{ route('coupons', ['lang' => app()->getLocale()]) }}">@lang('message.coupons')</a>
 
             <div class="search-container">
                 <form id="searchForm" action="{{ route('storesearch') }}" method="GET" class="d-flex" role="search">
@@ -135,74 +112,7 @@
             </div>
         </div>
     </div>
-<!-- Loading Spinner -->
-<div class="loading-spinner" id="loadingSpinner">
-    <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
-    </div>
-</div>
-
-    <button onclick="topFunction()" id="myBtn" title="Go to top">
-        <i class="fas fa-chevron-up"></i>
-    </button>
-
-    <script>
-            // Hide loading spinner when content is loaded
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('loadingSpinner').style.display = 'none';
-    });
-
-        // Scroll to Top Button
-        function topFunction() {
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-        }
-
-        // Show/Hide Scroll to Top Button
-        window.onscroll = function() {
-            const myBtn = document.getElementById('myBtn');
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                myBtn.style.display = "block";
-            } else {
-                myBtn.style.display = "none";
-            }
-        };
-    </script>
-    <script>
-        // Toggle Mobile Menu
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('active');
-            document.body.classList.toggle('no-scroll');
-        }
-
-        // Toggle Mega Menu (Desktop)
-        function toggleMegaMenu() {
-            const megaMenu = document.getElementById('megaMenu');
-            megaMenu.classList.toggle('active');
-        }
-    </script>
-    <script>
-        //fore auto complte search //
-        $(document).ready(function() {
-            $('#searchInput').autocomplete({
-                source: function(request, response) {
-                    $.ajax({
-                        url: '{{ route("search") }}',
-                        dataType: 'json',
-                        data: {
-                            query: request.term
-                        },
-                        success: function(data) {
-                            response(data.stores); // Ensure `data.stores` is an array of strings or objects
-                        }
-                    });
-                },
-                minLength: 1 // Minimum characters to trigger autocomplete
-            });
-        });
-          </script>
 
 
-</body>
-</html>
+
+

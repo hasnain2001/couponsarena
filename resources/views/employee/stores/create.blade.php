@@ -1,4 +1,4 @@
-@extends('employee.master')
+@extends('employee.layouts.master')
 @section('title')
     Create
 @endsection
@@ -74,10 +74,10 @@
 
                                         <div class="form-group">
                                             <label for="category">Category <span class="text-danger">*</span></label>
-                                            <select name="category" id="category" class="form-control">
+                                            <select name="category_id" id="category_id" class="form-control">
                                                 <option value="" disabled selected>--Select Category--</option>
                                                 @foreach ($categories as $category)
-                                                    <option value="{{ $category->slug }}">{{ $category->slug }}</option>
+                                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -135,10 +135,10 @@
                                 </div> --}}
                                     <div class="form-group">
                                         <label for="network">Network <span class="text-danger">*</span></label>
-                                        <select name="network" id="network" class="form-control">
+                                        <select name="network_id" id="network_id" class="form-control">
                                             <option value="" disabled selected>--Select Network--</option>
                                             @foreach ($networks as $network)
-                                                <option value="{{ $network->title }}">{{ $network->title }}</option>
+                                                <option value="{{ $network->id }}">{{ $network->title }}</option>
                                             @endforeach
                                         </select>
                                     </div>

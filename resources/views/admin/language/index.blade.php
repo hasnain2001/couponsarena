@@ -1,4 +1,4 @@
-@extends('admin.datatable_master')
+@extends('admin.layouts.datatable_master')
 @section('datatable-title')
     Language
 @endsection
@@ -59,7 +59,7 @@
                                             <tr>
                                                 <td>{{ $language->name }}</td>
                                                 <td>{{ $language->code }}</td>
-                                         
+
                                                 <td class="text-nowrap">
                                                     <span class="badge bg-primary">
                                                         {{ $language->created_at->setTimezone('Asia/Karachi')->format('Y-m-d H:i:s') }}
@@ -70,10 +70,10 @@
                                                         {{ $language->updated_at->setTimezone('Asia/Karachi')->format('Y-m-d H:i:s') }}
                                                     </span>
                                                 </td>
-                                                
-                                                
-                                                
-                                                
+
+
+
+
                                                 <td>
                                                     <a href="{{ route('admin.lang.edit', $language->id) }}" class="btn btn-info btn-sm">Edit</a>
                                                     <a href="{{ route('admin.lang.delete', $language->id) }}" onclick="return confirm('Are you sure you want to delete this!')" class="btn btn-danger btn-sm">Delete</a>

@@ -84,6 +84,21 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-
-
-
+//fore auto complte search //
+$(document).ready(function() {
+    $('#searchInput').autocomplete({
+        source: function(request, response) {
+            $.ajax({
+                url: '{{ route("search") }}',
+                dataType: 'json',
+                data: {
+                    query: request.term
+                },
+                success: function(data) {
+                    response(data.stores); // Ensure `data.stores` is an array of strings or objects
+                }
+            });
+        },
+        minLength: 1 // Minimum characters to trigger autocomplete
+    });
+});

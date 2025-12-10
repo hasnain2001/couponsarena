@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('role')->default('user');
+            $table->enum('role', ['user', 'admin', 'employee'])->default('user');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -49,18 +49,18 @@ return new class extends Migration
             if (Schema::hasColumn('users', 'two_factor_secret')) {
                 $table->dropColumn('two_factor_secret');
             }
-    
+
             if (Schema::hasColumn('users', 'two_factor_recovery_codes')) {
                 $table->dropColumn('two_factor_recovery_codes');
             }
-    
+
             if (Schema::hasColumn('users', 'two_factor_confirmed_at')) {
                 $table->dropColumn('two_factor_confirmed_at');
             }
         });
-    
+
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }
-    
+
 };

@@ -9,35 +9,36 @@ use App\Http\Controllers\admin\CouponsController;
 use App\Http\Controllers\HomeController;
 
 
-Route::middleware([SetLocale::class])->group(function () {
-Route::group(['prefix' => '{locale}',], function () {
-Route::get('/contact', function () {return view('contact');})->name('contact');
-Route::get('/about', function () {return view('about');})->name('about');
-Route::get('/terms-and-condition', function () {return view('terms_and_condition');})->name('terms_and_condition');
-Route::get('/privacy', function () {return view('privacy');})->name('privacy');
-Route::get('/cookies', function () {return view('cookies');})->name('cookies');
-Route::get('/imprint', function () {return view('imprint');})->name('imprint');
-});
-});
-Route::middleware([Localization::class])->group(function () {
-Route::controller(HomeController::class)->group(function () {
-Route::get('/{lang?}', 'index')->name('home');
-Route::get('/{lang}/stores', 'stores')->name('store.show');
-Route::get('store/{slug}', function($slug) {return app(HomeController::class)->StoreDetails('en', $slug, request());})->name('store_details');
-Route::get('/{lang}/store/{slug}', [HomeController::class, 'StoreDetails'])->name('store_details.withLang');
-Route::get('/category/{slug}', [HomeController::class, 'viewcategory'])->name('related_category');
+    Route::middleware([SetLocale::class])->group(function () {
+        Route::group(['prefix' => '{locale}',], function () {
+        Route::get('/contact', function () {return view('contact');})->name('contact');
+        Route::get('/about', function () {return view('about');})->name('about');
+        Route::get('/terms-and-condition', function () {return view('terms_and_condition');})->name('terms_and_condition');
+        Route::get('/privacy', function () {return view('privacy');})->name('privacy');
+        Route::get('/cookies', function () {return view('cookies');})->name('cookies');
+        Route::get('/imprint', function () {return view('imprint');})->name('imprint');
+        });
+    });
+    Route::middleware([Localization::class])->group(function () {
+        Route::controller(HomeController::class)->group(function () {
+        Route::get('/{lang?}', 'index')->name('home');
+        Route::get('/{lang}/stores', 'stores')->name('store.show');
+        Route::get('store/{slug}', function($slug) {return app(HomeController::class)->StoreDetails('en', $slug, request());})->name('store_details');
+        Route::get('/{lang}/store/{slug}', [HomeController::class, 'StoreDetails'])->name('store_details.withLang');
+        Route::get('/category/{slug}', [HomeController::class, 'viewcategory'])->name('related_category');
 
-Route::get('/{lang}/blog', 'blog_home')->name('blog');
-Route::get('/blog/{slug}',function($slug) {return app(HomeController::class)->blog_show('en', $slug, request());})->name('blog-details');
-Route::get('/{lang}/blog/{slug}', 'blog_show')->name('blog-details.withLang');
-});
-});
+        Route::get('/{lang}/blog', 'blog')->name('blog');
+        Route::get('/blog/{slug}',function($slug) {return app(HomeController::class)->blog_detail('en', $slug, request());})->name('blog-details');
+        Route::get('/{lang}/blog/{slug}', 'blog_detail')->name('blog-details.withLang');
+        Route::get('/{lang}/coupons','coupons')->name('coupons');
 
-   // Route for search
-   Route::get('/category', [HomeController::class,'categories'])->name('categories');
-   Route::get('/search', [SearchController::class, 'search'])->name('search');
-   Route::get('/search_results', [SearchController::class, 'searchResults'])->name('search_results');
+        });
+    });
 
+    // Route for search
+    Route::get('/admin/categories', [HomeController::class,'categories'])->name('categories');
+    Route::get('/search', [SearchController::class, 'search'])->name('search');
+    Route::get('/search_results', [SearchController::class, 'searchResults'])->name('search_results');
     Route::put('/updateCoupon/{id}', [CouponsController::class, 'update'])->name('updateCoupon');
     Route::post('/update-clicks', [CouponsController::class, 'updateClicks'])->name('update.clicks');
     Route::get('/clicks/{couponId}', [CouponsController::class, 'openCoupon'])->name('open.coupon');

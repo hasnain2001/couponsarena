@@ -91,6 +91,7 @@ public function checkSlug(Request $request)
             'authentication' => 'nullable|string',
             'network' => 'nullable|string',
             'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // Validates image file
+            'about' => 'nullable|string',
             'content'=> 'nullable',
         ]);
 
@@ -145,7 +146,8 @@ public function checkSlug(Request $request)
             'authentication' => $request->input('authentication', 'No Auth'),
             'network' => $request->input('network'),
             'store_image' => $storeImage ?? 'No Store Image',
-            'content' => $request->input('content',' no content' ),
+            'content' => $request->input('content'),
+            'about' => $request->input('about' ),
         ]);
 
         // Redirect back with a success message
@@ -185,6 +187,7 @@ public function checkSlug(Request $request)
             'authentication' => 'nullable|string',
             'network' => 'nullable|string',
             'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // Validates image file
+            'about' => 'nullable|string',
             'content'=> 'nullable',
         ]);
 
@@ -238,6 +241,8 @@ public function checkSlug(Request $request)
             'network' => $request->input('network', $store->network),
             'store_image' => $storeImage, // Updated or existing image
             'content' => $request->input('content', $store->content),
+            'about' => $request->input('content', $store->about),
+
         ]);
 
         // Redirect back with a success message
